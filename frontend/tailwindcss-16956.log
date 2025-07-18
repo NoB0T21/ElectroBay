@@ -1,0 +1,110 @@
+2025-07-12T15:14:34.771641Z  INFO tailwindcss_oxide::scanner: Provided sources:
+2025-07-12T15:14:34.771901Z  INFO tailwindcss_oxide::scanner: Source: PublicSourceEntry { base: "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend", pattern: "**/*", negated: false }
+2025-07-12T15:14:34.772180Z  INFO tailwindcss_oxide::scanner: Optimized sources:
+2025-07-12T15:14:34.772200Z  INFO tailwindcss_oxide::scanner: Source: Auto { base: "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend" }
+2025-07-12T15:14:34.773667Z  INFO scan_sources: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.775598Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app"
+2025-07-12T15:14:34.775969Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)"
+2025-07-12T15:14:34.776145Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\layout.tsx"
+2025-07-12T15:14:34.776288Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\sign-in"
+2025-07-12T15:14:34.776455Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\sign-in\\page.tsx"
+2025-07-12T15:14:34.776612Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\sign-up"
+2025-07-12T15:14:34.776810Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\sign-up\\page.tsx"
+2025-07-12T15:14:34.777008Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\admin"
+2025-07-12T15:14:34.777157Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\admin\\page.tsx"
+2025-07-12T15:14:34.777271Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\globals.css"
+2025-07-12T15:14:34.777348Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\layout.tsx"
+2025-07-12T15:14:34.777422Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\page.tsx"
+2025-07-12T15:14:34.777576Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component"
+2025-07-12T15:14:34.777766Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component\\AuthForm.tsx"
+2025-07-12T15:14:34.777845Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component\\GoogleForm.tsx"
+2025-07-12T15:14:34.777921Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component\\Icons.tsx"
+2025-07-12T15:14:34.778050Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component\\toasts"
+2025-07-12T15:14:34.778199Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component\\toasts\\Toasts.tsx"
+2025-07-12T15:14:34.778337Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\eslint.config.mjs"
+2025-07-12T15:14:34.778419Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\middleware.ts"
+2025-07-12T15:14:34.778505Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\next.config.ts"
+2025-07-12T15:14:34.778769Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\package.json"
+2025-07-12T15:14:34.778922Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\postcss.config.mjs"
+2025-07-12T15:14:34.779059Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public"
+2025-07-12T15:14:34.779218Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\file.svg"
+2025-07-12T15:14:34.779299Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\globe.svg"
+2025-07-12T15:14:34.779431Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\Images"
+2025-07-12T15:14:34.779614Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\next.svg"
+2025-07-12T15:14:34.779699Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\vercel.svg"
+2025-07-12T15:14:34.779784Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\window.svg"
+2025-07-12T15:14:34.779892Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\README.md"
+2025-07-12T15:14:34.779986Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\tsconfig.json"
+2025-07-12T15:14:34.780117Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\utils"
+2025-07-12T15:14:34.780269Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\utils\\api.ts"
+2025-07-12T15:14:34.780348Z  INFO scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\utils\\utils.ts"
+2025-07-12T15:14:34.780464Z  INFO scan_sources: tailwindcss_oxide::scanner: exit
+2025-07-12T15:14:34.780475Z  INFO extract_candidates: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.780487Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.780491Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: Reading 24 file(s)
+2025-07-12T15:14:34.780959Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\next.config.ts"
+2025-07-12T15:14:34.780966Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component\\AuthForm.tsx"
+2025-07-12T15:14:34.781007Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\layout.tsx"
+2025-07-12T15:14:34.781024Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\vercel.svg"
+2025-07-12T15:14:34.781068Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\file.svg"
+2025-07-12T15:14:34.781092Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\admin\\page.tsx"
+2025-07-12T15:14:34.781105Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\package.json"
+2025-07-12T15:14:34.781141Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component\\GoogleForm.tsx"
+2025-07-12T15:14:34.781152Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\sign-in\\page.tsx"
+2025-07-12T15:14:34.781186Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\window.svg"
+2025-07-12T15:14:34.781187Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component\\toasts\\Toasts.tsx"
+2025-07-12T15:14:34.781210Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\globe.svg"
+2025-07-12T15:14:34.781274Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component\\Icons.tsx"
+2025-07-12T15:14:34.781262Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\postcss.config.mjs"
+2025-07-12T15:14:34.781219Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\layout.tsx"
+2025-07-12T15:14:34.781275Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\sign-up\\page.tsx"
+2025-07-12T15:14:34.781301Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\eslint.config.mjs"
+2025-07-12T15:14:34.781492Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\utils\\api.ts"
+2025-07-12T15:14:34.781511Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\tsconfig.json"
+2025-07-12T15:14:34.781521Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\README.md"
+2025-07-12T15:14:34.781525Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\middleware.ts"
+2025-07-12T15:14:34.781531Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\utils\\utils.ts"
+2025-07-12T15:14:34.781556Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\next.svg"
+2025-07-12T15:14:34.781573Z  INFO tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\page.tsx"
+2025-07-12T15:14:34.781625Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: exit
+2025-07-12T15:14:34.781637Z  INFO extract_candidates:parse_all_blobs: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.781644Z  INFO extract_candidates:parse_all_blobs:extract: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.782084Z  INFO extract_candidates:parse_all_blobs:extract: tailwindcss_oxide::scanner: exit
+2025-07-12T15:14:34.782098Z  INFO extract_candidates:parse_all_blobs: tailwindcss_oxide::scanner: exit
+2025-07-12T15:14:34.782105Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.782109Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: Reading 1 file(s)
+2025-07-12T15:14:34.782191Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: Reading "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\globals.css"
+2025-07-12T15:14:34.782200Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: exit
+2025-07-12T15:14:34.782205Z  INFO extract_candidates:extract_css_variables: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.782209Z  INFO extract_candidates:extract_css_variables:extract: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.782253Z  INFO extract_candidates:extract_css_variables:extract: tailwindcss_oxide::scanner: exit
+2025-07-12T15:14:34.782262Z  INFO extract_candidates:extract_css_variables: tailwindcss_oxide::scanner: exit
+2025-07-12T15:14:34.782450Z  INFO extract_candidates: tailwindcss_oxide::scanner: exit
+2025-07-12T15:14:34.782716Z  INFO get_files: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.782726Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.784741Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app"
+2025-07-12T15:14:34.784946Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)"
+2025-07-12T15:14:34.785211Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\sign-in"
+2025-07-12T15:14:34.785482Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\sign-up"
+2025-07-12T15:14:34.785761Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\admin"
+2025-07-12T15:14:34.786192Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component"
+2025-07-12T15:14:34.786660Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component\\toasts"
+2025-07-12T15:14:34.787317Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public"
+2025-07-12T15:14:34.787601Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\Images"
+2025-07-12T15:14:34.788104Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\utils"
+2025-07-12T15:14:34.788393Z  INFO get_files:scan_sources: tailwindcss_oxide::scanner: exit
+2025-07-12T15:14:34.788467Z  INFO get_files: tailwindcss_oxide::scanner: exit
+2025-07-12T15:14:34.788897Z  INFO get_globs: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.788912Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: enter
+2025-07-12T15:14:34.790530Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app"
+2025-07-12T15:14:34.790766Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)"
+2025-07-12T15:14:34.791020Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\sign-in"
+2025-07-12T15:14:34.791290Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\(auth)\\sign-up"
+2025-07-12T15:14:34.791588Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\app\\admin"
+2025-07-12T15:14:34.792008Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component"
+2025-07-12T15:14:34.792328Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\Component\\toasts"
+2025-07-12T15:14:34.793006Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public"
+2025-07-12T15:14:34.793292Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\public\\Images"
+2025-07-12T15:14:34.793780Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: Discovering "C:\\Users\\ADMIN\\Documents\\Downloads\\Scatch\\frontend\\utils"
+2025-07-12T15:14:34.794052Z  INFO get_globs:scan_sources: tailwindcss_oxide::scanner: exit
+2025-07-12T15:14:34.798395Z  INFO get_globs: tailwindcss_oxide::scanner: exit
