@@ -1,36 +1,54 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 interface Post{
+    productType: string,
     name: string,
     description: string,
     price: number,
+    offerprice: number,
     ratings:number,
-    images:string,
-    owner:Types.ObjectId
+    images:[{
+        url: string,
+        path: string
+    }],
     createdAt:string,
 }
 
 const productSchema:Schema<Post> = new mongoose.Schema({
+    productType:{
+        type:String,
+        required:true
+    },
     name:{
-        type:String
+        type:String,
+        unique:true,
+        required:true
     },
     description:{
-        type:String
+        type:String,
+        required:true
     },
     price:{
-        type:Number
+        type:Number,
+        required:true
+    },
+    offerprice:{
+        type:Number,
+        required:true
     },
     ratings:{
         type:Number
     },
     images:[{
-        type:String
+        url:{
+            type:String,
+            required:true
+        },
+        path:{
+            type:String,
+            required:true
+        }
     }],
-    owner:{
-        type:mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref:'user'
-    },
     createdAt:{
         type:String,
         default: () => {

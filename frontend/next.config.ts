@@ -8,8 +8,12 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "dsiwprmwzkvgdcdhzhwa.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "yxbboqcacbihxherpisb.supabase.co",
+      },
     ],
-    domains: ['dsiwprmwzkvgdcdhzhwa.supabase.co'], // allow images from Supabase
+    domains: ['dsiwprmwzkvgdcdhzhwa.supabase.co','yxbboqcacbihxherpisb.supabase.co'], // allow images from Supabase
   },
 };
 

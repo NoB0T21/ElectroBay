@@ -1,15 +1,13 @@
 
 import Header from '@/Component/Header'
-import SideNavbar from '@/Component/navigation/SideNavbar'
-import Header2 from '@/Component/navigation/Header2'
+import AdminSideNav from '@/Component/navigation/AdminSideNav'
 
 const Layout = ({children}:{children: React.ReactNode}) => {
   return (
     <div className='flex flex-col items-start w-screen h-screen'>
       <Header/>
-      <Header2/>
-      <div className='flex md:flex-row flex-col justify-start w-full md:w-[95%] lg:w-full h-full overflow-hidden'>
-        <SideNavbar/>
+      <div className='flex justify-start w-full md:w-auto h-full'>
+        <AdminSideNav/>
         {children}
       </div>
     </div>

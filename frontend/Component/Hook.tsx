@@ -20,7 +20,7 @@ const Hook = () => {
                             initial={{ opacity: 0, y: 200 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ amount: 0.8 }}
-                            className='absolute p-3 px-6 w-full'>
+                            className='absolute p-3 px-6 lg:px-10 w-full'>
                                 <h1 className='my-3 font-semibold text-black md:text-3xl text-4xl lg:text-5xl'>{categorys[index]}</h1>
                                 <p className='my-3 text-black'>Starting at $49</p>
                                 <div className='font-semibold text-blue-600'>Shop Now</div>

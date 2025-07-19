@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
+import Logout from './Logout'
 
 const Header2 = () => {
   return (
-    <div className='hidden md:flex justify-between bg-indigo-600 px-10 xl:px-80 rounded-b-md w-full h-12 font-bold'>
+    <div className='hidden md:flex justify-between gap-5 bg-indigo-600 px-10 xl:px-80 rounded-b-md w-full h-12 font-bold'>
       <div className='flex gap-10'>
         <Link href={'/product-categor/home-appliances'}>Home appliances</Link>
         <div>Air conditioner</div>
@@ -13,8 +14,8 @@ const Header2 = () => {
         <div>Television</div>
       </div>
       <div className='flex gap-10'>
-        <div>Cart</div>
-        <div>Logout</div>
+        <Link href={'/cart'}>Cart</Link>
+        <Logout/>
       </div>
     </div>
   )

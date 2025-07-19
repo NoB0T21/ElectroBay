@@ -3,6 +3,7 @@ import {OAuth2Client} from 'google-auth-library'
 import supabase from "../Db/supabase"
 import uuid4 from "uuid4"
 import userModel from '../models/user.model'
+import cartModel from '../models/cart .model'
 import ownerModel from '../models/admin.model'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
@@ -71,7 +72,9 @@ export const register = async (request: Request, response: Response) => {
                 message: "Some Error occure",
                 success: false,
         })}
-        
+        const cart = await cartModel.create({
+            userId:user._id,
+        })
         const token = await user.generateToken()
 
         return response.status(201).json({
