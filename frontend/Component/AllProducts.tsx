@@ -33,7 +33,7 @@ const AllProducts = ({products}:{products:Product[]}) => {
                     <div key={index} className='gap-8 grid grid-cols-2 md:grid-cols-4 w-full'>
                         <div className='flex gap-3 md:px-3 py-2 w-full'>
                             <Image className='bg-[#393E46] p-2 rounded-xl w-40 min-w-[60px] h-22 object-contain' src={url[3]} width={500} height={500} alt='product'/>
-                            <Link href={`/product-categor/${product.productType}/${product._id}`} className='w-full'>{product.name}</Link>
+                            <Link href={`/product-categor/${product._id}`} className='w-full'>{product.name}</Link>
                         </div>
                         <div className='hidden md:flex px-3 py-2 w-full'>{product.productType}</div>
                             <div className='md:px-3 py-2 w-full'>₹ {product.price}</div>
