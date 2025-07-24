@@ -1,7 +1,7 @@
-import AllProducts from '@/Component/AllProducts'
 import { api } from '@/utils/api'
 import { cookies } from 'next/headers'
 import React from 'react'
+import AllProducts from '@/Component/AllProducts'
 
 const page = async () => {
   const token = (await cookies()).get('token')?.value

@@ -4,7 +4,7 @@ import { api } from "./utils/api";
 export async function middleware (request: NextRequest){
     const path = request.nextUrl.pathname;
     const isPublicRout = path === '/sign-up' || path === '/sign-in'
-    const isAdminRout = path === '/admin'
+    const isAdminRout = path === '/admin' ||path === '/admin/product-list'|| path === '/admin/order'
     let token = request.cookies.get('token')?.value;
 
     const user = await api.get('/user/valid',{
@@ -38,5 +38,5 @@ export async function middleware (request: NextRequest){
 }
 
 export const config = {
-    matcher: ['/','/admin']
+    matcher: ['/','/admin','/admin/product-list','/admin/order']
 }

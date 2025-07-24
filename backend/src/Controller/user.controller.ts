@@ -1,11 +1,11 @@
 import { Request, Response } from "express"
 import {OAuth2Client} from 'google-auth-library'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import supabase from "../Db/supabase"
 import uuid4 from "uuid4"
 import userModel from '../models/user.model'
 import cartModel from '../models/cart .model'
 import ownerModel from '../models/admin.model'
-import jwt, { JwtPayload } from 'jsonwebtoken'
 
 const client = new OAuth2Client(process.env.GOOGLE_ID)
 
@@ -25,6 +25,7 @@ export const register = async (request: Request, response: Response) => {
             success: false
         })
     }
+
     try {
         const existingUsers = await userModel.findOne({email})
         if(existingUsers){
@@ -39,14 +40,14 @@ export const register = async (request: Request, response: Response) => {
         let pictureuri
         if(file){
             const { data, error } = await supabase.storage
-                .from(`${process.env.BUCKET}`)
-                .upload(uniqueFilename, file?.buffer, {
-                    contentType: file?.mimetype,
-                    cacheControl: "3600",
-                    upsert: false,
-                });
+            .from(`${process.env.BUCKET}`)
+            .upload(uniqueFilename, file?.buffer, {
+                contentType: file?.mimetype,
+                cacheControl: "3600",
+                upsert: false,
+            });
             if (error) {
-                    response.status(500).json({
+                response.status(500).json({
                     message: "Server error",
                     success: false,
                 });
@@ -72,9 +73,8 @@ export const register = async (request: Request, response: Response) => {
                 message: "Some Error occure",
                 success: false,
         })}
-        const cart = await cartModel.create({
-            userId:user._id,
-        })
+
+        const cart = await cartModel.create({userId:user._id,})
         const token = await user.generateToken()
 
         return response.status(201).json({
@@ -84,23 +84,21 @@ export const register = async (request: Request, response: Response) => {
             success: true,
         });
     } catch (error) {
-        console.error("Register Error:", error);
         return response.status(500).json({
             message: "Internal server error",
             success: false,
-          });
+        });
     }
 }
 
 export const login = async (request: Request, response:Response) => {
-     const {email, password} = request.body
+    const {email, password} = request.body
     if(!email||!password){
         return response.status(400).json({
             message: 'Require all fields',
             success: false
         })
     }
-
     try {
         const user = await userModel.findOne({email})
         if(!user){

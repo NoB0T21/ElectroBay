@@ -1,8 +1,8 @@
+import { api } from '@/utils/api'
+import { cookies } from 'next/headers'
 import Cart from '@/Component/Cart'
 import Header from '@/Component/Header'
 import Header2 from '@/Component/navigation/Header2'
-import { api } from '@/utils/api'
-import { cookies } from 'next/headers'
 import React from 'react'
 
 const page = async () => {

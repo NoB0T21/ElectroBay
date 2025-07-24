@@ -54,8 +54,10 @@ const GoogleForm = () => {
             email: raw.email,
             picture: raw.picture
           }
-          localStorage.setItem('user', JSON.stringify(user));
-          Cookies.set('user',user._id, { expires: 1 });
+          if (typeof window !== 'undefined') {
+            Cookies.set('user', user._id, { expires: 1 });
+            localStorage.setItem('user', JSON.stringify(user));
+          }
           router.push('/')
           return
         }
@@ -84,7 +86,7 @@ const GoogleForm = () => {
   return (
     <>
       <div className="mt-5 w-2/3 md:w-1/2">
-        <button onClick={()=>handleGoogleLogin()} className="bg-indigo-600 hover:bg-indigo-700 p-2 rounded-md w-full font-semibold text-md"><div className="flex justify-center gap-2 w-full h-6"><Google/>Google</div></button>
+        <button onClick={()=>handleGoogleLogin()} className="bg-[#FFD369] hover:bg-[#f6d587] p-2 rounded-md w-full font-semibold text-[#222831] text-md"><div className="flex justify-center gap-2 w-full h-6"><Google/>Google</div></button>
       </div>
       {showToast && <Toasts type={tostType==='warningMsg'?'warningMsg':'infoMsg'} msg={responseMsg}/>}
     </>

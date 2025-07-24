@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { PulseLoader } from "react-spinners";
 import { api } from "@/utils/api";
+import { motion } from "framer-motion"
 import Cookies from 'js-cookie'
 import Toasts from "./toasts/Toasts";
 
@@ -76,6 +77,16 @@ const OrderForm = ({productId,productName,price}:{productId:string[],productName
             City:'',
             State: '',
         })
+        if(productId.length === 0){
+            setResponseMsg('You should atleast have 1 item to order')
+            setTostType('infoMsg');
+            setLoading(false)
+            setShowToast(true)
+            setTimeout(() => {
+                setShowToast(false)
+            }, 3000);
+            return
+        }
 
         const response = await api.post('/product/order',{
             productId,
@@ -90,7 +101,7 @@ const OrderForm = ({productId,productName,price}:{productId:string[],productName
         })
         if(response.status !== 201){
             setResponseMsg(response.data.message)
-            if(response.status === 202)setTostType('infoMsg');
+            if(response.status === 202)setTostType('successMsg');
             setLoading(false)
             setShowToast(true)
             setTimeout(() => {
@@ -99,6 +110,7 @@ const OrderForm = ({productId,productName,price}:{productId:string[],productName
             return
         }
         if(response.status === 201){
+            setTostType('successMsg');
             setResponseMsg(response.data.message)
             setLoading(false)
             setShowToast(true)
@@ -175,7 +187,13 @@ const OrderForm = ({productId,productName,price}:{productId:string[],productName
                     </div>
                 </div>
                 <div className="w-2/3">
-                    <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 p-2 rounded-md w-full font-semibold text-md">{loading? <PulseLoader color="#fff"/>:'Order'}</button>
+                    <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        type="submit" 
+                        className="bg-[#FFD369] hover:bg-[#ffdf93] p-2 rounded-md w-full font-semibold text-[#222831] text-md">
+                            {loading? <PulseLoader color="#fff"/>:'Order'}
+                    </motion.button>
                 </div>
             </form>
             {showToast && <Toasts type={tostType==='warningMsg'?(tostType==='warningMsg'?'warningMsg':'successMsg'):'infoMsg'} msg={responseMsg}/>}

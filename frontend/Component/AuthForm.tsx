@@ -144,14 +144,16 @@ const AuthForm = ({type}: {type: FormType}) => {
             picture: raw.picture
         };
                 
-        Cookies.set('user',user._id, { expires: 1 });
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('token',token)
-          Cookies.set("token", token, {
-            expires: 1, // days
-            sameSite: "strict",
-            secure: true
-        });
+        if (typeof window !== 'undefined') {
+            Cookies.set('user', user._id, { expires: 1 });
+            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('token', token);
+            Cookies.set('token', token, {
+                expires: 1,
+                sameSite: 'strict',
+                secure: true,
+            });
+            }
         router.push('/')
         setLoading(false)
     }
@@ -209,21 +211,21 @@ const AuthForm = ({type}: {type: FormType}) => {
             {type === 'sign-up' && (
                 <>
                     <div className="flex gap-3 w-2/3 lg:w-1/2">
-                        <div className="relative bg-purple-700 p-2 px-3 w-auto h-10">Upload Profile pic<input className='left-0 absolute opacity-0 w-full' type='file' onChange={(e)=>{
+                        <div className="relative bg-[#393E46] p-2 px-3 rounded-md w-auto h-10">Upload Profile pic<input className='left-0 absolute opacity-0 w-full' type='file' onChange={(e)=>{
                             const file = e.target.files?.[0];
                             if (file) {
                                 setFile(file);
                             }}} name='file' accept="image/*" required placeholder='Upload'/></div>
                         {file && 
                         <div className="size-15">
-                            <Image width={100} height={100} className="w-full object-cover" src={convertFileToUrl(file)} alt="Profile" />
+                            <Image width={100} height={100} className="rounded-full h-full object-cover" src={convertFileToUrl(file)} alt="Profile" />
                         </div>}
                     </div>
                 </>
             )}
             <div className="w-2/3 lg:w-1/2">
-                {type === 'sign-up' && <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 p-2 rounded-md w-full font-semibold text-md">{loading? <PulseLoader color="#fff"/>:'Sign-up'}</button>}
-                {type === 'sign-in' && <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 p-2 rounded-md w-full font-semibold text-md">{loading? <PulseLoader color="#fff"/>:'Sign-in'}</button>}
+                {type === 'sign-up' && <button type="submit" className="bg-[#FFD369] hover:bg-[#f6d587] p-2 rounded-md w-full font-semibold text-[#222831] text-md">{loading? <PulseLoader color="#fff"/>:'Sign-up'}</button>}
+                {type === 'sign-in' && <button type="submit" className="bg-[#FFD369] hover:bg-[#f6d587] p-2 rounded-md w-full font-semibold text-[#222831] text-md">{loading? <PulseLoader color="#fff"/>:'Sign-in'}</button>}
             </div>
         </form>
         <GoogleOAuthProvider clientId={googleID}>

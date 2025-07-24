@@ -14,14 +14,14 @@ interface ICartItem {
 const CartItemSchema: Schema = new Schema({
   product: {
     type: mongoose.Schema.Types.ObjectId,
+    required: true,
     ref: 'products',
-    unique: true,
   },
   quantity: {
     type: Number,
     required: true,
-    default: 0,
-    min: 0,
+    default: 1,
+    min: 1,
   },
 })
 

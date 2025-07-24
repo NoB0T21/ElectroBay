@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Scatch",
-  description: "Scatch – A Modern eCommerce Experience",
+  title: "ElectroBay",
+  description: "Powering your tech needs — from gadgets to gear, all in one smart store.",
 };
 
 export default function RootLayout({

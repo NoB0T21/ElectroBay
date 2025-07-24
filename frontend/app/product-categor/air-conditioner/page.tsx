@@ -3,14 +3,30 @@ import { api } from '@/utils/api'
 import { cookies } from 'next/headers'
 import React from 'react'
 
-const Page = async () => {
-  const token = (await cookies()).get('token')?.value
-    const products = await api.get('/product/air-conditioner',{
-      withCredentials:true,
-      headers:{
-        Authorization: `Bearer ${token}`,
-      }
-    })
+interface SearchParamProps{
+    searchParams: Promise<{[key: string]:string | string[] | undefined}>
+}
+
+const Page = async ({searchParams}:SearchParamProps) => {
+  const sort = (await searchParams).sort || '';
+    const sorts = sort.toString()
+    const token = (await cookies()).get('token')?.value
+    let products:any
+    if(sorts){
+        products = await api.get(`/product/air-conditioner?sort=${sorts}`,{
+        withCredentials:true,
+        headers:{
+          Authorization: `Bearer ${token}`,
+        }
+      })
+    }else{
+        products = await api.get('/product/air-conditioner',{
+        withCredentials:true,
+        headers:{
+          Authorization: `Bearer ${token}`,
+        }
+      })
+    }
   return (
     <div className='w-full'>
       <div className='flex flex-col justify-center gap-8 px-8 w-full h-70'>

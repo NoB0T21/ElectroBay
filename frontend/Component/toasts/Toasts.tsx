@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "motion/react"
+import { AnimatePresence, motion } from "framer-motion"
 import React, { useEffect, useState } from 'react'
 import {Info, Warning} from "../Icons"
 
@@ -18,9 +18,9 @@ const Toasts = ({type, msg}: {type: NotiType, msg: string}) => {
         <div className='flex flex-col'>
             <AnimatePresence initial={false}>
                 {isVisible ? (<motion.div 
-                initial={{ x:300, scale: 0 }}
-                animate={{x:0, scale: 1 }}
-                exit={{x:300,scale: 0 }}
+                initial={{ y:-100, scale: 0 }}
+                animate={{y:0, scale: 1 }}
+                exit={{y:-100,scale: 0 }}
                     className={`absolute top-0 right-0 m-3 bg-zinc-800 p-2 w-65 rounded-md`}>
                         {type === 'warningMsg' && <>
                             <div className="flex justify-between items-center gap-2 px-1">
