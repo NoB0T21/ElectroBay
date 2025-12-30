@@ -9,7 +9,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='w-screen h-screen overflow-x-hidden scroll-smooth'>
+    <div className='w-screen flex flex-col items-center h-screen overflow-x-hidden sm:px-15 lg:px-40 xl:px-60 scroll-smooth'>
       <Header/>
       <Header2/>
       <Trending/>

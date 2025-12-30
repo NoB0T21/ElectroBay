@@ -11,10 +11,15 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "yxbboqcacbihxherpisb.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
     ],
     domains: [
       "dsiwprmwzkvgdcdhzhwa.supabase.co",
       "yxbboqcacbihxherpisb.supabase.co",
+      "lh3.googleusercontent.com"
     ],
   },
   eslint: {

@@ -18,7 +18,7 @@ interface User extends JwtPayload {
 
 export const register = async (request: Request, response: Response) => {
     const file = request.file as Express.Multer.File;
-    const {name, email, password, picture} = request.body
+    const {name, email, password, picture,type} = request.body
     if(!name||!email||!password){
         return response.status(400).json({
             message: 'Require all fields',
@@ -29,9 +29,15 @@ export const register = async (request: Request, response: Response) => {
     try {
         const existingUsers = await userModel.findOne({email})
         if(existingUsers){
-            return response.status(202).json({
+            if(type){
+                return response.status(200).json({
+                    message: "User already exists",
+                    user: existingUsers,
+                    success: true,
+                })
+            }
+            return response.status(409).json({
                 message: "User already exists",
-                user: existingUsers,
                 success: false,
         })}
 
@@ -77,7 +83,7 @@ export const register = async (request: Request, response: Response) => {
         const cart = await cartModel.create({userId:user._id,})
         const token = await user.generateToken()
 
-        return response.status(201).json({
+        return response.status(200).json({
             message: "User created successfully",
             user,
             token,
@@ -112,27 +118,27 @@ export const login = async (request: Request, response:Response) => {
                 })}
 
                 const token = await admin.generateToken()
-                return response.status(201).json({
+                return response.status(200).json({
                     message: "User login successfully",
                     user: admin,
                     token,
                     success: true,
                 });
             }
-            return response.status(202).json({
+            return response.status(401).json({
                 message: "password or email is incorrect",
                 success: false,
         })}
 
         const isMatch = await user.comparePassword(password, user.password)
         if(!isMatch){
-            return response.status(202).json({
+            return response.status(401).json({
                 message: "password or email is incorrect",
                 success: false,
         })}
 
         const token = await user.generateToken()
-        return response.status(201).json({
+        return response.status(200).json({
             message: "User login successfully",
             user,
             token,

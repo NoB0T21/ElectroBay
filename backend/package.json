@@ -5,11 +5,19 @@
   "main": "server.js",
   "scripts": {
     "build": "tsc",
-    "start": "nodemon",
-    "dev": "node ./dist/server.js"
+    "dev": "nodemon",
+    "start": "node ./dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoB0T21/ElectroBay.git"
   },
   "author": "Aryan Gawade",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NoB0T21/ElectroBay/issues"
+  },
+  "homepage": "https://github.com/NoB0T21/ElectroBay#readme",
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
     "@types/bcrypt": "^5.0.2",

@@ -118,91 +118,92 @@ const AuthForm = ({type}: {type: FormType}) => {
         const form2 = new FormData();
             form2.append('email', formData.email || '');
             form2.append('password', formData.password || '');
-
-        const response = await api.post(type === 'sign-in'? '/user/signin':'/user/signup',type === 'sign-in'? form2:form,{
-            headers: { "Content-Type": "multipart/form-data" },
-            withCredentials: true
-        })
-
-        if(response.status !== 201){
-            setResponseMsg(response.data.message)
-            if(response.status === 202)setTostType('infoMsg');
+        
+        try {
+            const response = await api.post(type === 'sign-in'? '/user/signin':'/user/signup',type === 'sign-in'? form2:form,{
+                headers: { "Content-Type": "multipart/form-data" },
+                withCredentials: true
+            })
+    
+            const token = response.data.token
+            const raw = response.data.user;
+            const user = {
+                _id: raw._id,
+                name: raw.name,
+                email: raw.email,
+                picture: raw.picture
+            };
+                    
+            if (typeof window !== 'undefined') {
+                Cookies.set('user', user._id, { expires: 1 });
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('token', token);
+                Cookies.set('token', token, {
+                    expires: 1,
+                    sameSite: 'strict',
+                    secure: true,
+                });
+            }
+            router.push('/')
+            setLoading(false)
+        } catch (error:any) {
+            setResponseMsg(error?.response?.data?.message||error?.message)
             setLoading(false)
             setShowToast(true)
             setTimeout(() => {
                 setShowToast(false)
-              }, 6000);
+                }, 6000);
+                console.log(error)
             return
         }
 
-        const token = response.data.token
-        const raw = response.data.user;
-        const user = {
-            _id: raw._id,
-            name: raw.name,
-            email: raw.email,
-            picture: raw.picture
-        };
-                
-        if (typeof window !== 'undefined') {
-            Cookies.set('user', user._id, { expires: 1 });
-            localStorage.setItem('user', JSON.stringify(user));
-            localStorage.setItem('token', token);
-            Cookies.set('token', token, {
-                expires: 1,
-                sameSite: 'strict',
-                secure: true,
-            });
-            }
-        router.push('/')
-        setLoading(false)
     }
 
   return (
     <>
-        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 p-1 rounded-md w-full md:w-2/3 lg:w-full">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 p-1 rounded-md w-full">
             {type === 'sign-up' && (
                 <>
-                    <div className="relative w-2/3 lg:w-1/2">
+                    <div className="relative xl:w-2/3 w-1/2">
                         {error.name && <p className="mb-1 text-red-500 text-xs">{error.name}</p>}
                         <input name='name' type="text" value={formData.name} onChange={(e) => {setFormData({...formData, name: e.target.value})}}required 
-                            className="peer bg-zinc-800 p-2 border border-zinc-700 focus:border-indigo-500 rounded-md outline-none w-full h-10 text-white transition-all duration-200"
+                            className="peer bg-[#ddebff] p-2 shadow-xl/30 border border-zinc-700 focus:border-[#2196f3] rounded-md outline-none w-full h-10 text-black transition-all duration-200"
                         />
-                        <label className="left-2 absolute bg-[#212121] px-1 rounded-sm text-gray-400 peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
+                        <label className="left-2 absolute bg-[#ddebff] px-1 rounded-sm text-gray-500 peer-focus:border peer-focus:border-[#2196f3] peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
                             <span>Name*</span>
                         </label>
                     </div>
                 </>
             )}
-            <div className="relative w-2/3 lg:w-1/2">
+            <div className="relative xl:w-2/3 w-1/2">
                 {error.email && <p className="mb-1 text-red-500 text-xs">{error.email}</p>}
                 <input name='email' type="email" value={formData.email} onChange={(e) => {setFormData({...formData, email: e.target.value})}}required 
-                    className="peer bg-zinc-800 p-2 border border-zinc-700 focus:border-indigo-500 rounded-md outline-none w-full h-10 text-white transition-all duration-200"
+                    className="peer bg-[#ddebff] p-2 shadow-xl/30 border border-zinc-700 focus:border-[#2196f3] rounded-md outline-none w-full h-10 text-black transition-all duration-200"
                 />
-                <label className="left-2 absolute bg-[#212121] px-1 rounded-sm text-gray-400 peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
+                <label className="left-2 absolute bg-[#ddebff] px-1 rounded-sm text-gray-500 peer-focus:border peer-focus:border-[#2196f3] peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
                     <span>Email*</span>
                 </label>
             </div>
-            <div className="relative w-2/3 lg:w-1/2">
+            <div className="relative xl:w-2/3 w-1/2">
                 {error.password && <p className="mb-1 text-red-500 text-xs">{error.password}</p>}
                 <input name='password' type={show?'text':'password'} value={formData.password} onChange={(e) => {setFormData({...formData, password: e.target.value})}}required 
-                    className="peer bg-zinc-800 p-2 border border-zinc-700 focus:border-indigo-500 rounded-md outline-none w-full h-10 text-white transition-all duration-200"
+                    className="peer bg-[#ddebff] p-2 shadow-xl/30 border border-zinc-700 focus:border-[#2196f3] rounded-md outline-none w-full h-10 text-black transition-all duration-200"
                 />
-                <label className="left-2 absolute bg-[#212121] px-1 rounded-sm text-gray-400 peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
+                <label className="left-2 absolute bg-[#ddebff] px-1 rounded-sm text-gray-500 peer-focus:border peer-focus:border-[#2196f3] peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
                     <span>Password*</span>
                 </label>
-                <div onClick={() =>setShow(!show)} className='right-4 z-1 absolute flex justify-end p-2 rounded-full text-gray-400 -translate-y-9'>
+                <div onClick={() =>setShow(!show)} className='right-4 z-1 absolute flex justify-end p-2 rounded-full text-gray-500 -translate-y-9'>
                     { show ? 'Show':'hide' }
                 </div>
             </div>
             {type === 'sign-up' && (
                 <>
-                    <div className="relative w-2/3 lg:w-1/2">
+                    <div className="relative xl:w-2/3 w-1/2">
                         {error.confirm && <p className="mb-1 text-red-500 text-xs">{error.confirm}</p>}
                         <input type={show?'text':'password'}  value={formData.confirm} onChange={(e) => {setFormData({...formData, confirm: e.target.value})}}required 
-                            className="peer bg-zinc-800 p-2 border border-zinc-700 focus:border-indigo-500 rounded-md outline-none w-full h-10 text-white transition-all duration-200"
+                            className="peer bg-[#ddebff] p-2 shadow-xl/30 border border-zinc-700 focus:border-[#2196f3] rounded-md outline-none w-full h-10 text-black transition-all duration-200"
                         />
-                        <label className="left-2 absolute bg-[#212121] px-1 rounded-sm text-gray-400 peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
+                        <label className="left-2 absolute bg-[#ddebff] px-1 rounded-sm text-gray-500 peer-focus:border peer-focus:border-[#2196f3] peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
                             <span>Confirm</span>
                         </label>
                     </div>
@@ -210,30 +211,40 @@ const AuthForm = ({type}: {type: FormType}) => {
             )}
             {type === 'sign-up' && (
                 <>
-                    <div className="flex gap-3 w-2/3 lg:w-1/2">
-                        <div className="relative bg-[#393E46] p-2 px-3 rounded-md w-auto h-10">Upload Profile pic<input className='left-0 absolute opacity-0 w-full' type='file' onChange={(e)=>{
+                    <div className="flex gap-3 xl:w-2/3 w-1/2">
+                        <div className="relative bg-[#ddebff] mt-2.5 shadow-xl/30 border border-zinc-700 text-gray-800 p-2 px-3 rounded-md w-auto h-10">Upload Profile pic<input className='left-0 absolute opacity-0 w-full' type='file' onChange={(e)=>{
                             const file = e.target.files?.[0];
                             if (file) {
                                 setFile(file);
                             }}} name='file' accept="image/*" required placeholder='Upload'/></div>
                         {file && 
                         <div className="size-15">
-                            <Image width={100} height={100} className="rounded-full h-full object-cover" src={convertFileToUrl(file)} alt="Profile" />
+                            <Image width={100} height={100} className="rounded-full h-full shadow-xl/30 object-cover" src={convertFileToUrl(file)} alt="Profile" />
                         </div>}
                     </div>
                 </>
             )}
-            <div className="w-2/3 lg:w-1/2">
-                {type === 'sign-up' && <button type="submit" className="bg-[#FFD369] hover:bg-[#f6d587] p-2 rounded-md w-full font-semibold text-[#222831] text-md">{loading? <PulseLoader color="#fff"/>:'Sign-up'}</button>}
-                {type === 'sign-in' && <button type="submit" className="bg-[#FFD369] hover:bg-[#f6d587] p-2 rounded-md w-full font-semibold text-[#222831] text-md">{loading? <PulseLoader color="#fff"/>:'Sign-in'}</button>}
+            <div className="flex justify-end xl:w-2/3 w-1/2 text-gray-700 text-shadow-lg">
+                <p className="cursor-default">
+                    {type == 'sign-in' ? "Don't have an account?" : "Already have an account?"}
+                </p>
+                <Link href={type == 'sign-in' ? '/sign-up' : '/sign-in'} className=' text-blue-400 text-sm text-center hover:underline cursor-pointer'>
+                    {type == 'sign-in' ? 'Sign Up' : 'Sign In'}
+                </Link>
+            </div>
+            <div className="xl:w-2/3 w-1/2">
+                {type === 'sign-up' && <button disabled={loading} type="submit" className="bg-[#3672d1] hover:bg-[#6599ee] p-2 rounded-md w-full font-semibold text-blue-50 align-middle shadow-xl/30 text-md">{loading? <PulseLoader size={10} color="#fff"/>:'Sign-up'}</button>}
+                {type === 'sign-in' && <button disabled={loading} type="submit" className="bg-[#3672d1] hover:bg-[#6599ee] p-2 rounded-md w-full font-semibold text-blue-50 align-middle shadow-xl/30 text-md">{loading? <PulseLoader size={10} color="#fff"/>:'Sign-in'}</button>}
             </div>
         </form>
+        <div className="flex text-gray-700 mb-2 xl:w-2/3 w-1/2 items-center gap-3">
+            <div className="h-0.5 w-[45%] bg-gray-700"></div>
+            <p className="text-md">or</p>
+            <div className="h-0.5 w-[45%] bg-gray-700"></div>
+        </div>
         <GoogleOAuthProvider clientId={googleID}>
             <GoogleForm/>
         </GoogleOAuthProvider>
-        <Link href={type == 'sign-in' ? '/sign-up' : '/sign-in'} className='flex justify-end my-1 w-2/3 lg:w-1/2 text-blue-400 text-sm text-center hover:underline cursor-pointer'>
-            <p>{type == 'sign-in' ? "Don't have an account?" : "Already have an account?"} <i className='text-blue-400'>{type == 'sign-in' ? 'Sign Up' : 'Sign In'}</i></p>
-        </Link>
         {showToast && <Toasts type={tostType==='warningMsg'?'warningMsg':'infoMsg'} msg={responseMsg}/>}
     </>
   )

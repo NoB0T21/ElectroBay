@@ -15,7 +15,7 @@ const Logout = () => {
     }
 
    return (
-    <button onClick={logout} className="flex justify-center items-center hover:bg-[#a43030] py-1 rounded-sm w-full h-full"><p>Logout</p></button>
+    <button onClick={logout} className="flex justify-center items-center hover:bg-[#a43030] py-1 rounded-sm w-full h-full transition-all duration-300 ease-in-out"><p>Logout</p></button>
    )
 }
 

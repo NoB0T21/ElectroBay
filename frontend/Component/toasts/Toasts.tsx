@@ -21,17 +21,17 @@ const Toasts = ({type, msg}: {type: NotiType, msg: string}) => {
                 initial={{ y:-100, scale: 0 }}
                 animate={{y:0, scale: 1 }}
                 exit={{y:-100,scale: 0 }}
-                    className={`absolute top-0 right-0 m-3 bg-zinc-800 p-2 w-65 rounded-md`}>
+                    className={`absolute top-0 right-0 m-3 bg-[#ddebff] shadow-xl/50  p-2 w-65 rounded-md`}>
                         {type === 'warningMsg' && <>
                             <div className="flex justify-between items-center gap-2 px-1">
                                 <div className="flex items-center gap-2">
                                     <div className="w-6 h-6 text-yellow-500"><Warning/></div>
-                                    <p className="font-semibold text-md">Warning</p>
+                                    <p className="font-semibold text-gray-600 text-md">Warning</p>
                                 </div>
                                 <div onClick={()=>{setIsVisible(false)}} className="p-1 text-md">x</div>
                             </div>
                             <div className="bg-zinc-600 w-full h-0.5"></div>
-                            <div className="m-2 px-2 font-medium">{msg}</div>
+                            <div className="m-2 px-2 text-gray-600 font-medium">{msg}</div>
                         </>}
                         {type === 'infoMsg' && <>
                             <div className="flex justify-between items-center gap-2 px-1">

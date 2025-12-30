@@ -38,14 +38,11 @@ const GoogleForm = () => {
           form.append('email', responses.data.email || '');
           form.append('password',responses.data.sub || '');
           form.append('picture', responses.data.picture || '');
+          form.append('type','hello')
 
         const response = await api.post(`/user/signup`,form,{withCredentials: true})
-        if(response.status !== 201 || 202){
           setResponseMsg(response.data.message)
           setShowToast(true)
-          setTimeout(() => {
-            setShowToast(false)
-        }, 6000);
           
         const raw = response.data.user;
           const user = {
@@ -60,9 +57,8 @@ const GoogleForm = () => {
           }
           router.push('/')
           return
-        }
-      } catch (error) {
-          setResponseMsg('Login Fail')
+      } catch (error:any) {
+          setResponseMsg(error?.response?.data || error?.message)
           setTostType('warningMsg');
           setShowToast(true)
           setTimeout(() => {
@@ -85,8 +81,8 @@ const GoogleForm = () => {
 
   return (
     <>
-      <div className="mt-5 w-2/3 md:w-1/2">
-        <button onClick={()=>handleGoogleLogin()} className="bg-[#FFD369] hover:bg-[#f6d587] p-2 rounded-md w-full font-semibold text-[#222831] text-md"><div className="flex justify-center gap-2 w-full h-6"><Google/>Google</div></button>
+      <div className="xl:w-2/3 w-1/2">
+        <button onClick={()=>handleGoogleLogin()} className="bg-[#3672d1] hover:bg-[#6599ee] p-2 rounded-md w-full font-semibold text-blue-50 text-md"><div className="flex justify-center gap-2 w-full h-6"><Google/>Google</div></button>
       </div>
       {showToast && <Toasts type={tostType==='warningMsg'?'warningMsg':'infoMsg'} msg={responseMsg}/>}
     </>
