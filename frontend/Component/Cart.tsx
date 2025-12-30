@@ -69,7 +69,7 @@ const Cart = ({cart}:{cart:CartProps}) => {
                                                 <Image className='bg-[#FFD369] p-2 rounded-xl w-40 h-22 object-contain'
                                                     src={url} width={500} height={500} alt='product'/>
                                                 <div className='peer flex flex-col w-full md:truncate'>{order.name}</div>
-                                                <div className='hidden -bottom-20 z-10 absolute peer-hover:flex flex-col gap-2 bg-zinc-700 p-2 px-3 border-1 rounded-md w-80'>{order.name}</div>
+                                                <div className='hidden -bottom-20 z-10 absolute peer-hover:flex flex-col gap-2 bg-zinc-700 p-2 px-3 rounded-md w-80'>{order.name}</div>
                                             </div>
                                             <div className='flex flex-col justify-center px-1 md:px-3 py-2'>
                                                 <p>₹ {order.offerprice}</p>

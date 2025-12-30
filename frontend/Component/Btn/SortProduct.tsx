@@ -23,7 +23,7 @@ const SortProduct = () => {
           <select
             value={sort}
             onChange={(e)=>toggleSort(e)}
-            className="bg-[#393E46] p-2 rounded-lg text-[#EEEEEE] text-sm"
+            className="bg-[#e1e4fa] p-2 rounded-lg text-black text-sm"
           >
             <option value="">Recent</option>
             <option value="Price-asc">Date ↓</option>

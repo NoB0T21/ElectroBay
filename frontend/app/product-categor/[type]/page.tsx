@@ -21,7 +21,8 @@ const page = () => {
   const [tostType,setTostType] = useState('warningMsg')
     
   useEffect(()=>{
-    setProduct(getProduct())
+    setProduct( getProduct())
+    console.log(getProduct())
   },[])
 
   const addtocart = async () => {
@@ -52,33 +53,49 @@ const page = () => {
     route.push('/cart')
   }
   return (
-    <div className='flex md:flex-row flex-col gap-5 p-5 shadow-2xl/60 md:p-10 rounded-2xl w-full h-full md:overflow-hidden overflow-y-scroll'>
-      <h1>{product?.productType}</h1>
-      <div className='w-full md:w-1/2'><PreviewImages images={product?.images || []}/></div>
+    <>
+      <h1 className='text-3xl font-bold'>{product?.productType}</h1>
+      <div className='relative flex md:flex-row flex-col gap-5 p-5 w-full h-full'>
+        <div className='w-90'><PreviewImages images={product?.images || []}/></div>
 
-      <div className='flex flex-col gap-5 w-full md:w-1/2'>
-        <h1 className='text-shadow-sm text-shadow-white font-bold  text-2xl'>{product?.name}</h1>
-        <p>rating</p>
-        <h3 className='h-90 overflow-y-scroll whitespace-pre-wrap'>{product?.description}</h3>
-        <div className='flex items-end gap-2'>
-          <p className='text-2xl'>₹ {product?.offerprice}</p>
+        <div className='flex flex-col gap-2 w-full'>  
+          <div className=' flex items-center justify-between'>
+            <h1 className='text-shadow-sm text-shadow-white font-bold w-[70%]  text-2xl'>{product?.name}</h1>
+            <div className='flex flex-col items-end gap-4'>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className='flex justify-center items-center bg-[#fa953c] px-3 py-0.5 rounded-md  gap-2 h-10 text-white' 
+                onClick={()=>addtocart()}>
+                  <div className='size-8'>
+                    <Cart/>
+                  </div>
+                  <p className='hidden xl:flex '>Add Cart</p>
+              </motion.div>
+              <p className='text-xl font-semibold'>₹ {product?.offerprice}</p>
+            </div>
+          </div>
+          <div className='flex items-start gap-2'>
+            <p className='text-4xl font-bold'>₹ {product?.offerprice}</p>
+            <p className='text-lg'>Today</p>
+          </div>
           <p className='line-through'>₹ {product?.price}</p>
+          <p>rating</p>
         </div>
-        <div className='flex gap-2'>
-          <motion.div
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className='flex justify-center items-center bg-[#FFD369] px-4 rounded-sm w-15 h-10 text-[#222831]' 
-          onClick={()=>addtocart()}><Cart/></motion.div>
+        <div className='absolute flex gap-2 right-0 bottom-20'>
           <motion.div 
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={()=>Buy()} 
-          className='flex justify-center items-center bg-[#FFD369] px-4 rounded-sm w-25 h-10 text-[#222831]'>Buy Now</motion.div>
+          className='flex justify-center items-center text-white bg-[#fa953c] px-4 rounded-sm h-10'>Procide Buy Now</motion.div>
         </div>
+        {showToast && <Toasts type={tostType==='warningMsg'?'warningMsg':'infoMsg'} msg={responseMsg}/>}
       </div>
-      {showToast && <Toasts type={tostType==='warningMsg'?'warningMsg':'infoMsg'} msg={responseMsg}/>}
-    </div>
+      <div className='px-8'>
+        <h1 className='text-4xl font-semibold'>Products Details</h1>
+        <h3 className='whitespace-pre-wrap'>{product?.description}</h3>
+      </div>
+    </>
   )
 }
 

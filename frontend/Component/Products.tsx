@@ -1,33 +1,26 @@
 'use client'
 
+import { Products } from "@/utils/types"
 import SortProduct from "./Btn/SortProduct"
 import ProductCard from "./card/ProductCard"
 
-interface Product{
-    _id: string,
-    productType: string,
-    name: string,
-    description:string,
-    price: number,
-    images:[{
-        url: string,
-        path: string
-    }],
-    createdAt:string,
-}
 
-const Products = ({products}:{products:Product[]}) => {
+const Productss = ({products}:{products:Products[]}) => {
   return (
     <div className='w-full h-[60%]'>
-      <div className='flex justify-between px-8 w-full text-[#AAAAAA]'>
+      <div className='flex justify-between px-8 w-full text-[#535353]'>
         <p>showing all {products.length} results</p>
         <SortProduct/>
       </div>
-      <div className="gap-5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-3 px-8 w-full h-full overflow-y-scroll">
-        {products.map((product)=>(<ProductCard key={product._id} product={product}/>))}
+      <div className="gap-5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-3 px-8 w-full h-full">
+        {products.map((product)=>(
+          <div key={product._id} className='w-55 h-100 shadow-xl/20 rounded-xl overflow-clip hover:scale-110 transition-(scale) duration-200 ease-in-out'>
+            <ProductCard key={product._id} product={product}/>
+          </div>
+        ))}
       </div>
     </div>
   )
 }
 
-export default Products
+export default Productss
