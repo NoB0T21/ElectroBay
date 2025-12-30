@@ -52,16 +52,17 @@ const page = () => {
     route.push('/cart')
   }
   return (
-    <div className='flex md:flex-row flex-col gap-5 bg-[#393E46] p-5 md:p-10 rounded-2xl w-full h-full md:overflow-hidden overflow-y-scroll'>
+    <div className='flex md:flex-row flex-col gap-5 p-5 shadow-2xl/60 md:p-10 rounded-2xl w-full h-full md:overflow-hidden overflow-y-scroll'>
+      <h1>{product?.productType}</h1>
       <div className='w-full md:w-1/2'><PreviewImages images={product?.images || []}/></div>
 
       <div className='flex flex-col gap-5 w-full md:w-1/2'>
-        <h1 className='text-shadow-sm text-shadow-white font-bold text-[#EEEEEE] text-2xl'>{product?.name}</h1>
+        <h1 className='text-shadow-sm text-shadow-white font-bold  text-2xl'>{product?.name}</h1>
         <p>rating</p>
-        <h3 className='h-90 overflow-y-scroll text-[#EEEEEE] break-words whitespace-pre-wrap'>{product?.description}</h3>
+        <h3 className='h-90 overflow-y-scroll whitespace-pre-wrap'>{product?.description}</h3>
         <div className='flex items-end gap-2'>
           <p className='text-2xl'>₹ {product?.offerprice}</p>
-          <p className='text-[#AAAAAA] line-through'>₹ {product?.price}</p>
+          <p className='line-through'>₹ {product?.price}</p>
         </div>
         <div className='flex gap-2'>
           <motion.div
