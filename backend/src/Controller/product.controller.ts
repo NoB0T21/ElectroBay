@@ -278,3 +278,26 @@ export const updateorder = async (req:Request,res:Response) => {
         });
     }
 }
+
+export const homepageData = async (req:Request,res:Response) => {
+    try {
+        const count = await product.countDocuments();
+        const limit = 8;
+        const random = count > limit
+        ? Math.floor(Math.random() * (count - limit))
+        : 0;
+        const products = await product.find()
+            .skip(random)
+            .limit(8);
+        return res.status(201).json({
+            message: "here is your Orders",
+            products,
+            success: true,
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false,
+        });
+    }
+}

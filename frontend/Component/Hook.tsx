@@ -7,14 +7,14 @@ const Hook = () => {
     const categorys = ['Wireless headphones','Grooming','Video games']
     const color = ['bg-[#b5dae5]','bg-[#b5dae5]','bg-[#f8edd1]']
     return (
-        <div className='mb-5 px-5 lg:px-25 py-1'>
+        <div className='mb-5'>
             <div className={`grid grid-cols-1 gap-5 md:grid-cols-3 h-45 md:h-80 `}>
                 {products.map((product,index)=>(
                     <motion.div
                         initial={{ opacity: 0, y: 50 ,scale: 0 }}
                         whileInView={{ opacity: 1, y: 0 ,scale: 1 }}
                         viewport={{ amount: 0.4 }}
-                        className={`relative ${color[index]} rounded-xl flex flex-row-reverse justify-start p-3 w-full h-full`} key={index}>
+                        className={`relative ${color[index]} rounded-xl hover:scale-105 flex flex-row-reverse justify-start p-3 w-full h-full  shadow-xl/30 transition-all duration-400 ease-in-out`} key={index}>
                             <Image className='w-40 h-45 md:h-80 object-contain' width={1920} height={1080} src={product} alt='product'/>
                             <motion.div 
                             initial={{ opacity: 0,  scale: 0 }}

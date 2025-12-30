@@ -1,33 +1,27 @@
 'use client'
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { motion } from 'framer-motion'
+import { Category, RightArrow } from './Icons'
 
 const ShopCategories = () => {
-    const images = ['/Catrgory/Ac.png','/Catrgory/Alexa.png','/Catrgory/HomeAppliances.png','/Catrgory/iPhone.png','/Catrgory/laptop.png','/Catrgory/tv.png']
     const categorys = ['Air Conditioner','Smart Home','Home Appliances','Mobiles','Laptops','Television']
     const links = ['/product-categor/air-conditioner','/product-categor/smart-home','/product-categor/home-appliances','/product-categor/mobiles','/product-categor/laptops','/product-categor/television']
     return (
-        <div className='px-5 lg:px-25 py-1 rounded-xl'>
-            <div className='flex flex-col shadow-md shadow-zinc-800 p-5 w-full'>
-                <p className='mb-5 font-bold text-2xl'>Shop by Category </p>
-                <div className='gap-5 grid grid-cols-2 md:grid-cols-3 w-full'>
-                    {images.map((image,index)=>(
-                        <motion.div
-                        initial={{ opacity: 0, scale: 0 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ amount: 0.2 }}
-                        className='w-full h-full' 
-                        key={index}>
-                            <Link href={links[index]} className='flex flex-col justify-center items-center gap-2 hover:bg-[#444951] bg-[#393E46] p-5 rounded-xl w-full h-45 md:h-full hover:scale-104 transition-(scale) duration-200 ease-in-out' >
-                                <Image className='h-50 object-contain' width={300} height={300} src={image} alt='Category'/>
-                                <p>{categorys[index]}</p>
-                            </Link>
-                        </motion.div>
-                    ))}
-                </div>
+        <div className='w-50 xl:w-68'>
+            <div className='mb-5 font-bold text-sm xl:text-2xl gap-2 p-3 text-center rounded-xl flex justify-center items-center shadow-xl/30'>
+                <div className='rounded-lg size-4 md:size-6 2xl:size-8 bg-[#fab65c] p-1.5'><Category/></div>
+                Shop by Category 
             </div>
+            <ul className='list-disc pl-10'>
+                {categorys.map((_,index)=>(
+                    <li key={index} className='w-full h-12 mb-2'>
+                        <Link href={links[index]} className='flex justify-between items-center gap-2 w-full h-12' >
+                            <p>{categorys[index]}</p>
+                            <div className='size-3 md:size-4'><RightArrow/></div>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
         </div>
     )
 }

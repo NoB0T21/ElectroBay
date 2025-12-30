@@ -112,7 +112,7 @@ export const login = async (request: Request, response:Response) => {
             if(admin){
                 const isMatch = await admin.comparePassword(password, admin.password)
                 if(!isMatch){
-                    return response.status(202).json({
+                    return response.status(401).json({
                         message: "password or email is incorrect",
                         success: false,
                 })}

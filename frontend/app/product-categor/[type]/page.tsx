@@ -7,43 +7,21 @@ import { motion } from "framer-motion"
 import Cookies from 'js-cookie'
 import Toasts from '@/Component/toasts/Toasts'
 import PreviewImages from '@/Component/PreviewImages'
-
-interface Product{
-    _id: string,
-    productType: string,
-    name: string,
-    description:string,
-    price: number,
-    offerprice:number,
-    images:[{
-        url: string,
-        path: string
-    }],
-    createdAt:string,
-}
+import { Products } from '@/utils/types'
+import { getProduct } from '@/utils/utils'
 
 const page = () => {
   const params = useParams()
   const route = useRouter()
   const token = Cookies.get('token')
   const id = params?.type
-  const [product,setProduct] = useState<Product>()
+  const [product,setProduct] = useState<Products>()
   const [showToast,setShowToast] = useState(false)
   const [responseMsg,setResponseMsg] = useState('')
   const [tostType,setTostType] = useState('warningMsg')
-
-  const fetch = async () => {
-    const products = await api.get(`/product/item/${id}`,{
-      withCredentials:true,
-      headers:{
-        Authorization: `Bearer ${token}`,
-      }
-    })
-    setProduct(products.data.products)
-  }
     
   useEffect(()=>{
-    fetch()
+    setProduct(getProduct())
   },[])
 
   const addtocart = async () => {

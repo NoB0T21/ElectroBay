@@ -2,21 +2,25 @@ import Endscreen from '@/Component/Endscreen'
 import Header from '@/Component/Header'
 import Hook from '@/Component/Hook'
 import Promotion from '@/Component/Promotion'
-import ShopCategories from '@/Component/ShopCategories'
-import Header2 from '@/Component/navigation/Header2'
 import Trending from '@/Component/Trending'
 import React from 'react'
+import MidLadder from '@/Component/MidLadder'
+import { cookies, } from 'next/headers';
+import { getHomeData } from '@/utils/actions/productsAction'
 
-const page = () => {
+const page = async () => {
+  const token = (await cookies()).get('token')?.value || ''
+  const data = await getHomeData({token})
   return (
-    <div className='w-screen flex flex-col items-center h-screen overflow-x-hidden sm:px-15 lg:px-40 xl:px-60 scroll-smooth'>
-      <Header/>
-      <Header2/>
-      <Trending/>
-      <ShopCategories/>
-      <Promotion/>
-      <Hook/>
-      <Endscreen/>
+    <div className='w-screen h-screen flex items-center justify-center scroll-smooth'>
+      <div className='w-full max-w-280 h-full px-4 overflow-x-hidden shadow-xl/30'>
+        <Header/>
+        <Trending/>
+        <MidLadder products={data.products}/>
+        <Promotion/>
+        <Hook/>
+        <Endscreen/>
+      </div>
     </div>
   )
 }
