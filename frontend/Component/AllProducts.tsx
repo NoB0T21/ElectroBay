@@ -2,48 +2,73 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Visit } from './Icons'
+import { Products } from '@/utils/types'
 
-interface Product{
-    _id: string,
-    productType: string,
-    name: string,
-    price: number,
-    images:[{
-        url: string,
-        path: string
-    }],
-    createdAt:string,
-}
-
-const AllProducts = ({products}:{products:Product[]}) => {
+const AllProducts = ({ products }: { products: Products[] }) => {
   return (
-    <div className='mt-5 w-full h-[90%]'>
-        <div className='gap-8 grid grid-cols-2 md:grid-cols-4 h-8'>
-            <div className='md:px-3 w-full font-bold text-md'>Product Name</div>
-            <div className='hidden md:flex md:px-3 w-full font-bold text-md'>Category</div>
-            <div className='md:px-3 w-full font-bold text-md'>Price</div>
-            <div className='hidden md:flex md:px-3 w-full font-bold text-md'>View</div>
-        </div>
-        <div className='w-full h-full overflow-y-scroll'>
-            {
-                products.map((product:Product, index)=>{
-                    let url:string[] = [] 
-                    product.images.map((img, index)=>(url.push(product.images[index].url)))
-                    return(
-                    <div key={index} className='gap-8 grid grid-cols-2 md:grid-cols-4 w-full'>
-                        <div className='flex gap-3 md:px-3 py-2 w-full'>
-                            <Image className='bg-[#393E46] p-2 rounded-xl w-40 min-w-[60px] h-22 object-contain' src={url[3]} width={500} height={500} alt='product'/>
-                            <Link href={`/product-categor/${product._id}`} className='w-full'>{product.name}</Link>
-                        </div>
-                        <div className='hidden md:flex px-3 py-2 w-full'>{product.productType}</div>
-                            <div className='md:px-3 py-2 w-full'>₹ {product.price}</div>
-                            <div className='hidden md:flex w-full h-full'>
-                                <Link className='flex justify-center items-center gap-1 bg-[#FFD369] hover:shadow-[#f7db98] hover:shadow-md px-2 py-1 rounded-md w-20 h-10 text-[#222831] text-md hover:scale-110 transition-all duration-300 ease-in-out' href={`/product-categor/${product._id}`}>vist <p className='p-1 w-7 h-7'><Visit/></p></Link>
-                            </div>
-                    </div>)
-                })
-            }
-        </div>
+    <div className='mt-5 h-full flex flex-col'>
+      {/* Header */}
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-4 py-2 border-b font-bold text-md'>
+        <div className='px-3'>Product</div>
+        <div className='hidden md:block px-3'>Category</div>
+        <div className='px-3'>Price</div>
+        <div className='hidden md:block px-3'>View</div>
+      </div>
+
+      {/* Rows */}
+      <div className='w-full overflow-y-auto'>
+        {products.map((product, index) => {
+          const imageUrl = product.images?.[0]?.url || '/placeholder.png'
+
+          return (
+            <div
+              key={product._id || index}
+              className='grid grid-cols-2 md:grid-cols-4 gap-4 items-center py-3 border-b hover:bg-[#2a2f36]/40 transition'
+            >
+              {/* Product */}
+              <div className='flex items-center gap-4 px-3'>
+                <Image
+                  src={imageUrl}
+                  alt={product.name}
+                  width={72}
+                  height={72}
+                  className='rounded-lg bg-[#393E46] object-cover'
+                />
+                <Link
+                  href={`/product-categor/${product._id}`}
+                  className='font-medium line-clamp-2 hover:underline'
+                >
+                  {product.name}
+                </Link>
+              </div>
+
+              {/* Category */}
+              <div className='hidden md:block px-3 text-gray-700'>
+                {product.productType}
+              </div>
+
+              {/* Price */}
+              <div className='px-3 font-semibold'>
+                ₹ {product.price}
+                <p className='line-through font-normal text-sm'>₹ {product.offerprice}</p>
+              </div>
+
+              {/* View */}
+              <div className='hidden md:flex px-3'>
+                <Link
+                  href={`/product-categor/${product._id}`}
+                  className='flex items-center gap-1 bg-[#3b76d4] px-3 py-1.5 rounded-md text-white hover:scale-105 transition'
+                >
+                  Visit
+                  <span className='w-5 h-5'>
+                    <Visit />
+                  </span>
+                </Link>
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

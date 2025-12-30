@@ -1,5 +1,4 @@
 import Header from '@/Component/Header'
-import Header2 from '@/Component/navigation/Header2'
 import React from 'react'
 import { cookies } from 'next/headers'
 import { api } from '@/utils/api'
@@ -33,7 +32,6 @@ const page = async () => {
   return (
     <div className='w-full h-screen'>
       <Header/>
-      <Header2/>
       <div className='px-10 py-5 w-full'>
         <p className='text-2xl'>My Orders</p>
         <div className='bg-white my-5 w-full h-0.5'></div>

@@ -6,8 +6,15 @@ import Image from "next/image"
 import Logout from "./Logout"
 import Link from "next/link"
 
-const Profile = ({picture}:{picture: string}) => {
+const Profile = ({picture, admin}:{picture: string, admin?: string}) => {
   const [show,setShow] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(()=>{
+      if(admin == 'admin@gmail.com'){
+        setIsAdmin(true)
+      }
+  },[])
   
   return (
     <div className="relative flex items-center gap-3">
@@ -27,6 +34,10 @@ const Profile = ({picture}:{picture: string}) => {
             <div className="bg-gray-800 w-full h-0.5"></div>
             <Link href={'/myorder'} className="flex justify-center items-center hover:bg-[#3873d1] py-1 rounded-sm w-full h-full hover:text-white transition-all duration-300 ease-in-out">My Order</Link>
             <div className="bg-gray-800 w-full h-0.5"></div>
+            {isAdmin && <>
+              <Link href={'/admin'} className="flex justify-center items-center hover:bg-[#3873d1] py-1 rounded-sm w-full h-full hover:text-white transition-all duration-300 ease-in-out">Admin</Link>
+              <div className="bg-gray-800 w-full h-0.5"></div>
+            </>}
             <div className="flex justify-center items-center w-full h-full "><Logout/></div>
 
           </motion.div>

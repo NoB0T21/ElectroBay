@@ -27,7 +27,7 @@ const Header = () => {
         </div>
         <div className='flex items-center gap-3'>
           <Link href={'/cart'} className="flex justify-center items-center text-black py-1 size-5 md:size-7 2xl:size-9"><Cart/></Link>
-          <div className='flex'><Profile picture={user?.picture || ''}/></div>
+          <div className='flex'><Profile picture={user?.picture || ''} admin={user?.email}/></div>
         </div>
     </div>
   )
