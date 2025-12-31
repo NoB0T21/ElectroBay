@@ -98,6 +98,113 @@ export const addproduct = async (req:Request,res:Response) => {
     }
 }
 
+export const updateproduct = async (req:Request,res:Response) => {
+    const {name,description,productType,price,offerprice,background,index,stock,images} = req.body
+    const productId = req.params.id
+    const files= req.files as File[];
+    const backgroundColors = JSON.parse(background);
+    const imagess = JSON.parse(images);
+    const indexss = JSON.parse(index);
+    if(!name||!description||!productType||!price||!offerprice||!stock){
+        return res.status(400).json({
+            message: 'Require all fields',
+            success: false
+        })
+    }
+
+    const updateQuery: any = {
+      $set: {
+        productType,
+        name,
+        description,
+        price,
+        offerprice,
+        stock,
+      },
+    }
+
+    try {
+        const uploadedImages: { url: string; path: string; background:string[] }[] = imagess;
+        const uploadedImagess: { background:string[] }[] = [];
+        if(files){
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const cleanName = file.originalname.split(" ").join("");
+                const uniqueFilename = `${uuid4()}-${cleanName}`;
+    
+                const { data, error } = await supabase.storage
+                    .from(`${process.env.BUCKET}`)
+                    .upload(uniqueFilename, file.buffer, {
+                        contentType: file.mimetype,
+                        cacheControl: "3600",
+                        upsert: false,
+                    });
+    
+                if (error) {
+                    return res.status(500).json({
+                    message: "Image Upload Failed",
+                    success: false,
+                    });
+                }
+    
+                const publicUrlData = await supabase.storage
+                    .from(`${process.env.BUCKET}`)
+                    .getPublicUrl(uniqueFilename);
+
+                if(data){
+                    const {data,error} = await supabase
+                        .storage
+                        .from(`${process.env.BUCKET}`)
+                        .remove([uploadedImages[indexss[i]].path]);
+                }
+
+
+                uploadedImages[indexss[i]] = {
+                    url: publicUrlData.data.publicUrl,
+                    path: uniqueFilename,
+                    background:backgroundColors[i]
+                }
+            }
+        }
+            for (let i = 0; i < backgroundColors.length; i++){
+                uploadedImagess.push({
+                    background:backgroundColors[i]
+                });
+            }
+
+        if (uploadedImages && uploadedImages.length > 0) {
+            if (uploadedImagess && uploadedImagess.length > 0) {
+                uploadedImagess.forEach((img: any, index: number) => {
+                    uploadedImages[index].background = img.background
+                })
+            }
+            updateQuery.$set.images = uploadedImages
+        }
+
+        const updatedProduct = await product.findByIdAndUpdate(
+            productId,
+            updateQuery,
+            { new: true }
+        )
+        if(!updatedProduct){
+            return res.status(500).json({
+                message: "Some Error occure",
+                success: false,
+        })}
+
+        return res.status(200).json({
+            success: true,
+            message: "Product updated successfully",
+            data: updatedProduct,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false,
+        });
+    }
+}
+
 export const getproduct = async (req:Request,res:Response) => {
     try {
         const products = await product.find({})

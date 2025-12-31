@@ -1,8 +1,10 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Visit } from './Icons'
 import { Products } from '@/utils/types'
+import { setProduct } from '@/utils/utils'
 
 const AllProducts = ({ products }: { products: Products[] }) => {
   return (
@@ -17,7 +19,7 @@ const AllProducts = ({ products }: { products: Products[] }) => {
       </div>
 
       {/* Rows */}
-      <div className='w-full overflow-y-auto'>
+      <div className='w-full'>
         {products.map((product, index) => {
           const imageUrl = product.images?.[0]?.url || '/placeholder.png'
 
@@ -65,13 +67,23 @@ const AllProducts = ({ products }: { products: Products[] }) => {
               </div>
 
               {/* View */}
-              <div className='hidden md:flex px-3'>
+              <div className='hidden md:flex gap-2 px-3'>
                 <Link
                   href={`/product-categor/${product._id}`}
-                  className='flex items-center gap-1 bg-[#3b76d4] px-3 py-1.5 rounded-md text-white hover:scale-105 transition'
+                  className='flex items-center gap-1.5 bg-[#3b76d4] px-1.5 py-1 text-sm font-bold rounded-md text-white hover:scale-105 transition'
                 >
                   Visit
-                  <span className='w-5 h-5'>
+                  <span className='size-4'>
+                    <Visit />
+                  </span>
+                </Link>
+                <Link
+                  onClick={() => setProduct({data:product})}
+                  href={`/admin/product_edit/${product._id}`}
+                  className='flex items-center gap-1 bg-[#3b76d4] px-1.5 py-1 text-sm font-bold rounded-md text-white hover:scale-105 transition'
+                >
+                  Edit
+                  <span className='size-4'>
                     <Visit />
                   </span>
                 </Link>

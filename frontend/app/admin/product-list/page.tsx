@@ -12,8 +12,8 @@ const page = async () => {
     }
   })
   return (
-    <div className='py-8 flex flex-col w-full h-full'>
-      <p className='font-bold text-2xl'>All Product</p>
+    <div className='py-8 flex pl-2 flex-col w-full h-full'>
+      <p className='font-bold  text-2xl'>All Product</p>
       <AllProducts products={Products.data.products}/>
     </div>
   )
