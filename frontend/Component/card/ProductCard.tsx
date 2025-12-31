@@ -9,8 +9,25 @@ const ProductCard = ({product}:{product:Products}) => {
   return (
     <Link href={`/product-categor/${product._id}`} 
       onClick={() => setProduct({data:product})}
-      className='w-full h-90 overflow-clip transition-(scale) duration-200 ease-in-out hover:scale-102'>
-      <Image className='p-3 w-full bg-amber-200 h-[65%] object-contain' width={720} height={720} alt='product' src={product.images?.[0]?.url}/>
+      className='w-full relative h-90 overflow-clip transition-(scale) duration-200 ease-in-out hover:scale-102'>
+      <Image 
+        className='p-3 w-full h-[65%] object-contain rounded-md overflow-clip'
+        style={{ backgroundColor: product.images?.[0]?.background || '#fff' }}
+        width={720} 
+        height={720} 
+        alt='product' 
+        src={product.images?.[0]?.url}
+      />
+      <p className={`absolute bottom-35 left-3 ${
+        product?.stock && product?.stock > 0 ? product.stock <= 8
+          ? 'bg-[#ffb348d2] text-black'
+          : 'bg-[#bbff73b3] text-black' : 'bg-red-300 text-white'
+      } px-2 rounded-md`}>{product?.stock && product?.stock > 0
+        ? product.stock <= 8
+          ? 'Few Stock Left'
+          : 'In Stock'
+        : 'Out of Stock'}
+        </p>
       <div className='p-3 w-full h-1/3'>
         <p className='font-semibold text-xl truncate'>{product.name}</p>
         <h5>review</h5>

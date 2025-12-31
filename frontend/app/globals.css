@@ -24,3 +24,24 @@ body {
 .perspective {
   perspective: 1000px;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none; /* dark */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #6fa2ff;
+  border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #91b7ff;
+}

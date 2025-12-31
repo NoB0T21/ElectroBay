@@ -17,6 +17,5 @@ export const setProduct = ({data}:{data:Products}) => {
 export const getProduct = () => {
   if (typeof window === "undefined") return null;
   const data = localStorage.getItem("product");
-  console.log(data)
   return data ? JSON.parse(data) : null;
 }

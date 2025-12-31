@@ -35,6 +35,9 @@ const Trending = () => {
           width={3840}
           height={2160}
         />
+        <div className='absolute flex right-20 bottom-20 size-35 bg-amber-400 rounded-full justify-center items-center text-5xl font-extrabold text-white transform-3d rotate-z-20 rotate-y-18 hover:rotate-y-360 transition-all duration-300 ease-in-out'>
+          50%
+        </div>
       </div>
     </section>
   )

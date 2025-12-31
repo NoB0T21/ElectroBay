@@ -18,7 +18,12 @@ const formSchema = z.object({
     State: z.string().min(1, "State is required"),
 })
 
-const OrderForm = ({productId,productName,price}:{productId:string[],productName:string[],price:number}) => {
+interface CartItem {
+    product: string
+    quantity: number
+}
+
+const OrderForm = ({products,productName,price}:{products:CartItem[],productName:string[],price:number}) => {
     const token = Cookies.get("token") || "";
     const [formData, setFormData] = useState<{
         Fullname?: string;
@@ -77,7 +82,7 @@ const OrderForm = ({productId,productName,price}:{productId:string[],productName
             City:'',
             State: '',
         })
-        if(productId.length === 0){
+        if(products.length === 0){
             setResponseMsg('You should atleast have 1 item to order')
             setTostType('infoMsg');
             setLoading(false)
@@ -89,7 +94,7 @@ const OrderForm = ({productId,productName,price}:{productId:string[],productName
         }
 
         const response = await api.post('/product/order',{
-            productId,
+            products:products,
             productName,
             price,
             formData
@@ -99,7 +104,7 @@ const OrderForm = ({productId,productName,price}:{productId:string[],productName
                 },
             withCredentials: true
         })
-        if(response.status !== 201){
+        if(response.status !== 200){
             setResponseMsg(response.data.message)
             if(response.status === 202)setTostType('successMsg');
             setLoading(false)
@@ -109,7 +114,7 @@ const OrderForm = ({productId,productName,price}:{productId:string[],productName
             }, 3000);
             return
         }
-        if(response.status === 201){
+        if(response.status === 200){
             setTostType('successMsg');
             setResponseMsg(response.data.message)
             setLoading(false)

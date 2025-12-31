@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
 type Props = {
-  images: { url: string }[];
+  images: { url: string, background: string }[];
 };
 
 const PreviewImages = ({ images }: Props) => {
@@ -36,6 +36,7 @@ const PreviewImages = ({ images }: Props) => {
               alt="preview"
               width={300}
               height={300}
+              style={{ backgroundColor: images?.[index]?.background || '#fff' }}
               className="rounded-xl shadow-xl/20"
             />
           </motion.div>

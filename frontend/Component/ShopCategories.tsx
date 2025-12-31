@@ -9,7 +9,7 @@ const ShopCategories = () => {
     return (
         <div className='w-50 xl:w-68'>
             <div className='mb-5 font-bold text-sm xl:text-2xl gap-2 p-3 text-center rounded-xl flex justify-center items-center shadow-xl/30'>
-                <div className='rounded-lg size-4 md:size-6 2xl:size-8 bg-[#fab65c] p-1.5'><Category/></div>
+                <div className='rounded-lg size-4 md:size-6 2xl:size-8 bg-[#fab65c] p-1.5 text-white'><Category/></div>
                 Shop by Category 
             </div>
             <ul className='list-disc pl-10'>

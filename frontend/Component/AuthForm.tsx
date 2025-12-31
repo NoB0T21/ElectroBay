@@ -153,7 +153,6 @@ const AuthForm = ({type}: {type: FormType}) => {
             setTimeout(() => {
                 setShowToast(false)
                 }, 6000);
-                console.log(error)
             return
         }
 

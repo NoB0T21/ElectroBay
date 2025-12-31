@@ -33,11 +33,11 @@ const page = async () => {
         <h1 className='mb-5 text-2xl'>Orders</h1>
         {orders.data.orders.map((order:Order)=>(
           <div key={order._id}>
-            <div  className='relative gap-2 grid grid-cols-1 md:grid-cols-4 bg-[#393E46] rounded-2xl w-full md:h-45'>
+            <div  className='relative gap-2 grid grid-cols-1 md:grid-cols-4 rounded-2xl w-full md:h-45 '>
                 <div className='relative flex items-center gap-3 px-1 md:px-3 py-2 w-full'>
-                    <div className='flex items-center bg-[#FFD369] p-2 rounded-xl size-15 text-[#222831]'><Orderfill/></div>
+                    <div className='flex items-center bg-[#f58b27] p-2 rounded-xl size-15 text-white'><Orderfill/></div>
                     <div className='peer w-full md:truncate'>{order.productName.map((names,index)=>(<p key={index}>{names}</p>))}</div>
-                    <div className='hidden -bottom-40 z-10 absolute peer-hover:flex flex-col gap-2 bg-zinc-700 p-2 px-3 border-1 rounded-md w-80'>{order.productName.map((names,index)=>(<p key={index}>{names}</p>))}</div>
+                    <div className='hidden -bottom-10 z-10 absolute peer-hover:flex flex-col gap-2 bg-zinc-500 text-white p-2 px-3 border rounded-md w-80'>{order.productName.map((names,index)=>(<p key={index}>{names}</p>))}</div>
                 </div>
                 <div className='relative flex flex-col justify-center px-1 md:px-3 py-2'>
                     <div className='peer flex flex-col justify-center w-full md:truncate'>
@@ -47,7 +47,7 @@ const page = async () => {
                       <p>{order.Pincode}</p>
                       <p>{order.PhoneNo}</p>
                     </div>
-                    <div className='hidden -bottom-40 z-10 absolute peer-hover:flex flex-col gap-1 bg-zinc-700 p-2 px-3 border-1 rounded-md w-80'>
+                    <div className='hidden -bottom-40 z-10 absolute peer-hover:flex flex-col gap-1 bg-zinc-500 text-white p-2 px-3 border rounded-md w-80'>
                       <p>{order.Fullname},</p>
                       <p>{order.Address},</p>
                       <p>{order.City},{order.State},</p>

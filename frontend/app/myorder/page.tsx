@@ -22,49 +22,59 @@ interface Order {
 
 const page = async () => {
     const token = (await cookies()).get('token')?.value
-    const order = await api.get('/product/order/get',{
-      withCredentials:true,
-      headers:{
-        Authorization: `Bearer ${token}`,
+    let order
+    try {
+      order = await api.get('/product/order/get',{
+          withCredentials:true,
+          headers:{
+            Authorization: `Bearer ${token}`,
+        }
+      })
+    } catch (error:any) {
+      if(error.response.status){
+        console.log(error.response.status)
+        return
+      }
     }
-  })
 
   return (
-    <div className='w-full h-screen'>
-      <Header/>
-      <div className='px-10 py-5 w-full'>
-        <p className='text-2xl'>My Orders</p>
-        <div className='bg-white my-5 w-full h-0.5'></div>
-                <div className='hidden gap-2 md:grid grid-cols-1 md:grid-cols-4 w-full h-12'>
-                    <div className='px-3 font-bold text-xl'>Product Name</div>
-                    <div className='px-3 font-bold text-xl'>address</div>
-                    <div className='px-3 font-bold text-xl'>Price</div>
-                    <div className='px-3 font-bold text-xl'>Status</div>
-                </div>
-                {order.data.orders.map((order:Order)=>(
-                    <div key={order._id}>
-                        <div className='gap-2 grid grid-cols-1 md:grid-cols-4 bg-[#393E46] rounded-2xl w-full md:h-45'>
-                            <div className='flex items-center gap-3 px-1 md:px-3 py-2 w-full'>
-                                <div className='flex items-center bg-[#FFD369] p-2 rounded-xl size-15 text-[#222831]'><Orderfill/></div>
-                                <div className='flex flex-col w-full'>{order.productName.map((names,index)=>(<div key={index}>{names}</div>))}</div>
-                            </div>
-                            <div className='flex flex-col justify-center px-1 md:px-3 py-2'>
-                                <p>{order.Fullname}</p>
-                                <p>{order.Address}</p>
-                                <p>{order.City},{order.State}</p>
-                                <p>{order.Pincode}</p>
-                                <p>{order.PhoneNo}</p>
-                            </div>
-                            <div className='flex items-center px-1 md:px-3 py-2'>₹ {order.price}</div>
-                            <div className='flex flex-col justify-center px-1 md:px-3 py-2'>
-                                <p>Data: {order.createdAt.split('T')[0]}</p>
-                                <div className='relative'>Delivery: {order.payment?'completed':'pending'} {!order.payment && <div className='top-0 left-30 absolute bg-orange-600 rounded-full size-1.5 animate-ping'></div>}</div>
-                                <div className='relative'>Payment: {order.payment?'completed':'pending'} {!order.payment && <div className='top-1 left-32 absolute bg-orange-600 rounded-full size-1.5 animate-ping'></div>}</div>
-                            </div>
-                        </div>
-                        <div className='bg-[#AAAAAA] my-8 w-full h-0.5'></div>
-                    </div>
-                    ))}
+    <div className='flex flex-col items-center px-3 justify-center scroll-smooth w-screen h-screen'>
+      <div className='w-full max-w-280 flex-col flex h-full px-4 overflow-hidden shadow-2xl/30'>
+        <Header/>
+        <div className='px-10 py-5 w-full overflow-y-scroll'>
+          <p className='text-2xl'>My Orders</p>
+          <div className='bg-white my-5 w-full h-0.5'></div>
+          <div className='hidden gap-2 md:grid grid-cols-1 md:grid-cols-4 w-full h-12'>
+              <div className='px-3 font-bold text-xl'>Product Name</div>
+              <div className='px-3 font-bold text-xl'>address</div>
+              <div className='px-3 font-bold text-xl'>Price</div>
+              <div className='px-3 font-bold text-xl'>Status</div>
+          </div>
+          {order?.data.orders.map((order:Order)=>(
+              <div key={order._id}>
+                  <div className='gap-2 grid grid-cols-1 md:grid-cols-4 hover:bg-[#696969] transition-all duration-300 ease-in-out hover:text-white rounded-2xl w-full md:h-45'>
+                      <div className='flex items-center gap-3 px-1 md:px-3 py-2 w-full'>
+                          <div className='flex items-center bg-[#f58927] p-2.5 text-white rounded-xl size-15 text-[#222831]'><Orderfill/></div>
+                          <div className='flex flex-col w-full'>{order.productName.map((names,index)=>(<div key={index}>{names}</div>))}</div>
+                      </div>
+                      <div className='flex flex-col justify-center px-1 md:px-3 py-2'>
+                          <p>{order.Fullname}</p>
+                          <p>{order.Address}</p>
+                          <p>{order.City},{order.State}</p>
+                          <p>{order.Pincode}</p>
+                          <p>{order.PhoneNo}</p>
+                      </div>
+                      <div className='flex items-center px-1 md:px-3 py-2'>₹ {order.price}</div>
+                      <div className='flex flex-col justify-center px-1 md:px-3 py-2'>
+                          <p>Data: {order.createdAt.split('T')[0]}</p>
+                          <div className='relative'>Delivery: {order.payment?'completed':'pending'} {!order.payment && <div className='top-0 left-30 absolute bg-orange-600 rounded-full size-1.5 animate-ping'></div>}</div>
+                          <div className='relative'>Payment: {order.payment?'completed':'pending'} {!order.payment && <div className='top-1 left-32 absolute bg-orange-600 rounded-full size-1.5 animate-ping'></div>}</div>
+                      </div>
+                  </div>
+                  <div className='bg-[#AAAAAA] my-8 w-full h-0.5'></div>
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   )

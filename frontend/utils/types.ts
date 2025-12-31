@@ -21,9 +21,11 @@ export interface Products{
     description: string,
     price: number,
     offerprice: number,
+    stock: number,
     images: [{
         url: string,
-        path: string
+        path: string,
+        background: string
     }],
     createdAt:string,
 }
@@ -33,4 +35,15 @@ export type User = {
     email?: string,
     name?: string,
     picture: string,
+}
+
+export interface AddProduct{
+    name?: string;
+    description?: string;
+    category?: string;
+    price?: string;
+    offerprice?: string;
+    stock?: string;
+    background?: string
+    file?: File | null
 }

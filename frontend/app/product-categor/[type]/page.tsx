@@ -14,7 +14,6 @@ const page = () => {
   const params = useParams()
   const route = useRouter()
   const token = Cookies.get('token')
-  const id = params?.type
   const [product,setProduct] = useState<Products>()
   const [showToast,setShowToast] = useState(false)
   const [responseMsg,setResponseMsg] = useState('')
@@ -22,25 +21,31 @@ const page = () => {
     
   useEffect(()=>{
     setProduct( getProduct())
-    console.log(getProduct())
   },[])
 
   const addtocart = async () => {
-    const res = await api.get(`/cart/${product?._id}`,{
-      withCredentials:true,
-      headers:{
-        Authorization: `Bearer ${token}`,
-      }
-    })
-    if(res.status !== 201){
-          setResponseMsg(res.data.message)
-          if(res.status === 200)setTostType('successMsg');
-          setShowToast(true)
-          setTimeout(() => {
-              setShowToast(false)
-            }, 3000);
-          return
-      }
+    try {
+      const res = await api.get(`/cart/${product?._id}`,{
+        withCredentials:true,
+        headers:{
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      setResponseMsg(res.data.message)
+      if(res.status === 200)setTostType('successMsg');
+      setShowToast(true)
+      setTimeout(() => {
+          setShowToast(false)
+        }, 3000);
+      return
+    } catch (error:any) {
+      setResponseMsg(error?.response?.data?.message||error?.message)
+      setShowToast(true)
+      setTimeout(() => {
+          setShowToast(false)
+        }, 3000);
+      return
+    }
   }
 
   const Buy = async () => {
@@ -73,6 +78,11 @@ const page = () => {
                   <p className='hidden xl:flex '>Add Cart</p>
               </motion.div>
               <p className='text-xl font-semibold'>₹ {product?.offerprice}</p>
+              <p>{product?.stock && product?.stock > 0
+                ? product.stock <= 8
+                  ? 'Few Stock Left'
+                  : 'In Stock'
+                : 'Out of Stock'}</p>
             </div>
           </div>
           <div className='flex items-start gap-2'>
@@ -89,12 +99,12 @@ const page = () => {
           onClick={()=>Buy()} 
           className='flex justify-center items-center text-white bg-[#fa953c] px-4 rounded-sm h-10'>Procide Buy Now</motion.div>
         </div>
-        {showToast && <Toasts type={tostType==='warningMsg'?'warningMsg':'infoMsg'} msg={responseMsg}/>}
       </div>
       <div className='px-8'>
         <h1 className='text-4xl font-semibold'>Products Details</h1>
         <h3 className='whitespace-pre-wrap'>{product?.description}</h3>
       </div>
+      {showToast && <Toasts type={tostType==='warningMsg'?'warningMsg':'infoMsg'} msg={responseMsg}/>}
     </>
   )
 }

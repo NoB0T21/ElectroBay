@@ -11,7 +11,7 @@ const ShopCategories2 = () => {
         <div className='w-full flex'>
             {categorys.map((_,index)=>(
                 <div key={index} className='flex flex-col w-full items-center h-12 mb-2'>
-                    <Link href={links[index]} className='flex flex-col rounded-2xl bg-amber-400 justify-center items-center p-1.5 gap-2 w-11 h-10' >
+                    <Link href={links[index]} className='flex flex-col rounded-2xl bg-amber-400 text-white justify-center items-center p-1.5 gap-2 w-11 h-10' >
                         {icon[index]}
                     </Link>
                     <p>{categorys[index]}</p>

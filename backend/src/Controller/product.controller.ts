@@ -13,10 +13,17 @@ interface File {
     size: number,
 }
 
+interface Data {
+    product: string,
+    _id: string,
+    quantity: number,
+}
+
 export const addproduct = async (req:Request,res:Response) => {
-    const {name,description,productType,price,offerprice} = req.body
+    const {name,description,productType,price,offerprice,background,stock} = req.body
     const files= req.files as File[];
-    if(!name||!description||!productType||!price||!offerprice){
+    const backgroundColors = JSON.parse(background);
+    if(!name||!description||!productType||!price||!offerprice||!stock){
         return res.status(400).json({
             message: 'Require all fields',
             success: false
@@ -26,14 +33,15 @@ export const addproduct = async (req:Request,res:Response) => {
     try {
         const existingProduct = await product.findOne({name})
         if(existingProduct){
-            return res.status(202).json({
+            return res.status(401).json({
                 message: "Product already exists",
                 success: false,
         })}
 
-        const uploadedImages: { url: string; path: string }[] = [];
+        const uploadedImages: { url: string; path: string; background:string[] }[] = [];
 
-        for (const file of files) {
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
             const cleanName = file.originalname.split(" ").join("");
             const uniqueFilename = `${uuid4()}-${cleanName}`;
 
@@ -59,6 +67,7 @@ export const addproduct = async (req:Request,res:Response) => {
             uploadedImages.push({
                 url: publicUrlData.data.publicUrl,
                 path: uniqueFilename,
+                background:backgroundColors[i]
             });
         }
 
@@ -68,6 +77,7 @@ export const addproduct = async (req:Request,res:Response) => {
             description: description,
             price: price,
             offerprice:offerprice,
+            stock:stock,
             images:uploadedImages,
         })
         if(!user){
@@ -178,19 +188,39 @@ export const getproductbyId = async (req:Request,res:Response) => {
 
 export const Createorder = async (req:Request,res:Response) => {
     const userId = req.user._id
-    const {productId,productName,price} = req.body
+    const {products,productName,price} = req.body
     const {Fullname,PhoneNo,Pincode,Address,City,State} = req.body.formData
-    if(!Fullname || !PhoneNo || !Pincode || !Address || !City || !State || !productName || !price){
+    if(!Fullname || !PhoneNo || !Pincode || !Address || !City || !State || !productName || !price || !products?.length){
         return res.status(400).json({
             message: 'Require all fields',
             success: false
         })
     }
-
+    let productIds: string[] = []
+    for (const item of products){
+        const productQytUpdate = await product.findById(item.product)
+        if(productQytUpdate){
+            if(productQytUpdate.stock >= item.quantity){
+                productQytUpdate.stock-= item.quantity
+                await productQytUpdate.save()
+            }else{
+                return res.status(404).json({
+                    message: `${productQytUpdate.name} Out of Stock`,
+                    success: false,
+                });
+            }
+        }else{
+            return res.status(404).json({
+                message: "Product not found",
+                success: false,
+            });
+        }
+        productIds.push(item.product)
+    }
     try {
         const orders = await order.create({
             userId,
-            productId,
+            productId:productIds,
             productName,
             Fullname,
             PhoneNo,
@@ -200,7 +230,7 @@ export const Createorder = async (req:Request,res:Response) => {
             State,
             price
         })
-        return res.status(201).json({
+        return res.status(200).json({
             message: "Your Order has been Placed",
             success: true,
         })

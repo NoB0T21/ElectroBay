@@ -4,7 +4,7 @@ import { addtocart, getcart, subtocart } from "../Controller/cart.controller";
 const router = express.Router();
 
 router.get('/get',middleware,getcart)
-router.get('/:id',middleware,addtocart)
 router.get('/remove1/:id',middleware,subtocart)
+router.get('/:id',middleware,addtocart)
 
 export default router;

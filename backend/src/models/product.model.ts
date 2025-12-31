@@ -6,10 +6,12 @@ interface Post{
     description: string,
     price: number,
     offerprice: number,
+    stock:number,
     ratings:number,
     images:[{
         url: string,
-        path: string
+        path: string,
+        background: string,
     }],
     createdAt:string,
 }
@@ -36,6 +38,10 @@ const productSchema:Schema<Post> = new mongoose.Schema({
         type:Number,
         required:true
     },
+    stock:{
+        type:Number,
+        required:true
+    },
     ratings:{
         type:Number
     },
@@ -47,6 +53,10 @@ const productSchema:Schema<Post> = new mongoose.Schema({
         path:{
             type:String,
             required:true
+        },
+        background:{
+            type:String,
+            default:'#d9ccff'
         }
     }],
     createdAt:{
