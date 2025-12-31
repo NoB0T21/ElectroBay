@@ -8,6 +8,7 @@ import { api } from "@/utils/api";
 import { motion } from "framer-motion"
 import Cookies from 'js-cookie'
 import Toasts from "./toasts/Toasts";
+import { PaymentMode } from "@/utils/types";
 
 const formSchema = z.object({
     Fullname: z.string().min(3, "Name required"),
@@ -46,6 +47,7 @@ const OrderForm = ({products,productName,price}:{products:CartItem[],productName
     const [responseMsg,setResponseMsg] = useState('')
     const [tostType,setTostType] = useState('warningMsg')
     const [loading,setLoading] = useState(false)
+    const [status,setStatus] = useState<PaymentMode>(PaymentMode.CashOnDelivery)
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -92,29 +94,19 @@ const OrderForm = ({products,productName,price}:{products:CartItem[],productName
             }, 3000);
             return
         }
-
-        const response = await api.post('/product/order',{
-            products:products,
-            productName,
-            price,
-            formData
-        },{
-            headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            withCredentials: true
-        })
-        if(response.status !== 200){
-            setResponseMsg(response.data.message)
-            if(response.status === 202)setTostType('successMsg');
-            setLoading(false)
-            setShowToast(true)
-            setTimeout(() => {
-                setShowToast(false)
-            }, 3000);
-            return
-        }
-        if(response.status === 200){
+        try {
+            const response = await api.post('/product/order',{
+                products:products,
+                productName,
+                price,
+                formData,
+                PaymentMode: status
+            },{
+                headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                withCredentials: true
+            })
             setTostType('successMsg');
             setResponseMsg(response.data.message)
             setLoading(false)
@@ -122,9 +114,18 @@ const OrderForm = ({products,productName,price}:{products:CartItem[],productName
             setTimeout(() => {
                 setShowToast(false)
               }, 3000);
+            router.push('/myorder')
+            setLoading(false)
+
+        } catch (error:any) {
+            setResponseMsg(error.response.data.message)
+            setLoading(false)
+            setShowToast(true)
+            setTimeout(() => {
+                setShowToast(false)
+            }, 3000);
+            return
         }
-        router.push('/myorder')
-        setLoading(false)
     }
 
     return (
@@ -191,6 +192,14 @@ const OrderForm = ({products,productName,price}:{products:CartItem[],productName
                         </label>
                     </div>
                 </div>
+                <select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value as PaymentMode)}
+                    className="bg-[#ddebff] p-2 border shadow-xl/30 border-zinc-700 focus:border-[#2196f3] rounded-md outline-none w-full h-10 text-black"
+                >
+                    <option value={PaymentMode.CashOnDelivery}>Cash On Delivery</option>
+                    <option value={PaymentMode.Online}>Online</option>
+                </select>
                 <div className="w-2/3">
                     <motion.button
                         whileHover={{ scale: 1.1 }}

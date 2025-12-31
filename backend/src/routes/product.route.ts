@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { addproduct, Createorder, getallorder, getorder, getproduct, getproductbyId, getproductbyType, homepageData, updateorder, updateproduct } from "../Controller/product.controller";
+import { addproduct, Createorder, getallorder, getorder, getproduct, getproductbyId, getproductbyType, homepageData, updateorder, updatepayment, updateproduct } from "../Controller/product.controller";
 import middleware from "../middleware/middleware";
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() })
@@ -14,6 +14,7 @@ router.post('/order',middleware,Createorder)
 router.get('/order/get',middleware,getorder)
 router.get('/adminorder/get',middleware,getallorder)
 router.patch('/updateorder/:id',middleware,updateorder)
+router.patch('/updatepayment/:id',middleware,updatepayment)
 router.get('/:type',middleware,getproductbyType)
 
 export default router;

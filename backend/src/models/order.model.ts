@@ -14,6 +14,8 @@ interface Post{
     price: number,
     payment: boolean,
     createdAt:string,
+    status: string,
+    paymentmode: string
 }
 
 const orderSchema:Schema<Post> = new mongoose.Schema({
@@ -60,6 +62,16 @@ const orderSchema:Schema<Post> = new mongoose.Schema({
     payment:{
         type:Boolean,
         default:false
+    },
+    paymentmode:{
+        type: String, 
+        enum: ['Cash On Delivery', 'Online'], 
+        default: 'Cash On Delivery'
+    },
+    status:{
+        type: String, 
+        enum: ['Processing', 'Shipped', 'Out for Delivery', 'Delivered'], 
+        default: 'Processing'
     },
     createdAt:{
         type:String,

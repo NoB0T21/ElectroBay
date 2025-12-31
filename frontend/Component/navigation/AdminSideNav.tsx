@@ -1,7 +1,7 @@
 import Sidebarbtns from './Sidebarbtns';
 
 const AdminSideNav = () => {
-  const shops = ['Add Products', 'Product List', 'Order']
+  const shops = ['Add Products', 'Product List', 'Order', 'Sale']
 
   return (
     <aside className='bg-[#21428f] w-64 min-w-[16rem] h-full text-[#EEEEEE] flex flex-col'>

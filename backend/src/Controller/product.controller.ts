@@ -295,9 +295,9 @@ export const getproductbyId = async (req:Request,res:Response) => {
 
 export const Createorder = async (req:Request,res:Response) => {
     const userId = req.user._id
-    const {products,productName,price} = req.body
+    const {products,productName,price,PaymentMode} = req.body
     const {Fullname,PhoneNo,Pincode,Address,City,State} = req.body.formData
-    if(!Fullname || !PhoneNo || !Pincode || !Address || !City || !State || !productName || !price || !products?.length){
+    if(!Fullname || !PhoneNo || !Pincode || !Address || !City || !State || !productName || !price || !products?.length || !PaymentMode){
         return res.status(400).json({
             message: 'Require all fields',
             success: false
@@ -335,13 +335,16 @@ export const Createorder = async (req:Request,res:Response) => {
             Address,
             City,
             State,
-            price
+            price,
+            paymentmode:PaymentMode,
+            status:'Processing'
         })
         return res.status(200).json({
             message: "Your Order has been Placed",
             success: true,
         })
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message: "Internal server error",
             success: false,
@@ -393,6 +396,30 @@ export const getallorder = async (req:Request,res:Response) => {
 
 export const updateorder = async (req:Request,res:Response) => {
     const orderId = req.params.id
+    const {status} = req.body
+    if(!orderId || !status){
+        return res.status(400).json({
+            message: 'Require all fields',
+            success: false
+        })
+    }
+
+    try {
+        const orders = await order.findOneAndUpdate({_id:orderId},{status})
+        return res.status(200).json({
+            message: "Product status updated",
+            success: true,
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false,
+        });
+    }
+}
+
+export const updatepayment = async (req:Request,res:Response) => {
+    const orderId = req.params.id
     const {payment} = req.body
     if(!orderId || !payment){
         return res.status(400).json({
@@ -403,9 +430,8 @@ export const updateorder = async (req:Request,res:Response) => {
 
     try {
         const orders = await order.findOneAndUpdate({_id:orderId},{payment})
-        return res.status(201).json({
-            message: "here is your Products",
-            orders,
+        return res.status(200).json({
+            message: "Product status updated",
             success: true,
         })
     } catch (error) {

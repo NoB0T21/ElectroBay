@@ -1,4 +1,4 @@
-interface Order{
+export interface Order{
     _id: string,
     userId: string,
     productId: string[],
@@ -11,6 +11,8 @@ interface Order{
     Pincode: number,
     price: number,
     payment: boolean,
+    status: string,
+    paymentmode: string
     createdAt:string,
 }
 
@@ -46,4 +48,16 @@ export interface AddProduct{
     stock?: string;
     background?: string
     file?: File | null
+}
+
+export enum OrderStatus {
+  Processing = 'Processing',
+  Shipped = 'Shipped',
+  OutForDelivery = 'Out for Delivery',
+  Delivered = 'Delivered',
+}
+
+export enum PaymentMode {
+  CashOnDelivery = 'Cash On Delivery',
+  Online = 'Online',
 }

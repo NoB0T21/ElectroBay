@@ -3,6 +3,7 @@ import React from 'react'
 import { cookies } from 'next/headers'
 import { api } from '@/utils/api'
 import { Orderfill } from '@/Component/Icons'
+import { OrderStatus, PaymentMode } from '@/utils/types'
 
 interface Order {
     _id:string,
@@ -18,6 +19,8 @@ interface Order {
     price: number,
     payment: boolean,
     createdAt:string,
+    status:OrderStatus,
+    paymentmode: PaymentMode
 }
 
 const page = async () => {
@@ -54,7 +57,7 @@ const page = async () => {
               <div key={order._id}>
                   <div className='gap-2 grid grid-cols-1 md:grid-cols-4 hover:bg-[#696969] transition-all duration-300 ease-in-out hover:text-white rounded-2xl w-full md:h-45'>
                       <div className='flex items-center gap-3 px-1 md:px-3 py-2 w-full'>
-                          <div className='flex items-center bg-[#f58927] p-2.5 text-white rounded-xl size-15 text-[#222831]'><Orderfill/></div>
+                          <div className='flex items-center bg-[#f58927] p-2.5 text-white rounded-xl size-15'><Orderfill/></div>
                           <div className='flex flex-col w-full'>{order.productName.map((names,index)=>(<div key={index}>{names}</div>))}</div>
                       </div>
                       <div className='flex flex-col justify-center px-1 md:px-3 py-2'>
@@ -65,10 +68,16 @@ const page = async () => {
                           <p>{order.PhoneNo}</p>
                       </div>
                       <div className='flex items-center px-1 md:px-3 py-2'>₹ {order.price}</div>
-                      <div className='flex flex-col justify-center px-1 md:px-3 py-2'>
-                          <p>Data: {order.createdAt.split('T')[0]}</p>
-                          <div className='relative'>Delivery: {order.payment?'completed':'pending'} {!order.payment && <div className='top-0 left-30 absolute bg-orange-600 rounded-full size-1.5 animate-ping'></div>}</div>
-                          <div className='relative'>Payment: {order.payment?'completed':'pending'} {!order.payment && <div className='top-1 left-32 absolute bg-orange-600 rounded-full size-1.5 animate-ping'></div>}</div>
+                      <div className='flex flex-col justify-center gap-2 items-start px-1 md:px-3 py-2'>
+                          <p className='px-2 py-0.5'>Data: {order.createdAt.split('T')[0]}</p>
+                          <div className={`
+                            ${order.status === OrderStatus.Processing && 'bg-[#cdeef0] text-[#2b5d67]'} 
+                            ${order.status === OrderStatus.Shipped && 'bg-[#dae9fd] text-[#385baf]'} 
+                            ${order.status === OrderStatus.OutForDelivery && 'bg-[#fee1b1] text-[#725743]'} 
+                            ${order.status === OrderStatus.Delivered && 'bg-[#d4d4f8] text-[#757cc2]'} 
+                            px-2 py-0.5 rounded-md font-semibold shadow-xl/20`}
+                          >Delivery: {order.status}</div>
+                          <div className='relative px-2 py-0.5'>Payment: {order.payment?'completed':'pending'} {!order.payment && <div className='top-1 left-32 absolute bg-orange-600 rounded-full size-1.5 animate-ping'></div>}</div>
                       </div>
                   </div>
                   <div className='bg-[#AAAAAA] my-8 w-full h-0.5'></div>
