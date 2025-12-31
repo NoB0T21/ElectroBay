@@ -2,9 +2,18 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
-const Promotion = () => {
-    const products = ['/Images/GamingItems.webp','/Images/earbuds.jpg']
-    const msg = ['The only case you need.','Get 30% OFF']
+interface Data{
+  url1: string
+  path1: number
+  url2: string
+  path2: number
+  background: number
+  discount: number
+}
+
+const Promotion = ({data}:{data:Data}) => {
+    const products = [data.url1,data.url2]
+    const msg = ['The only case you need.',`Get ${data.discount}% OFF`]
   return (
     <div className='my-5 mb-10w-full'>
       <div className='justify-center w-full items-center gap-5 grid grid-cols-2 px-4 h-40 md:h-50'>

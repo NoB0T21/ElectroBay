@@ -3,6 +3,8 @@ import product from "../models/product.model"
 import order from "../models/order.model"
 import uuid4 from "uuid4"
 import supabase from "../Db/supabase"
+import sale from "../models/sale.model"
+import sale2 from "../models/sale2.model"
 
 interface File {
     fieldname: string,
@@ -96,6 +98,195 @@ export const addproduct = async (req:Request,res:Response) => {
             success: false,
         });
     }
+}
+
+export const updatesale = async (req:Request,res:Response) => {
+    const {background, discount} = req.body
+    const files= req.file as Express.Multer.File
+    if(!background||!discount){
+        return res.status(400).json({
+            message: 'Require all fields',
+            success: false
+        })
+    }
+
+    const updateQuery: any = {
+      $set: {
+        background,
+        discount,
+      },
+    }
+
+    let uploadedImages: {background:string; discount:string; url: string; path: string};
+    let uploadedImagess: {background:string; discount:string;};
+    try {
+        if(files){const file = files;
+        const cleanName = file.originalname.split(" ").join("");
+        const uniqueFilename = `${uuid4()}-${cleanName}`;
+
+        const { data, error } = await supabase.storage
+            .from(`${process.env.BUCKET}`)
+            .upload(uniqueFilename, file.buffer, {
+                contentType: file.mimetype,
+                cacheControl: "3600",
+                upsert: false,
+            });
+
+        if (error) {
+            return res.status(500).json({
+            message: "Image Upload Failed",
+            success: false,
+            });
+        }
+
+        const publicUrlData = await supabase.storage
+            .from(`${process.env.BUCKET}`)
+            .getPublicUrl(uniqueFilename);
+           
+            uploadedImages = {
+                background,
+                discount,
+                url: publicUrlData.data.publicUrl,
+                path: uniqueFilename,
+            }
+            if (uploadedImages) {
+                updateQuery.$set = uploadedImages
+            }
+        }else{
+            uploadedImagess = {
+                background,
+                discount
+            }
+            if (uploadedImagess) {
+                updateQuery.$set = uploadedImagess
+            }
+        }
+            
+            const updatedProduct = await sale.findOneAndUpdate(
+                {name: 'aaa'},
+                updateQuery
+            )
+            if(!updatedProduct){
+                return res.status(500).json({
+                    message: "Some Error occure",
+                    success: false,
+            })}
+                if(updatedProduct){
+                    const {data,error} = await supabase
+                    .storage
+                    .from(`${process.env.BUCKET}`)
+                    .remove([updatedProduct.path.toString()]);
+                }
+
+        return res.status(200).json({
+            success: true,
+            message: "Product updated successfully",
+            data: updatedProduct,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false,
+        });
+    }
+}
+
+export const updatesale2 = async (req: Request, res: Response) => {
+  const { discount, inx } = req.body
+  const files = req.files as Express.Multer.File[]
+
+  if (discount === undefined || inx === undefined) {
+    return res.status(400).json({
+      message: 'Require all fields',
+      success: false,
+    })
+  }
+
+  try {
+    const uploadedImages: { url: string; path: string }[] = []
+
+    // ⬆️ Upload images
+    for (const file of files) {
+      const cleanName = file.originalname.replace(/\s+/g, '')
+      const uniqueFilename = `${uuid4()}-${cleanName}`
+
+      const { error } = await supabase.storage
+        .from(process.env.BUCKET!)
+        .upload(uniqueFilename, file.buffer, {
+          contentType: file.mimetype,
+          cacheControl: '3600',
+          upsert: false,
+        })
+
+      if (error) {
+        return res.status(500).json({
+          message: 'Image Upload Failed',
+          success: false,
+        })
+      }
+
+      const { data } = supabase.storage
+        .from(process.env.BUCKET!)
+        .getPublicUrl(uniqueFilename)
+
+      uploadedImages.push({
+        url: data.publicUrl,
+        path: uniqueFilename,
+      })
+    }
+
+    // 🧠 Build update object safely
+    const updateSet: any = { discount }
+
+    if (uploadedImages.length === 1) {
+      if (inx == 0) {
+        updateSet.url1 = uploadedImages[0].url
+        updateSet.path1 = uploadedImages[0].path
+      } else if (inx == 1) {
+        updateSet.url2 = uploadedImages[0].url
+        updateSet.path2 = uploadedImages[0].path
+      }
+    }
+
+    if (uploadedImages.length === 2) {
+      updateSet.url1 = uploadedImages[0].url
+      updateSet.path1 = uploadedImages[0].path
+      updateSet.url2 = uploadedImages[1].url
+      updateSet.path2 = uploadedImages[1].path
+    }
+
+    // 🔄 Update DB
+    const oldData = await sale2.findOneAndUpdate(
+      { name: 'bbb' },
+      { $set: updateSet },
+      { new: false }
+    )
+
+    if (oldData) {
+      if (updateSet.path1 && oldData.path1 && updateSet.path1 !== oldData.path1) {
+        await supabase.storage
+          .from(process.env.BUCKET!)
+          .remove([oldData.path1.toString()])
+      }
+
+      if (updateSet.path2 && oldData.path2 && updateSet.path2 !== oldData.path2) {
+        await supabase.storage
+          .from(process.env.BUCKET!)
+          .remove([oldData.path2.toString()])
+      }
+    }
+
+    return res.status(200).json({
+      message: 'Sale updated successfully',
+      success: true,
+    })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      message: 'Internal server error',
+      success: false,
+    })
+  }
 }
 
 export const updateproduct = async (req:Request,res:Response) => {
@@ -452,9 +643,13 @@ export const homepageData = async (req:Request,res:Response) => {
         const products = await product.find()
             .skip(random)
             .limit(8);
+        const sale1 = await sale.findOne({name: 'aaa'})
+        const sale11 = await sale2.findOne({name: 'bbb'})
         return res.status(201).json({
             message: "here is your Orders",
             products,
+            sale1,
+            sale11,
             success: true,
         })
     } catch (error) {

@@ -15,9 +15,9 @@ const page = async () => {
     <div className='w-screen h-screen flex items-center justify-center scroll-smooth'>
       <div className='w-full max-w-280 h-full px-4 overflow-x-hidden shadow-xl/30'>
         <Header/>
-        <Trending/>
+        <Trending data={data.sale1}/>
         <MidLadder products={data.products}/>
-        <Promotion/>
+        <Promotion data={data.sale11}/>
         <Hook/>
         <Endscreen/>
       </div>
