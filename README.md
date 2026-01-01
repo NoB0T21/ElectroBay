@@ -1,9 +1,9 @@
 # <img src="./frontend/app/favicon.ico" alt="ElectroBay Logo" width="25"/> ElectroBay - Local Electronic Store E-commerce App
 <p align="center">
-  <img src="https://yxbboqcacbihxherpisb.supabase.co/storage/v1/object/public/toki//20250724_152640.png" alt="ElectroBay Logo" width="250"/>
+  <img src="https://yxbboqcacbihxherpisb.supabase.co/storage/v1/object/public/toki/Untitled%20folder/20260101_222720.png" alt="ElectroBay Logo" width="300"/>
 </p>
 
-**ElectroBay** is a modern, full-stack e-commerce web application built for a local electronic store. It offers seamless user shopping experience along with powerful admin tools to manage products and orders.
+**ElectroBay** is a modern, full-stack e-commerce web application built for a local electronic store. It offers seamless user shopping experience along with powerful admin tools to manage and analysis products, orders and sales.
 
 ## 🚀 Live Demo
 
@@ -22,10 +22,12 @@
 - **Node.js** with **TypeScript**
 - **MongoDB** for database
 - **Supabase** for CDN image storage
+- **Redis** for Rate-Limiting and cachsing
 
 ### 🔹 Authentication
 - **Google OAuth**
 - **JWT (Basic Auth)**
+- **Session Based**
 
 ---
 
@@ -33,6 +35,7 @@
 - Browse electronics by category
 - View product details with images
 - Add to cart and checkout
+- Track order
 - Secure login and registration
 - Google sign-in support
 
@@ -41,9 +44,12 @@
 ## 🛡️ Admin Panel
 
 Admin features are protected and accessible only to authorized users.
-- Add product by category with details
-- View all products listed on store
+- Add product by category with details and styling
+- View and edit all products listed on store
 - list of pending and complected orders
+- Manage orders
+- update promotion and sale on homepage with simple Form input
+- detailed analysis of sales yarly and weekly results with graphs
 
 ---
 
@@ -58,10 +64,12 @@ Password: 123
 ### 🔗 Admin Route:
 ```route
 https://electrobay-liard.vercel.app/admin
+or
+click on Logo to navigate through GUI
 ```
 
 ## 📸 Image Uploads
-Employee photos are uploaded to Supabase Storage.
+Employee photos and products are uploaded to Supabase Storage.
 Images are served via CDN for performance.
 Preview available before uploading.
 
@@ -77,6 +85,7 @@ Preview available before uploading.
      SUPABASE_URL=your_supabase_url
      BUCKET=your_Bucket_name
      CLIENT_URL=http://localhost:3000
+     REDIS_URL=your_redis_url
      ```
    - **Do NOT** share this file publicly.
 
@@ -86,6 +95,7 @@ Preview available before uploading.
    - In the `frontend` folder, create a `.env` file with the following:
      ```env
      NEXT_PUBLIC_BASE_URL=http://localhost:4000
+     NEXT_PUBLIC_GOOGLE_ID=your_google_key
      ```
    - **Do NOT** share this file publicly.
 
@@ -102,7 +112,7 @@ Preview available before uploading.
 
     open terminal in backend folder
      ```terminal
-    npm start
+    npm run dev
      ```
      open terminal in frontend folder
      ```terminal
