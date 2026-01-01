@@ -19,7 +19,7 @@ const Layout = ({children}:{children: React.ReactNode}) => {
         </div>
         <div className='flex flex-col flex-1 w-[50%] lg:justify-center items-center p-4'>
           <div className='flex justify-center items-center gap-2'>
-              <Image src='https://yxbboqcacbihxherpisb.supabase.co/storage/v1/object/public/toki//20250724_152640.png' alt='Logo' width={1960} height={1080} className='mb-5 w-100 md:w-100 h-40 md:h-50'/>
+              <Image src='https://yxbboqcacbihxherpisb.supabase.co/storage/v1/object/public/toki/Untitled%20folder/20260101_222720.png' alt='Logo' width={1960} height={1080} className='mb-5 w-100 md:w-100 h-40 md:h-40 object-contain'/>
           </div>
           {children}
         </div>

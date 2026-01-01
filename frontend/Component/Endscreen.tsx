@@ -12,8 +12,8 @@ const Endscreen = () => {
       viewport={{ amount: 0.1 }}
       className='bg-[#e0e0e0] shadow-2xl mt-125 text-black md:mt-10 rounded-t-2xl'>
         <div className='grid grid-cols-2 md:grid-cols-4 px-5 lg:px-25 py-4 font-semibold'>
-          <div className='flex flex-col gap-3 p-4 w-full h-full'>
-              <Image src='/Images/Logo.png' alt='Logo' width={500} height={500} className='flex size-12'/>
+          <div className='flex flex-col items-start gap-3 p-4 w-full h-full'>
+              <Image src='https://yxbboqcacbihxherpisb.supabase.co/storage/v1/object/public/toki/Untitled%20folder/20260101_222720.png' alt='Logo' width={980} height={720} className='h-12 object-contain'/>
               <p className='text-[#333333]'>We bring you the latest in electronics, gadgets, and smart home solutions—all in one place.</p>
           </div>
           <div className='flex flex-col gap-6 p-4 w-full h-full '>
@@ -28,7 +28,7 @@ const Endscreen = () => {
             <h1 className='font-bold text-xl'>Contact</h1>
             <div className='flex flex-col gap-1 '>
               <p>123 Fifth Avenue, New York, NY 10160</p>
-              <p>contact@info.com</p>
+              <p>aryangawade65418@gmail.com</p>
               <p>929-242-6868</p>
             </div>
           </div>

@@ -23,7 +23,7 @@ const Header = () => {
     <div className='flex justify-between items-center mt-2 w-full h-8 2xl:h-15 text-black'>
         <div className='flex justify-center items-center gap-3'>
           <div className='md:hidden flex'><Sidebar/></div>
-          <Image src='https://yxbboqcacbihxherpisb.supabase.co/storage/v1/object/public/toki//20250724_152640.png' alt='Logo' width={1960} height={1080} className='flex h-full w-35 pr-8 py-8'/>
+          <Image src='https://yxbboqcacbihxherpisb.supabase.co/storage/v1/object/public/toki/Untitled%20folder/20260101_222720.png' alt='Logo' width={1960} height={1080} className='flex h-full w-50 object-contain pr-8 py-8'/>
         </div>
         <div className='flex items-center gap-3'>
           <Link href={'/cart'} className="flex justify-center items-center text-black py-1 size-5 md:size-7 2xl:size-9"><Cart/></Link>
