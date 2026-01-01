@@ -1,5 +1,5 @@
 
-import mongoose, { Schema, Types } from "mongoose";
+import mongoose, { Date, Schema, Types } from "mongoose";
 
 interface Post{
     userId: Types.ObjectId,
@@ -13,7 +13,7 @@ interface Post{
     Pincode: number,
     price: number,
     payment: boolean,
-    createdAt:string,
+    createdAt:Date,
     status: string,
     paymentmode: string
 }
@@ -73,15 +73,10 @@ const orderSchema:Schema<Post> = new mongoose.Schema({
         enum: ['Processing', 'Shipped', 'Out for Delivery', 'Delivered'], 
         default: 'Processing'
     },
-    createdAt:{
-        type:String,
-        default: () => {
-        const now = new Date();
-        // Convert UTC to IST (UTC + 5:30)
-        const istOffset = 5.5 * 60 * 60 * 1000; // 5.5 hours in milliseconds
-        const istTime = new Date(now.getTime() + istOffset);
-        return istTime.toISOString();
-    }}
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 const order = mongoose.model<Post>('Order',orderSchema)

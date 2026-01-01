@@ -4,7 +4,7 @@ import AdminSideNav from '@/Component/navigation/AdminSideNav'
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className='flex flex-col items-center px-3 justify-center scroll-smooth w-screen h-screen'>
-      <div className='w-full max-w-280 flex h-full py-4 overflow-clip rounded-lg shadow-2xl/30'>
+      <div className='w-full max-w-280 flex h-full overflow-clip rounded-lg shadow-2xl/30'>
         {/* Sidebar */}
         <AdminSideNav />
 

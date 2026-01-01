@@ -61,3 +61,40 @@ export enum PaymentMode {
   CashOnDelivery = 'Cash On Delivery',
   Online = 'Online',
 }
+
+interface BestProduct{
+    name: string,
+    orders: number
+}
+
+interface MonthlySalesData{
+    name: string,
+    value: number
+}
+
+interface OrderStatuss{
+    _id: string,
+    total: number
+}
+
+interface ProductsByCategory{
+    productType: string,
+    total: number
+}
+
+interface WeeklySalesData{
+    name: string,
+    value: number
+}
+
+export interface AnalysisData{
+    bestProduct: BestProduct[];
+    monthlySalesData: MonthlySalesData[];
+    orderStatus: OrderStatuss[];
+    orders: number;
+    productsByCategory: ProductsByCategory[];
+    productsTotal: number;
+    revenue: number
+    totalUsers: number
+    weeklySalesData: WeeklySalesData[]
+}

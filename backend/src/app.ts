@@ -5,6 +5,7 @@ import database from './Db/mongodb';
 import userRoutes from './routes/user.route'
 import productRoutes from './routes/product.route'
 import cartRoutes from './routes/cart.route'
+import analysisRoutes from './routes/analysis.route'
 
 dotenv.config()
 database();
@@ -20,6 +21,7 @@ app.use(cors({
 app.use('/user',userRoutes)
 app.use('/product',productRoutes)
 app.use('/cart',cartRoutes)
+app.use('/analysis',analysisRoutes)
 
 app.get('/',(req: Request,res: Response)=>{
     res.send('hello')
