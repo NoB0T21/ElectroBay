@@ -7,6 +7,6 @@ const upload = multer({ storage: multer.memoryStorage() })
 
 router.post('/signup',rateLimiter(10,2),upload.single('file'),register)
 router.post('/signin',rateLimiter(10,2),upload.none(),login)
-router.get('/valid',valid)
+router.get('/valid',rateLimiter(10,3),valid)
 
 export default router;

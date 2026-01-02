@@ -163,7 +163,7 @@ export const valid = async (req: Request, res:any) => {
       try {
         const user = jwt.verify(accessToken, process.env.SECRET_KEY || 'default') as User
         if(!user){
-            return res.status(200).json({
+            return res.status(401).json({
                 message: "not verified",
                 success: false,
             })
@@ -183,7 +183,7 @@ export const valid = async (req: Request, res:any) => {
         try {
             const googleInfo = await client.getTokenInfo(accessToken);
             if(!googleInfo){
-                return res.status(200).json({
+                return res.status(401).json({
                     message: "not verified",
                     success: false,
                 })
@@ -194,7 +194,7 @@ export const valid = async (req: Request, res:any) => {
                 success: true,
             })
         } catch (err) {
-            return res.status(200).json({
+            return res.status(401).json({
                 message: "not verified",
                 success: false,
             })

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import order from "../models/order.model";
 import user from "../models/user.model";
+import redis from "../Db/redis";
 
 export const getAnalysisData = async (req: Request, res: Response) => {
     try {
@@ -182,6 +183,14 @@ export const getAnalysisData = async (req: Request, res: Response) => {
             weeklySalesData: result3,
             totalUsers
         }
+
+        const cache = {
+            success: true,
+            analysisData,
+            message: "Analysis Report"
+        }
+        const cacheKey = `admin:`
+        await redis.set(cacheKey, JSON.stringify(cache), "EX", 180);
 
         return res.status(200).json({
             success: true,

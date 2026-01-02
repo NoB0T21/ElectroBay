@@ -25,7 +25,6 @@ const GoogleForm = () => {
           }
         })
         if(responses.status === 200){
-          localStorage.setItem('token',res.access_token)
           Cookies.set("token", res.access_token, {
             expires: 1, // days
             sameSite: "strict",

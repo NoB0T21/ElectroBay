@@ -5,6 +5,7 @@ import uuid4 from "uuid4"
 import supabase from "../Db/supabase"
 import sale from "../models/sale.model"
 import sale2 from "../models/sale2.model"
+import redis from "../Db/redis"
 
 interface File {
     fieldname: string,
@@ -87,7 +88,7 @@ export const addproduct = async (req:Request,res:Response) => {
                 message: "Some Error occure",
                 success: false,
         })}
-
+        await redis.del(`data:`);
         return res.status(201).json({
             message: "Product added successfully",
             success: true,
@@ -177,7 +178,7 @@ export const updatesale = async (req:Request,res:Response) => {
                     .from(`${process.env.BUCKET}`)
                     .remove([updatedProduct.path.toString()]);
                 }
-
+        await redis.del(`data:`);
         return res.status(200).json({
             success: true,
             message: "Product updated successfully",
@@ -275,7 +276,7 @@ export const updatesale2 = async (req: Request, res: Response) => {
           .remove([oldData.path2.toString()])
       }
     }
-
+    await redis.del(`data:`);
     return res.status(200).json({
       message: 'Sale updated successfully',
       success: true,
@@ -382,7 +383,7 @@ export const updateproduct = async (req:Request,res:Response) => {
                 message: "Some Error occure",
                 success: false,
         })}
-
+        await redis.del(`data:`);
         return res.status(200).json({
             success: true,
             message: "Product updated successfully",
@@ -452,7 +453,6 @@ export const getproductbyType = async (req:Request,res:Response) => {
             success: true,
         })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             message: "Internal server error",
             success: false,
@@ -530,12 +530,12 @@ export const Createorder = async (req:Request,res:Response) => {
             paymentmode:PaymentMode,
             status:'Processing'
         })
+        await redis.del(`admin:`);
         return res.status(200).json({
             message: "Your Order has been Placed",
             success: true,
         })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             message: "Internal server error",
             success: false,
@@ -597,6 +597,7 @@ export const updateorder = async (req:Request,res:Response) => {
 
     try {
         const orders = await order.findOneAndUpdate({_id:orderId},{status})
+        await redis.del(`admin:`);
         return res.status(200).json({
             message: "Product status updated",
             success: true,
@@ -621,6 +622,7 @@ export const updatepayment = async (req:Request,res:Response) => {
 
     try {
         const orders = await order.findOneAndUpdate({_id:orderId},{payment})
+        await redis.del(`admin:`);
         return res.status(200).json({
             message: "Product status updated",
             success: true,
@@ -645,6 +647,15 @@ export const homepageData = async (req:Request,res:Response) => {
             .limit(8);
         const sale1 = await sale.findOne({name: 'aaa'})
         const sale11 = await sale2.findOne({name: 'bbb'})
+        const cache = {
+            message: "here is your Orders",
+            products,
+            sale1,
+            sale11,
+            success: true,
+        }
+        const cacheKey = `data:`
+        await redis.set(cacheKey, JSON.stringify(cache), "EX", 180);
         return res.status(201).json({
             message: "here is your Orders",
             products,

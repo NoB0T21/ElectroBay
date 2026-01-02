@@ -137,7 +137,6 @@ const AuthForm = ({type}: {type: FormType}) => {
             if (typeof window !== 'undefined') {
                 Cookies.set('user', user._id, { expires: 1 });
                 localStorage.setItem('user', JSON.stringify(user));
-                localStorage.setItem('token', token);
                 Cookies.set('token', token, {
                     expires: 1,
                     sameSite: 'strict',
