@@ -6,4 +6,5 @@ const port:string | undefined = process.env.PORT
 
 server.listen(port,()=>{
     console.log(`Running on Port: ${port}`)
+    console.log(`🔥🔥🔥: ${port}`)
 })

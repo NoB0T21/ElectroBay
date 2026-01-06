@@ -10,7 +10,7 @@ const Layout = ({children}:{children: React.ReactNode}) => {
           <h1 className='text-4xl font-bold'>
             Your one-stop destination for electronics & gadgets
           </h1>
-          <p className='text-2xl h-12 mt-10'>Your one-stop destination for electronics & gadgets</p>
+          <p className='text-2xl h-12 mt-10'>Your one-stop destination for electronics & gadgets⚙️⚙️</p>
           <div className='relative min-h-70 lg:h-80'>
             <div className='absolute bottom-0 -left-8 xl:left-0 w-full overflow-y-none'>
               <LoginAnimation/>
