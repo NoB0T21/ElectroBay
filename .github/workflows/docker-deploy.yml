@@ -2,8 +2,10 @@ name: Docker CI/CD to Render
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+    paths:
+      - "backend/**"
+      - ".github/workflows/backend-render.yml"
 
 jobs:
   build-and-deploy:
@@ -13,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
       - name: Docker Hub Login
@@ -23,19 +25,15 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: |
-          docker build -t nob0t/my-electrobay-backend:latest ./backend
+        run: docker build -t nob0t/my-electrobay-backend:latest ./backend
 
       - name: Push Docker image
-        run: |
-          docker push nob0t/my-electrobay-backend:latest
+        run: docker push nob0t/my-electrobay-backend:latest
 
       - name: Trigger Render Deploy
         uses: fjogeleit/http-request-action@v1
         with:
           url: https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}
           method: POST
-          headers: |
-            Authorization: Bearer ${{ secrets.RENDER_API_KEY }}
-            Content-Type: application/json
-          body: '{"clearCache":true}'
+          customHeaders: '{"Authorization":"Bearer ${{ secrets.RENDER_API_KEY }}","Content-Type":"application/json"}'
+          data: '{"clearCache":true}'
