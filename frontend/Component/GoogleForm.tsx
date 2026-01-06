@@ -50,8 +50,6 @@ const GoogleForm = () => {
           if(responses.status === 200){
             Cookies.set("token", res.access_token, {
               expires: 1, // days
-                sameSite: "strict",
-                secure: true 
             });
           }
           router.push('/')
