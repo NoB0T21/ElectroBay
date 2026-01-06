@@ -24,11 +24,6 @@ const GoogleForm = () => {
             Authorization: `Bearer ${res.access_token}`,
           }
         })
-        if(responses.status === 200){
-          Cookies.set("token", res.access_token, {
-            expires: 1, 
-          });
-        }
 
         const form = new FormData();
           form.append('name', responses.data.name || '');
@@ -51,6 +46,13 @@ const GoogleForm = () => {
           if (typeof window !== 'undefined') {
             Cookies.set('user', user._id, { expires: 1 });
             localStorage.setItem('user', JSON.stringify(user));
+          }
+          if(responses.status === 200){
+            Cookies.set("token", res.access_token, {
+              expires: 1, // days
+                sameSite: "strict",
+                secure: true 
+            });
           }
           router.push('/')
           return
