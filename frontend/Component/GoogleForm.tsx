@@ -52,8 +52,9 @@ const GoogleForm = () => {
               expires: 1, // days
             });
           }
-          router.push('/')
-          return
+          setTimeout(() => {
+            router.push('/')
+          }, 1000);
       } catch (error:any) {
           setResponseMsg(error?.response?.data || error?.message)
           setTostType('warningMsg');
