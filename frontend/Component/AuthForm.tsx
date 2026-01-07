@@ -141,9 +141,7 @@ const AuthForm = ({type}: {type: FormType}) => {
                     expires: 1, // days
                 });
             }
-            setTimeout(() => {
-                router.push('/')
-            }, 1000);
+            router.push('/')
             setLoading(false)
         } catch (error:any) {
             setResponseMsg(error?.response?.data?.message||error?.message)
