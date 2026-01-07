@@ -138,7 +138,6 @@ export const login = async (request: Request, response:Response) => {
         })}
 
         const token = await user.generateToken()
-        console.log(user)
         return response.status(200).json({
             message: "User login successfully",
             user,
