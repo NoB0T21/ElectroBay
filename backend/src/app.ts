@@ -24,7 +24,10 @@ app.use('/cart',cartRoutes)
 app.use('/analysis',analysisRoutes)
 
 app.get('/',(req: Request,res: Response)=>{
-    res.send('hello')
+    res.status(200).json({
+        message: "hello",
+        success: true
+    })
 })
 
 export default app
