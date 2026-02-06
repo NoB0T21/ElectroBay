@@ -29,9 +29,9 @@ const Page = async ({searchParams}:SearchParamProps) => {
     }
   return (
     <div className='w-full'>
-      <div className='flex flex-col justify-center gap-8 px-8 w-full h-70'>
-        <p className='font-bold text-black text-5xl'>Television</p>
-        <p className='lg:w-150'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur labore odit vel optio minima, dignissimos accusamus! Voluptatum, autem sunt. Eveniet, consequuntur vitae sequi sit facere quo reiciendis repellat corrupti sint!</p>
+      <div className='flex flex-col justify-center gap-4 px-4 md:px-8 py-8 w-full'>
+        <h1 className='font-bold text-slate-800 text-3xl md:text-4xl lg:text-5xl'>Television</h1>
+        <p className='text-slate-600 max-w-3xl leading-relaxed'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur labore odit vel optio minima, dignissimos accusamus! Voluptatum, autem sunt. Eveniet, consequuntur vitae sequi sit facere quo reiciendis repellat corrupti sint!</p>
       </div>
       <Products products={products.data.products}/>
     </div>

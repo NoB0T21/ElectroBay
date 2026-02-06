@@ -25,50 +25,47 @@ const Bill = ({ total, actualPrice, products, productName }: BillProps) => {
   const youSave = actualPrice - total
 
   return (
-    <>
+    <div className="flex flex-col">
       {/* Price Breakdown */}
-      <div className="flex gap-2 px-5 pb-5 border-b w-full">
-        <div className="flex flex-col gap-5 w-1/2">
-          <p>Offer Price</p>
-          <p>Actual Price</p>
-          <p>Discount</p>
-          <p>Tax (2%)</p>
+      <div className="flex flex-col gap-3">
+        <div className="flex justify-between text-slate-600">
+          <span>Actual Price</span>
+          <span className="line-through text-slate-400">₹ {actualPrice.toFixed(2)}</span>
         </div>
-
-        <div className="flex flex-col items-end gap-5 w-1/2">
-          <p>₹ {total.toFixed(2)}</p>
-          <p>₹ {actualPrice.toFixed(2)}</p>
-          <p>{discountPercent.toFixed(2)}%</p>
-          <p>₹ {tax.toFixed(2)}</p>
+        <div className="flex justify-between text-slate-600">
+          <span>Offer Price</span>
+          <span>₹ {total.toFixed(2)}</span>
+        </div>
+        <div className="flex justify-between text-green-600 font-medium">
+          <span>Discount</span>
+          <span>{discountPercent.toFixed(0)}%</span>
+        </div>
+        <div className="flex justify-between text-slate-600">
+          <span>Tax (2%)</span>
+          <span>₹ {tax.toFixed(2)}</span>
         </div>
       </div>
+
+      <div className="my-4 border-t border-gray-200 border-dashed"></div>
 
       {/* Final Summary */}
-      <div className="flex gap-2 mt-5 px-5 w-full">
-        <div className="flex flex-col gap-5 w-1/2">
-          <p>You Save</p>
-          <p>Total Payable</p>
-        </div>
-
-        <div className="flex flex-col items-end gap-5 w-1/2">
-          <p className="text-green-600 text-lg font-semibold">
-            ₹ {youSave.toFixed(2)}
-          </p>
-          <p className="font-bold">
-            ₹ {finalPrice.toFixed(2)}
-          </p>
-        </div>
+      <div className="flex justify-between items-center mb-2">
+        <span className="font-bold text-lg text-slate-800">Total Payable</span>
+        <span className="font-bold text-lg text-slate-800">₹ {finalPrice.toFixed(2)}</span>
       </div>
 
-      <br />
-      <br />
+      {youSave > 0 && (
+        <div className="bg-green-50 text-green-700 px-3 py-2 rounded-lg text-sm font-medium mb-6 text-center border border-green-100">
+          You will save ₹ {youSave.toFixed(2)} on this order
+        </div>
+      )}
 
       <OrderForm
         price={finalPrice}
         productName={productName}
         products={products}
       />
-    </>
+    </div>
   )
 }
 

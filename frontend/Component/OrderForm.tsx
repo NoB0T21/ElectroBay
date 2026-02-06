@@ -130,44 +130,48 @@ const OrderForm = ({products,productName,price}:{products:CartItem[],productName
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 mb-5 p-1 w-full">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
                 <div className="relative w-full">
                     {error.Fullname && <p className="mb-1 text-red-500 text-xs">{error.Fullname}</p>}
                     <input name='Fullname' type="text" value={formData.Fullname} onChange={(e) => {setFormData({...formData, Fullname: e.target.value})}}required 
-                        className="peer bg-zinc-800 p-2 border border-zinc-700 focus:border-indigo-500 rounded-md outline-none w-full h-10 text-white transition-all duration-200"
+                        className="peer w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-transparent"
+                        placeholder="Full Name"
                     />
-                    <label className="left-2 absolute bg-[#212121] px-1 rounded-sm text-gray-400 peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
-                        <span>Fullname*</span>
+                    <label className="absolute left-4 top-2 text-gray-400 text-xs transition-all duration-200 pointer-events-none peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:top-0.5 peer-focus:text-xs peer-focus:text-blue-500">
+                        Full Name*
                     </label>
                 </div>
 
                 <div className="relative w-full">
                     {error.PhoneNo && <p className="mb-1 text-red-500 text-xs">{error.PhoneNo}</p>}
                     <input name='PhoneNo' type="text" value={formData.PhoneNo} onChange={(e) => {setFormData({...formData, PhoneNo: e.target.value})}} required maxLength={10}
-                        className="peer bg-zinc-800 p-2 border border-zinc-700 focus:border-indigo-500 rounded-md outline-none w-full h-10 text-white transition-all duration-200"
+                        className="peer w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-transparent"
+                        placeholder="Phone No"
                     />
-                    <label className="left-2 absolute bg-[#212121] px-1 rounded-sm text-gray-400 peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
-                        <span>PhoneNo*</span>
+                    <label className="absolute left-4 top-2 text-gray-400 text-xs transition-all duration-200 pointer-events-none peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:top-0.5 peer-focus:text-xs peer-focus:text-blue-500">
+                        Phone No*
                     </label>
                 </div>
 
                 <div className="relative w-full">
                     {error.Pincode && <p className="mb-1 text-red-500 text-xs">{error.Pincode}</p>}
                     <input name='Pincode' type="text" value={formData.Pincode} onChange={(e) => {setFormData({...formData, Pincode: e.target.value})}} required maxLength={6}
-                        className="peer bg-zinc-800 p-2 border border-zinc-700 focus:border-indigo-500 rounded-md outline-none w-full h-10 text-white transition-all duration-200"
+                        className="peer w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-transparent"
+                        placeholder="Pincode"
                     />
-                    <label className="left-2 absolute bg-[#212121] px-1 rounded-sm text-gray-400 peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
-                        <span>Pincode*</span>
+                    <label className="absolute left-4 top-2 text-gray-400 text-xs transition-all duration-200 pointer-events-none peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:top-0.5 peer-focus:text-xs peer-focus:text-blue-500">
+                        Pincode*
                     </label>
                 </div>
 
                 <div className="relative w-full">
                     {error.Address && <p className="mb-1 text-red-500 text-xs">{error.Address}</p>}
                     <textarea name='Address' value={formData.Address} onChange={(e) => {setFormData({...formData, Address: e.target.value})}} required 
-                        className="peer bg-zinc-800 p-2 border border-zinc-700 focus:border-indigo-500 rounded-md outline-none w-full h-30 text-white transition-all duration-200"
+                        className="peer w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-transparent min-h-[80px]"
+                        placeholder="Address"
                     />
-                    <label className="left-2 absolute bg-[#212121] px-1 rounded-sm text-gray-400 peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
-                        <span>Address*</span>
+                    <label className="absolute left-4 top-2 text-gray-400 text-xs transition-all duration-200 pointer-events-none peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:top-0.5 peer-focus:text-xs peer-focus:text-blue-500">
+                        Address*
                     </label>
                 </div>
 
@@ -175,40 +179,41 @@ const OrderForm = ({products,productName,price}:{products:CartItem[],productName
                     <div className="relative w-1/2">
                         {error.City && <p className="mb-1 text-red-500 text-xs">{error.City}</p>}
                         <input name='City' type="text" value={formData.City} onChange={(e) => {setFormData({...formData, City: e.target.value})}} required 
-                            className="peer bg-zinc-800 p-2 border border-zinc-700 focus:border-indigo-500 rounded-md outline-none w-full h-10 text-white transition-all duration-200"
+                            className="peer w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-transparent"
+                            placeholder="City"
                         />
-                        <label className="left-2 absolute bg-[#212121] px-1 rounded-sm text-gray-400 peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
-                            <span>City*</span>
+                        <label className="absolute left-4 top-2 text-gray-400 text-xs transition-all duration-200 pointer-events-none peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:top-0.5 peer-focus:text-xs peer-focus:text-blue-500">
+                            City*
                         </label>
                     </div>
 
                     <div className="relative w-1/2">
                         {error.State && <p className="mb-1 text-red-500 text-xs">{error.State}</p>}
                         <input name='State' type="text" value={formData.State} onChange={(e) => {setFormData({...formData, State: e.target.value})}} required 
-                            className="peer bg-zinc-800 p-2 border border-zinc-700 focus:border-indigo-500 rounded-md outline-none w-full h-10 text-white transition-all duration-200"
+                            className="peer w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-transparent"
+                            placeholder="State"
                         />
-                        <label className="left-2 absolute bg-[#212121] px-1 rounded-sm text-gray-400 peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
-                            <span>State*</span>
+                        <label className="absolute left-4 top-2 text-gray-400 text-xs transition-all duration-200 pointer-events-none peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:top-0.5 peer-focus:text-xs peer-focus:text-blue-500">
+                            State*
                         </label>
                     </div>
                 </div>
                 <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value as PaymentMode)}
-                    className="bg-[#ddebff] p-2 border shadow-xl/30 border-zinc-700 focus:border-[#2196f3] rounded-md outline-none w-full h-10 text-black"
+                    className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
                 >
                     <option value={PaymentMode.CashOnDelivery}>Cash On Delivery</option>
                     <option value={PaymentMode.Online}>Online</option>
                 </select>
-                <div className="w-2/3">
-                    <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        type="submit" 
-                        className="bg-[#FFD369] hover:bg-[#ffdf93] p-2 rounded-md w-full font-semibold text-[#222831] text-md">
-                            {loading? <PulseLoader color="#fff"/>:'Order'}
-                    </motion.button>
-                </div>
+                <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    type="submit" 
+                    className="w-full py-3 bg-black hover:bg-gray-800 text-white font-bold rounded-xl shadow-lg transition-all duration-200 flex justify-center items-center mt-2"
+                >
+                    {loading? <PulseLoader size={8} color="#fff"/>:'Place Order'}
+                </motion.button>
             </form>
             {showToast && <Toasts type={tostType==='warningMsg'?(tostType==='warningMsg'?'warningMsg':'successMsg'):'infoMsg'} msg={responseMsg}/>}
         </>

@@ -13,10 +13,12 @@ const page = async () => {
     }
   })
   return (
-    <div className='flex flex-col items-center px-3 justify-center scroll-smooth w-screen h-screen'>
-      <div className='w-full max-w-280 flex flex-col h-full px-4 overflow-hidden shadow-2xl/30'>
+    <div className='min-h-screen w-full flex justify-center bg-gray-50'>
+      <div className='w-full max-w-[1440px] bg-white min-h-screen flex flex-col shadow-2xl overflow-x-hidden'>
         <Header/>
-        <Cart carts={res.data.cartdata}/>
+        <main className="flex-1 w-full">
+          <Cart carts={res.data.cartdata}/>
+        </main>
       </div>
     </div>
   )

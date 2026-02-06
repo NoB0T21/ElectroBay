@@ -34,7 +34,8 @@ const page = () => {
         fetchData()
     },[])
   return (
-    <div className='w-full h-full px-3'>
+    <div className='w-full'>
+       <h1 className="text-2xl font-bold text-slate-800 mb-6">Analytics Overview</h1>
        <AnalyticsDashboard data2={data}/>
     </div>
   )

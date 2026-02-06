@@ -156,93 +156,144 @@ const AuthForm = ({type}: {type: FormType}) => {
     }
 
   return (
-    <>
-        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 p-1 rounded-md w-full">
-            {type === 'sign-up' && (
-                <>
-                    <div className="relative xl:w-2/3 w-1/2">
-                        {error.name && <p className="mb-1 text-red-500 text-xs">{error.name}</p>}
-                        <input name='name' type="text" value={formData.name} onChange={(e) => {setFormData({...formData, name: e.target.value})}}required 
-                            className="peer bg-[#ddebff] p-2 shadow-xl/30 border border-zinc-700 focus:border-[#2196f3] rounded-md outline-none w-full h-10 text-black transition-all duration-200"
-                        />
-                        <label className="left-2 absolute bg-[#ddebff] px-1 rounded-sm text-gray-500 peer-focus:border peer-focus:border-[#2196f3] peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
-                            <span>Name*</span>
-                        </label>
-                    </div>
-                </>
-            )}
-            <div className="relative xl:w-2/3 w-1/2">
-                {error.email && <p className="mb-1 text-red-500 text-xs">{error.email}</p>}
-                <input name='email' type="email" value={formData.email} onChange={(e) => {setFormData({...formData, email: e.target.value})}}required 
-                    className="peer bg-[#ddebff] p-2 shadow-xl/30 border border-zinc-700 focus:border-[#2196f3] rounded-md outline-none w-full h-10 text-black transition-all duration-200"
-                />
-                <label className="left-2 absolute bg-[#ddebff] px-1 rounded-sm text-gray-500 peer-focus:border peer-focus:border-[#2196f3] peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
-                    <span>Email*</span>
-                </label>
+    <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5 p-8 bg-white shadow-2xl rounded-2xl w-full border border-gray-100">
+            <div className="text-center mb-2">
+                <h1 className="text-2xl font-bold text-gray-800">{type === 'sign-in' ? 'Welcome Back' : 'Create Account'}</h1>
+                <p className="text-sm text-gray-500 mt-1">{type === 'sign-in' ? 'Enter your details to sign in' : 'Start your journey with us'}</p>
             </div>
-            <div className="relative xl:w-2/3 w-1/2">
-                {error.password && <p className="mb-1 text-red-500 text-xs">{error.password}</p>}
-                <input name='password' type={show?'text':'password'} value={formData.password} onChange={(e) => {setFormData({...formData, password: e.target.value})}}required 
-                    className="peer bg-[#ddebff] p-2 shadow-xl/30 border border-zinc-700 focus:border-[#2196f3] rounded-md outline-none w-full h-10 text-black transition-all duration-200"
-                />
-                <label className="left-2 absolute bg-[#ddebff] px-1 rounded-sm text-gray-500 peer-focus:border peer-focus:border-[#2196f3] peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
-                    <span>Password*</span>
-                </label>
-                <div onClick={() =>setShow(!show)} className='right-4 z-1 absolute flex justify-end p-2 rounded-full text-gray-500 -translate-y-9'>
-                    { show ? 'Show':'hide' }
+
+            {type === 'sign-up' && (
+                <div className="relative w-full">
+                    {error.name && <p className="absolute right-0 -top-5 text-red-500 text-xs font-medium">{error.name}</p>}
+                    <input 
+                        name='name' 
+                        type="text" 
+                        value={formData.name} 
+                        onChange={(e) => {setFormData({...formData, name: e.target.value})}}
+                        required 
+                        placeholder=" "
+                        className="peer w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-gray-700 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+                    />
+                    <label className="absolute left-4 top-3.5 text-gray-400 text-sm transition-all duration-200 pointer-events-none peer-focus:-translate-y-3 peer-focus:scale-75 peer-focus:text-blue-500 peer-[:not(:placeholder-shown)]:-translate-y-3 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:text-blue-500 origin-[0]">
+                        Full Name
+                    </label>
                 </div>
+            )}
+            
+            <div className="relative w-full">
+                {error.email && <p className="absolute right-0 -top-5 text-red-500 text-xs font-medium">{error.email}</p>}
+                <input 
+                    name='email' 
+                    type="email" 
+                    value={formData.email} 
+                    onChange={(e) => {setFormData({...formData, email: e.target.value})}}
+                    required 
+                    placeholder=" "
+                    className="peer w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-gray-700 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+                />
+                <label className="absolute left-4 top-3.5 text-gray-400 text-sm transition-all duration-200 pointer-events-none peer-focus:-translate-y-3 peer-focus:scale-75 peer-focus:text-blue-500 peer-[:not(:placeholder-shown)]:-translate-y-3 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:text-blue-500 origin-[0]">
+                    Email Address
+                </label>
             </div>
+
+            <div className="relative w-full">
+                {error.password && <p className="absolute right-0 -top-5 text-red-500 text-xs font-medium">{error.password}</p>}
+                <input 
+                    name='password' 
+                    type={show?'text':'password'} 
+                    value={formData.password} 
+                    onChange={(e) => {setFormData({...formData, password: e.target.value})}}
+                    required 
+                    placeholder=" "
+                    className="peer w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-gray-700 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 pr-14"
+                />
+                <label className="absolute left-4 top-3.5 text-gray-400 text-sm transition-all duration-200 pointer-events-none peer-focus:-translate-y-3 peer-focus:scale-75 peer-focus:text-blue-500 peer-[:not(:placeholder-shown)]:-translate-y-3 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:text-blue-500 origin-[0]">
+                    Password
+                </label>
+                <button 
+                    type="button"
+                    onClick={() =>setShow(!show)} 
+                    className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600 text-xs font-bold uppercase tracking-wider transition-colors p-1'
+                >
+                    { show ? 'Show':'hide' }
+                </button>
+            </div>
+
             {type === 'sign-up' && (
-                <>
-                    <div className="relative xl:w-2/3 w-1/2">
-                        {error.confirm && <p className="mb-1 text-red-500 text-xs">{error.confirm}</p>}
-                        <input type={show?'text':'password'}  value={formData.confirm} onChange={(e) => {setFormData({...formData, confirm: e.target.value})}}required 
-                            className="peer bg-[#ddebff] p-2 shadow-xl/30 border border-zinc-700 focus:border-[#2196f3] rounded-md outline-none w-full h-10 text-black transition-all duration-200"
+                <div className="relative w-full">
+                    {error.confirm && <p className="absolute right-0 -top-5 text-red-500 text-xs font-medium">{error.confirm}</p>}
+                    <input 
+                        type={show?'text':'password'}  
+                        value={formData.confirm} 
+                        onChange={(e) => {setFormData({...formData, confirm: e.target.value})}}
+                        required 
+                        placeholder=" "
+                        className="peer w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-gray-700 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+                    />
+                    <label className="absolute left-4 top-3.5 text-gray-400 text-sm transition-all duration-200 pointer-events-none peer-focus:-translate-y-3 peer-focus:scale-75 peer-focus:text-blue-500 peer-[:not(:placeholder-shown)]:-translate-y-3 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:text-blue-500 origin-[0]">
+                        Confirm Password
+                    </label>
+                </div>
+            )}
+
+            {type === 'sign-up' && (
+                <div className="flex items-center gap-4 w-full">
+                    <label className="flex-1 cursor-pointer group">
+                        <div className={`flex items-center justify-center w-full h-12 px-4 transition border-2 border-dashed rounded-xl ${file ? 'bg-blue-50 border-blue-300' : 'bg-gray-50 border-gray-200 group-hover:bg-blue-50 group-hover:border-blue-300'}`}>
+                            <span className={`text-sm font-medium truncate ${file ? 'text-blue-600' : 'text-gray-500 group-hover:text-blue-500'}`}>
+                                {file ? file.name : 'Upload Profile Picture'}
+                            </span>
+                        </div>
+                        <input 
+                            type='file' 
+                            className="hidden"
+                            onChange={(e)=>{
+                                const file = e.target.files?.[0];
+                                if (file) setFile(file);
+                            }} 
+                            name='file' 
+                            accept="image/*" 
                         />
-                        <label className="left-2 absolute bg-[#ddebff] px-1 rounded-sm text-gray-500 peer-focus:border peer-focus:border-[#2196f3] peer-focus:text-[#2196f3] peer-valid:text-[#2196f3] text-xs text-clip scale-100 peer-focus:scale-75 peer-valid:scale-75 transition-all translate-y-3 peer-focus:-translate-y-2 peer-valid:-translate-y-2 duration-200 pointer-events-none transform">
-                            <span>Confirm</span>
-                        </label>
-                    </div>
-                </>
+                    </label>
+                    {file && 
+                        <div className="relative size-12 shrink-0 rounded-full overflow-hidden shadow-sm border border-gray-200">
+                            <Image width={100} height={100} className="object-cover w-full h-full" src={convertFileToUrl(file)} alt="Profile" />
+                        </div>
+                    }
+                </div>
             )}
-            {type === 'sign-up' && (
-                <>
-                    <div className="flex gap-3 xl:w-2/3 w-1/2">
-                        <div className="relative bg-[#ddebff] mt-2.5 shadow-xl/30 border border-zinc-700 text-gray-800 p-2 px-3 rounded-md w-auto h-10">Upload Profile pic<input className='left-0 absolute opacity-0 w-full' type='file' onChange={(e)=>{
-                            const file = e.target.files?.[0];
-                            if (file) {
-                                setFile(file);
-                            }}} name='file' accept="image/*" required placeholder='Upload'/></div>
-                        {file && 
-                        <div className="size-15">
-                            <Image width={100} height={100} className="rounded-full h-full shadow-xl/30 object-cover" src={convertFileToUrl(file)} alt="Profile" />
-                        </div>}
-                    </div>
-                </>
-            )}
-            <div className="flex justify-end xl:w-2/3 w-1/2 text-gray-700 text-shadow-lg">
-                <p className="cursor-default">
-                    {type == 'sign-in' ? "Don't have an account?" : "Already have an account?"}
-                </p>
-                <Link href={type == 'sign-in' ? '/sign-up' : '/sign-in'} className=' text-blue-400 text-sm text-center hover:underline cursor-pointer'>
+
+            <button 
+                disabled={loading} 
+                type="submit" 
+                className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 transition-all duration-200 transform active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center"
+            >
+                {loading? <PulseLoader size={8} color="#fff"/> : (type === 'sign-in' ? 'Sign In' : 'Sign Up')}
+            </button>
+
+            <div className="flex items-center justify-center gap-2 text-sm w-full">
+                <span className="text-gray-500">{type == 'sign-in' ? "Don't have an account?" : "Already have an account?"}</span>
+                <Link href={type == 'sign-in' ? '/sign-up' : '/sign-in'} className='font-semibold text-blue-600 hover:text-blue-700 hover:underline'>
                     {type == 'sign-in' ? 'Sign Up' : 'Sign In'}
                 </Link>
             </div>
-            <div className="xl:w-2/3 w-1/2">
-                {type === 'sign-up' && <button disabled={loading} type="submit" className="bg-[#3672d1] hover:bg-[#6599ee] p-2 rounded-md w-full font-semibold text-blue-50 align-middle shadow-xl/30 text-md">{loading? <PulseLoader size={10} color="#fff"/>:'Sign-up'}</button>}
-                {type === 'sign-in' && <button disabled={loading} type="submit" className="bg-[#3672d1] hover:bg-[#6599ee] p-2 rounded-md w-full font-semibold text-blue-50 align-middle shadow-xl/30 text-md">{loading? <PulseLoader size={10} color="#fff"/>:'Sign-in'}</button>}
-            </div>
         </form>
-        <div className="flex text-gray-700 mb-2 xl:w-2/3 w-1/2 items-center gap-3">
-            <div className="h-0.5 w-[45%] bg-gray-700"></div>
-            <p className="text-md">or</p>
-            <div className="h-0.5 w-[45%] bg-gray-700"></div>
+
+        <div className="flex items-center w-full my-4">
+            <div className="flex-1 h-px bg-gray-200"></div>
+            <span className="px-4 text-sm text-gray-400 font-medium">OR</span>
+            <div className="flex-1 h-px bg-gray-200"></div>
         </div>
-        <GoogleOAuthProvider clientId={googleID}>
-            <GoogleForm/>
-        </GoogleOAuthProvider>
+        
+        <div className="w-full">
+            <GoogleOAuthProvider clientId={googleID}>
+                <GoogleForm/>
+            </GoogleOAuthProvider>
+        </div>
+        
         {showToast && <Toasts type={tostType==='warningMsg'?'warningMsg':'infoMsg'} msg={responseMsg}/>}
-    </>
+    </div>
   )
 }
 

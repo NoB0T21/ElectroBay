@@ -8,14 +8,14 @@ import { setProduct } from '@/utils/utils'
 
 const AllProducts = ({ products }: { products: Products[] }) => {
   return (
-    <div className='mt-5 h-full flex flex-col'>
+    <div className='mt-5 w-full flex flex-col bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden'>
       {/* Header */}
-      <div className='grid grid-cols-2 md:grid-cols-5 gap-4 py-2 border-b font-bold text-md'>
-        <div className='px-3'>Product</div>
-        <div className='hidden md:block px-3'>Category</div>
-        <div className='hidden md:block px-3'>Stock</div>
-        <div className='px-3'>Price</div>
-        <div className='hidden md:block px-3'>View</div>
+      <div className='grid grid-cols-2 md:grid-cols-5 gap-4 p-4 border-b bg-gray-50 font-semibold text-sm text-gray-500 uppercase tracking-wider'>
+        <div>Product</div>
+        <div className='hidden md:block'>Category</div>
+        <div className='hidden md:block'>Stock</div>
+        <div>Price</div>
+        <div className='hidden md:block text-right'>Actions</div>
       </div>
 
       {/* Rows */}
@@ -26,51 +26,51 @@ const AllProducts = ({ products }: { products: Products[] }) => {
           return (
             <div
               key={product._id || index}
-              className='grid relative grid-cols-2 md:grid-cols-5 gap-4 items-center py-3 border-b hover:bg-[#2a2f36]/40 transition'
+              className='grid relative grid-cols-2 md:grid-cols-5 gap-4 items-center p-4 border-b last:border-b-0 hover:bg-gray-50 transition-colors'
             >
               {/* Product */}
-              <div className='peer  flex items-center gap-4 px-3'>
+              <div className='peer flex items-center gap-4'>
                 <Image
                   src={imageUrl}
                   alt={product.name}
                   width={72}
                   height={72}
-                  style={{ backgroundColor: product.images?.[0]?.background || '#fff' }}
-                  className='rounded-lg p-1 object-cover'
+                  style={{ backgroundColor: product.images?.[0]?.background || '#f3f4f6' }}
+                  className='rounded-lg p-1 object-contain border border-gray-100'
                 />
                 <Link
                   href={`/product-categor/${product._id}`}
-                  className='font-medium line-clamp-2 hover:underline'
+                  className='font-medium text-slate-800 line-clamp-2 hover:text-blue-600 transition-colors'
                 >
                   {product.name}
                 </Link>
               </div>
-              <div className='absolute z-1000 shadow-xl/30 rounded-md -bottom-12 bg-zinc-500 p-1 text-sm text-white max-w-50 hidden peer-hover:flex'>
+              <div className='absolute z-50 shadow-xl rounded-md -bottom-12 left-10 bg-gray-800 p-2 text-xs text-white max-w-xs hidden peer-hover:flex'>
                 {product.name}
               </div>
 
               {/* Category */}
-              <div className='hidden md:block px-3 text-gray-700'>
+              <div className='hidden md:block text-slate-600 capitalize'>
                 {product.productType}
               </div>
 
               {/* Stock */}
-              <div className='px-3 flex flex-col justify-center font-semibold'>
-                {product.stock}
-                <p className='font-normal text-sm'>{product.stock > 0 ? product.stock<5 ? 'Few Stock left' : 'In Stock' : 'Out of Stock'}</p>
+              <div className='hidden md:flex flex-col justify-center'>
+                <span className="font-semibold text-slate-800">{product.stock}</span>
+                <p className={`text-xs font-medium ${product.stock > 0 ? (product.stock < 5 ? 'text-orange-500' : 'text-green-500') : 'text-red-500'}`}>{product.stock > 0 ? product.stock<5 ? 'Low Stock' : 'In Stock' : 'Out of Stock'}</p>
               </div>
 
               {/* Price */}
-              <div className='px-3 font-semibold'>
+              <div className='font-semibold text-slate-800'>
                 ₹ {product.price}
-                <p className='line-through font-normal text-sm'>₹ {product.offerprice}</p>
+                <p className='line-through font-normal text-xs text-gray-400'>₹ {product.offerprice}</p>
               </div>
 
               {/* View */}
-              <div className='hidden md:flex gap-2 px-3'>
+              <div className='hidden md:flex gap-2 justify-end'>
                 <Link
                   href={`/product-categor/${product._id}`}
-                  className='flex items-center gap-1.5 bg-[#3b76d4] px-1.5 py-1 text-sm font-bold rounded-md text-white hover:scale-105 transition'
+                  className='flex items-center gap-1.5 bg-blue-50 text-blue-600 px-3 py-1.5 text-sm font-medium rounded-lg hover:bg-blue-100 transition-colors'
                 >
                   Visit
                   <span className='size-4'>
@@ -80,7 +80,7 @@ const AllProducts = ({ products }: { products: Products[] }) => {
                 <Link
                   onClick={() => setProduct({data:product})}
                   href={`/admin/product_edit/${product._id}`}
-                  className='flex items-center gap-1 bg-[#3b76d4] px-1.5 py-1 text-sm font-bold rounded-md text-white hover:scale-105 transition'
+                  className='flex items-center gap-1 bg-gray-100 text-gray-700 px-3 py-1.5 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors'
                 >
                   Edit
                   <span className='size-4'>

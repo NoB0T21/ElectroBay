@@ -36,16 +36,16 @@ const PreviewImages = ({ images }: Props) => {
               alt="preview"
               width={300}
               height={300}
-              style={{ backgroundColor: images?.[index]?.background || '#fff' }}
-              className="rounded-xl shadow-xl/20"
+              style={{ backgroundColor: images?.[index]?.background || '#f3f4f6' }}
+              className="rounded-xl shadow-sm object-contain border border-gray-100"
             />
           </motion.div>
         </AnimatePresence>
       </div>
 
       <div className="flex justify-center w-full gap-6 mb-4">
-        <button className="bg-[#4b7fdf] p-2 rounded-xl text-white hover:bg-[#709be9] hover:scale-108 transition-all duration-300 ease-in-out" onClick={() => paginate(-1)}>Prev</button>
-        <button className="bg-[#4b7fdf] p-2 rounded-xl text-white hover:bg-[#709be9] hover:scale-108 transition-all duration-300 ease-in-out" onClick={() => paginate(1)}>Next</button>
+        <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm" onClick={() => paginate(-1)}>Prev</button>
+        <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm" onClick={() => paginate(1)}>Next</button>
       </div>
     </div>
   );

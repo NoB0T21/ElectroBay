@@ -7,14 +7,14 @@ import ProductCard from "./card/ProductCard"
 
 const Productss = ({products}:{products:Products[]}) => {
   return (
-    <div className='w-full h-[60%]'>
-      <div className='flex justify-between px-8 w-full text-[#535353]'>
-        <p>showing all {products.length} results</p>
+    <div className='w-full'>
+      <div className='flex justify-between items-center px-4 md:px-8 w-full text-slate-600 mb-4'>
+        <p className="font-medium">Showing all {products.length} results</p>
         <SortProduct/>
       </div>
-      <div className="gap-5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-3 px-8 w-full h-full">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 px-4 md:px-8 w-full">
         {products.map((product)=>(
-          <div key={product._id} className='w-55 h-100 shadow-xl/20 rounded-xl overflow-clip hover:scale-110 transition-(scale) duration-200 ease-in-out'>
+          <div key={product._id} className='w-full shadow-sm hover:shadow-lg rounded-xl overflow-hidden border border-gray-100 hover:-translate-y-1 transition-all duration-300 ease-in-out bg-white'>
             <ProductCard key={product._id} product={product}/>
           </div>
         ))}

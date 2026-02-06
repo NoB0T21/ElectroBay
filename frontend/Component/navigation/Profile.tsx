@@ -18,8 +18,8 @@ const Profile = ({picture, admin}:{picture: string, admin?: string}) => {
   
   return (
     <div className="relative flex items-center gap-3">
-      <div onClick={()=>setShow(!show)} >
-        <Image className="rounded-full h-full w-8 2xl:w-15 aspect-square mr-2" src={picture} alt="profile" width={100} height={100}/>
+      <div onClick={()=>setShow(!show)} className="cursor-pointer hover:opacity-80 transition-opacity">
+        <Image className="rounded-full w-8 md:w-10 aspect-square object-cover border border-gray-200" src={picture || '/placeholder-user.jpg'} alt="profile" width={100} height={100}/>
       </div>
       <AnimatePresence initial={false}>
         {show && 
@@ -27,18 +27,18 @@ const Profile = ({picture, admin}:{picture: string, admin?: string}) => {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
-            className='top-10 2xl:top-20 -left-10 2xl:-left-22 z-10 absolute flex flex-col gap-1 bg-[#dbdada] shadow-xl/70 rounded-md w-18 2xl:w-35 px-1 py-1 text-[8px] lg:text-[10px] 2xl:text-[13px]'
+            className='absolute top-12 right-0 z-50 flex flex-col gap-1 bg-white shadow-xl border border-gray-100 rounded-lg w-32 md:w-40 p-2 text-sm font-medium text-gray-700 origin-top-right'
           >
             
-            <Link href={'/'} className="flex justify-center items-center hover:bg-[#3873d1] py-1 rounded-sm w-full h-full hover:text-white transition-all duration-300 ease-in-out">Home</Link>
-            <div className="bg-gray-800 w-full h-0.5"></div>
-            <Link href={'/myorder'} className="flex justify-center items-center hover:bg-[#3873d1] py-1 rounded-sm w-full h-full hover:text-white transition-all duration-300 ease-in-out">My Order</Link>
-            <div className="bg-gray-800 w-full h-0.5"></div>
+            <Link href={'/'} className="flex items-center px-3 py-2 hover:bg-gray-100 rounded-md transition-colors">Home</Link>
+            <div className="h-px bg-gray-200 w-full my-0.5"></div>
+            <Link href={'/myorder'} className="flex items-center px-3 py-2 hover:bg-gray-100 rounded-md transition-colors">My Order</Link>
+            <div className="h-px bg-gray-200 w-full my-0.5"></div>
             {isAdmin && <>
-              <Link href={'/admin'} className="flex justify-center items-center hover:bg-[#3873d1] py-1 rounded-sm w-full h-full hover:text-white transition-all duration-300 ease-in-out">Admin</Link>
-              <div className="bg-gray-800 w-full h-0.5"></div>
+              <Link href={'/admin'} className="flex items-center px-3 py-2 hover:bg-gray-100 rounded-md transition-colors">Admin</Link>
+              <div className="h-px bg-gray-200 w-full my-0.5"></div>
             </>}
-            <div className="flex justify-center items-center w-full h-full "><Logout/></div>
+            <div className="flex items-center w-full"><Logout/></div>
 
           </motion.div>
         }

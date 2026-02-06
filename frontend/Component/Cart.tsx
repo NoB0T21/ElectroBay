@@ -146,25 +146,24 @@ const Cart = ({ carts }: CartComponentProps) => {
     }
 
   return (
-    <div className='flex lg:flex-row flex-col gap-4 px-2 overflow-y-scroll w-full'>
+    <div className='flex flex-col lg:flex-row gap-8 px-4 md:px-8 py-8 w-full max-w-[1440px] mx-auto'>
       {/* LEFT */}
-      <div className='w-full lg:w-2/3'>
-        <div className='flex justify-between items-center mt-10 mb-3'>
-          <p className='text-3xl'>Your cart</p>
-          <p className='text-2xl'>{totalQuantity} items</p>
+      <div className='w-full lg:w-2/3 flex flex-col gap-6'>
+        <div className='flex justify-between items-end border-b border-gray-200 pb-4'>
+          <h1 className='text-3xl font-bold text-slate-800'>Your Cart</h1>
+          <p className='text-lg text-slate-600 font-medium'>{totalQuantity} Items</p>
         </div>
 
-        <div className='bg-white my-5 h-0.5'></div>
-
         {/* HEADER */}
-        <div className='hidden md:grid grid-cols-5 gap-2 font-bold text-xl'>
-          <div className='col-span-2 px-3'>Product Name</div>
-          <div className='px-3'>Price</div>
-          <div className='px-3'>Quantity</div>
-          <div className='px-3'>Subtotal</div>
+        <div className='hidden md:grid grid-cols-5 gap-4 text-sm font-semibold text-gray-500 uppercase tracking-wider pb-2'>
+          <div className='col-span-2'>Product</div>
+          <div>Price</div>
+          <div>Quantity</div>
+          <div>Subtotal</div>
         </div>
 
         {/* ITEMS */}
+        <div className='flex flex-col gap-4'>
         {[...cart.products].reverse().map(product => {
           const cartItem = cart.cart.items?.find(
             item => item.product === product._id
@@ -178,61 +177,80 @@ const Cart = ({ carts }: CartComponentProps) => {
           productId.push(product._id)
 
           return (
-            <div key={product._id}>
-              <div className='grid md:grid-cols-5 gap-2 border-b hover:bg-[#7e7e7e] p-2 my-3'>
+            <div key={product._id} className='bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200'>
+              <div className='grid grid-cols-1 md:grid-cols-5 gap-4 p-4 items-center'>
                 {/* PRODUCT */}
-                <div className='col-span-2 flex items-center gap-3'>
-                  <Image
-                    src={imageUrl}
-                    alt={product.name}
-                    width={120}
-                    height={120}
-                    style={{backgroundColor: product.images[0].background}}
-                    className=' p-1 rounded-xl object-contain'
-                  />
-                  <p className='line-clamp-2'>{product.name}</p>
+                <div className='col-span-1 md:col-span-2 flex items-center gap-4'>
+                  <div className='relative w-20 h-20 flex-shrink-0 rounded-lg p-2' style={{backgroundColor: product.images?.[0]?.background || '#f3f4f6'}}>
+                      <Image
+                        src={imageUrl}
+                        alt={product.name}
+                        fill
+                        className='object-contain mix-blend-multiply'
+                      />
+                  </div>
+                  <div className='flex flex-col'>
+                      <p className='font-medium text-slate-800 line-clamp-2'>{product.name}</p>
+                      <p className='text-xs text-gray-500 md:hidden'>Unit Price: ₹{product.offerprice}</p>
+                  </div>
                 </div>
 
-                {/* PRICE */}
-                <div className='flex flex-col text-xl justify-center'>
-                  ₹ {product.offerprice} 
-                  <p className='line-through text-sm'>₹ {product.price}</p>
+                {/* PRICE - Desktop */}
+                <div className='hidden md:flex flex-col'>
+                  <span className='font-medium text-slate-800'>₹ {product.offerprice}</span>
+                  {product.price > product.offerprice && (
+                      <span className='line-through text-xs text-gray-400'>₹ {product.price}</span>
+                  )}
                 </div>
 
                 {/* QUANTITY */}
-                <div className='flex items-center gap-2'>
-                  <button
-                    className='bg-[#fc993a] ml-2 p-1 rounded-md size-6 text-[#222831] hover:scale-108 transition-(scale) duration-300 ease-in-out cursor-pointer'
-                    onClick={() => removeFromCart(product._id)}
-                  >
-                    <Sub />
-                  </button>
+                <div className='flex items-center justify-between md:justify-start gap-4 md:gap-2 w-full md:w-auto mt-2 md:mt-0 border-t md:border-0 border-gray-100 pt-3 md:pt-0'>
+                  <div className="flex items-center gap-3 bg-gray-50 rounded-lg p-1">
+                      <button
+                        className='p-1 rounded-md hover:bg-white hover:shadow-sm text-slate-600 transition-all'
+                        onClick={() => removeFromCart(product._id)}
+                      >
+                        <div className="size-4"><Sub /></div>
+                      </button>
 
-                  <span>{quantity}</span>
+                      <span className='font-semibold text-slate-800 w-4 text-center'>{quantity}</span>
 
-                  <div className='bg-[#fc993a] ml-2 p-1 rounded-md size-6 text-[#222831] hover:scale-108 transition-(scale) duration-300 ease-in-out cursor-pointer' onClick={()=>addToCart(product._id)}>
-                    <Addc/>
-                    </div>
+                      <button 
+                        className='p-1 rounded-md hover:bg-white hover:shadow-sm text-slate-600 transition-all' 
+                        onClick={()=>addToCart(product._id)}
+                      >
+                        <div className="size-4"><Addc/></div>
+                      </button>
+                  </div>
+                  
+                  {/* Mobile Subtotal */}
+                  <div className='md:hidden font-bold text-slate-800'>
+                      ₹ {quantity * product.offerprice}
+                  </div>
                 </div>
 
-                {/* SUBTOTAL */}
-                <div className='flex items-center'>
+                {/* SUBTOTAL - Desktop */}
+                <div className='hidden md:block font-bold text-slate-800'>
                   ₹ {quantity * product.offerprice}
                 </div>
               </div>
             </div>
           )
         })}
+        </div>
       </div>
 
       {/* RIGHT */}
-      <div className='w-full lg:w-1/3 py-20'>
-        <Bill
-          productName={productlist}
-          products={cart?.cart.items}
-          total={totalPrice}
-          actualPrice={totalActualPrice}
-        />
+      <div className='w-full lg:w-1/3'>
+        <div className='bg-white rounded-2xl shadow-lg border border-gray-100 p-6 sticky top-24'>
+            <h2 className='text-xl font-bold text-slate-800 mb-6'>Order Summary</h2>
+            <Bill
+            productName={productlist}
+            products={cart?.cart.items}
+            total={totalPrice}
+            actualPrice={totalActualPrice}
+            />
+        </div>
       </div>
       {showToast && <Toasts type={tostType==='warningMsg'?'warningMsg':'infoMsg'} msg={responseMsg}/>}
     </div>
