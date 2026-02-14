@@ -6,6 +6,6 @@ import { getAnalysisData } from "../Controller/analysis.controller";
 
 const router = express.Router();
 
-router.get('/data',rateLimiter(10,5),cachs,middleware,getAnalysisData)
+router.get('/data',rateLimiter(10,40),cachs,middleware,getAnalysisData)
 
 export default router;
