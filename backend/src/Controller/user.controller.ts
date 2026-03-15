@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import { CookieOptions, Request, Response } from "express"
 import {OAuth2Client} from 'google-auth-library'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import supabase from "../Db/supabase"
@@ -80,10 +80,16 @@ export const register = async (request: Request, response: Response) => {
                 success: false,
         })}
 
-        const cart = await cartModel.create({userId:user._id,})
+        await cartModel.create({userId:user._id,})
         const token = await user.generateToken()
-
-        return response.status(200).json({
+        
+        const options: CookieOptions = {
+            expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+            httpOnly: true,
+            sameSite: "lax",
+            secure: process?.env?.PRODUCTION === 'true',
+        };
+        return response.status(200).cookie("token", token, options).json({
             message: "User created successfully",
             user,
             token,
@@ -118,7 +124,14 @@ export const login = async (request: Request, response:Response) => {
                 })}
 
                 const token = await admin.generateToken()
-                return response.status(200).json({
+
+                const options: CookieOptions = {
+                    expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+                    httpOnly: true,
+                    sameSite: "lax",
+                    secure: process?.env?.PRODUCTION === 'true',
+                };
+                return response.status(200).cookie("token", token, options).json({
                     message: "User login successfully",
                     user: admin,
                     token,
@@ -138,7 +151,13 @@ export const login = async (request: Request, response:Response) => {
         })}
 
         const token = await user.generateToken()
-        return response.status(200).json({
+        const options: CookieOptions = {
+            expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+            httpOnly: true,
+            sameSite: "lax",
+            secure: process?.env?.PRODUCTION === 'true',
+        };
+        return response.status(200).cookie("token", token, options).json({
             message: "User login successfully",
             user,
             token,

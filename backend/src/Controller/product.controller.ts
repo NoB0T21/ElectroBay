@@ -571,7 +571,7 @@ export const getorder = async (req:Request,res:Response) => {
 
 export const getallorder = async (req:Request,res:Response) => {
     try {
-        const orders = await order.find()
+        const orders = await order.find().sort({ payment: 1, createdAt: -1 });
         return res.status(201).json({
             message: "here is your Orders",
             orders,

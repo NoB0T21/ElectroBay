@@ -15,18 +15,19 @@ declare global {
 }
 
 const middleware = async (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  let authHeader = req.headers.authorization;
+  if(!authHeader) authHeader = req.headers.cookie
+  if (!authHeader) {
     res.status(401).json({ message: 'Access Token required' });
     return;
   }
-
-  const accessToken = authHeader.split(' ')[1];
-
+  
+  const accessToken = authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : authHeader.split('=')[1].split(';')[0]
+  
   try {
     const user = jwt.verify(accessToken, process.env.SECRET_KEY || 'default');
     req.user = user;
-
+    
     const admin = await adminModel.findOne({email:req.user.email})
     if(admin) req.user = admin
 
