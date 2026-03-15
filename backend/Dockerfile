@@ -5,7 +5,7 @@ RUN apk add --no-cache redis
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm i
 
 COPY . .
 
