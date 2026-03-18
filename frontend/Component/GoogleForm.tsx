@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { api } from "@/utils/api";
 import axios from "axios"
 import Toasts from "./toasts/Toasts";
-import Cookies from "js-cookie";
+import { setTokenCookie } from "@/utils/actions/serverAction";
 
 const GoogleForm = () => {
   const router=useRouter()
@@ -48,6 +48,7 @@ const GoogleForm = () => {
             email: raw.email,
             picture: raw.picture
           }
+          setTokenCookie(res.access_token)
           if (typeof window !== 'undefined') {
             localStorage.setItem('user', JSON.stringify(user));
           }

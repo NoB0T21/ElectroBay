@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { userDetails } from '@/utils/utils'
 import { User } from '@/utils/types'
 import { Search, ShoppingCart, Van } from "lucide-react";
+import { usePathname } from 'next/navigation'
 
 const navItems = [
   { label: 'Browse', path: '/browse', icon: Search },
@@ -17,15 +18,14 @@ const cartCount = 5
 const path = ['/sign-up','/sign-in']
 const Header = () => {
   const [user, setUser] = useState<User | null>(null)
-  const [mounted, setMounted] = useState(false)
+  const location = usePathname()
 
   useEffect(() => {
-    setMounted(true)
     setUser(userDetails())
   }, [])
-
-  if (!mounted) return <div className='w-full h-16 md:h-20 shadow-sm'></div>
-  if(!path.includes(location.pathname)) return (
+  console.log(path.includes(location),location)
+  if (path.includes(location)) return <div className='w-full h-16 md:h-20 shadow-sm'></div>
+  else return (
     // {/* Header */}
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
       <div className="px-5 py-1 flex h-16 items-center justify-between">
@@ -42,7 +42,7 @@ const Header = () => {
               key={item.path}
               href={item.path}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium transition-colors
-                ${location.pathname === item.path
+                ${location === item.path
                   ? "bg-primary text-primary-foreground"
                   : "text-foreground hover:bg-muted"}
               `}
