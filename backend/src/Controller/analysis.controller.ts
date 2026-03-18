@@ -8,7 +8,6 @@ export const getAnalysisData = async (req: Request, res: Response) => {
         const today = new Date();
         const lastYearToday = new Date();
         lastYearToday.setFullYear(today.getFullYear() - 1);
-
         const analytics = await order.aggregate([
             {
                 $match: {

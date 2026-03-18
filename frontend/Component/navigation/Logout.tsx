@@ -2,16 +2,22 @@
 
 import { useRouter } from 'next/navigation'
 import Cookie from 'js-cookie'
+import { api } from '@/utils/api'
 
 const Logout = () => {
    const router= useRouter()
 
-    const logout = () => {
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
-      Cookie.remove('token')
-      Cookie.remove('user')
-      router.push('/sign-up')
+    const logout = async () => {
+      const data = await api.get(
+          '/user/logout'
+      )
+      if(data.status === 201){
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        Cookie.remove('token')
+        Cookie.remove('user')
+        router.push('/sign-up')
+      }
     }
 
    return (

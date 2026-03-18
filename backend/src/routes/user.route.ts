@@ -1,4 +1,4 @@
-import { login, register, valid } from "../Controller/user.controller";
+import { login, logoutUser, register, valid } from "../Controller/user.controller";
 import express from "express";
 import multer from "multer";
 import rateLimiter from "../middleware/ratelimiter";
@@ -8,5 +8,6 @@ const upload = multer({ storage: multer.memoryStorage() })
 router.post('/signup',rateLimiter(10,5),upload.single('file'),register)
 router.post('/signin',rateLimiter(10,5),upload.none(),login)
 router.get('/valid',rateLimiter(10,5),valid)
+router.get('/logout',rateLimiter(10,5),logoutUser)
 
 export default router;

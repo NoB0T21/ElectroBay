@@ -11,6 +11,7 @@ import { useState } from 'react'
 import Image from 'next/image';
 import Toasts from './toasts/Toasts';
 import { AddProduct } from "@/utils/types";
+import { BadgeIndianRupee, Box, IndianRupee, List, PencilLine, User, Warehouse } from "lucide-react";
 
 const formSchema = z.object({
     name: z.string().min(3, "Name required"),
@@ -21,7 +22,6 @@ const formSchema = z.object({
 })
 
 const ProductForm = () => {
-    const num = [1,2,3,4,5]
     const [formData, setFormData] = useState<AddProduct>({})
     const [error, setError] = useState<{
         name?: string;
@@ -38,7 +38,7 @@ const ProductForm = () => {
     const [tostType,setTostType] = useState('warningMsg')
     const [loading,setLoading] = useState(false)
     const [file,setFile] = useState<(File | null)[]>([])
-    const [color, setColor] = useState<string[]>([]);
+    const [color, setColor] = useState<string[]>(['#d4b896','#c9a87c','#947050','#d4b896','#c9a87c']);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -127,14 +127,14 @@ const ProductForm = () => {
     <div className="w-full max-w-4xl mx-auto pb-10">
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
             <div className="gap-4 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 w-full mb-4">
-                {num.map((nu, index) => (
+                {color.map((nu, index) => (
                     <div key={nu} className="flex flex-col items-center gap-2">
                         <div className="size-20 md:size-24 shadow-sm rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
                             <div
                                 style={{ backgroundColor: color[index] || '#f9fafb' }}
                                 className="relative flex justify-center items-center w-full h-full group cursor-pointer hover:opacity-90 transition-opacity"
                             >
-                                {!file[index] && <Imgs />}
+                                {!file[index] && <div className="text-muted w-full h-full"><Imgs /></div>}
 
                                 <input
                                 className="absolute inset-0 opacity-0 cursor-pointer"
@@ -158,17 +158,6 @@ const ProductForm = () => {
                                 )}
                             </div>
                         </div>
-                        <input
-                        type="color"
-                        value={color[index]}
-                        onChange={(e) => {
-                            const newColors = [...color];
-                            newColors[index] = e.target.value;
-                            setColor(newColors);
-                        }}
-                        className="w-full h-8 rounded cursor-pointer border-0 p-0"
-                        />
-                        <p className="text-xs text-gray-400">Color</p>
                     </div>
                 ))}
             </div>
@@ -179,23 +168,19 @@ const ProductForm = () => {
                     name='product name' 
                     type="text" 
                     value={formData.name} 
-                    className="peer w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-transparent"
+                    className="w-full pl-10 pr-4 text-black py-2.5 border border-gray-400 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm"
                     placeholder="Product Name"
                     required 
                 />
-                <label className="absolute left-4 top-3.5 text-gray-400 text-sm transition-all duration-200 pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-3.5 peer-focus:top-0.5 peer-focus:text-xs peer-focus:text-blue-500">
-                    Product Name*
-                </label>
+                <Box className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             </div>
             <div className="relative w-full">
                 {error.description && <p className="absolute right-0 -top-5 text-red-500 text-xs font-medium">{error.description}</p>}
                 <textarea name='description' value={formData.description} onChange={(e) => {setFormData({...formData, description: e.target.value})}} required 
-                    className="peer w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-transparent min-h-[120px]"
+                    className="w-full pl-10 pr-4 text-black py-2.5 border border-gray-400 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm"
                     placeholder="Description"
                 />
-                <label className="absolute left-4 top-3.5 text-gray-400 text-sm transition-all duration-200 pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-3.5 peer-focus:top-0.5 peer-focus:text-xs peer-focus:text-blue-500">
-                    Description*
-                </label>
+                <PencilLine className="absolute left-3 top-5 -translate-y-1/2 w-4 h-4 text-gray-400" />
             </div>
             <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full">
                 <div className="relative w-full">
@@ -203,7 +188,7 @@ const ProductForm = () => {
                     <select
                         value={formData.category || ''}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+                        className="w-full pl-10 pr-4 text-black py-2.5 border border-gray-400 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm"
                     >
                         <option value="">Product Type</option>
                         <option value="air-conditioner">Air-Conditioner</option>
@@ -213,39 +198,34 @@ const ProductForm = () => {
                         <option value="smart-home">Smart-Home</option>
                         <option value="television">Television</option>
                     </select>
+                    <List className="absolute left-3 top-1/3 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 </div>
                 <div className="relative w-full">
                     {error.price && <p className="absolute right-0 -top-5 text-red-500 text-xs font-medium">{error.price}</p>}
                     <input name='price' type="number" value={formData.price} onChange={(e) => {setFormData({...formData, price: e.target.value})}} required 
-                        className="peer w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-transparent"
+                        className="w-full pl-10 pr-4 text-black py-2.5 border border-gray-400 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm"
                         placeholder="Price"
                     />
-                    <label className="absolute left-4 top-3.5 text-gray-400 text-sm transition-all duration-200 pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-3.5 peer-focus:top-0.5 peer-focus:text-xs peer-focus:text-blue-500">
-                        Price*
-                    </label>
+                    <BadgeIndianRupee className="absolute left-3 top-5 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 </div>
                 <div className="relative w-full">
                     {error.offerprice && <p className="absolute right-0 -top-5 text-red-500 text-xs font-medium">{error.offerprice}</p>}
                     <input name='offerprice' type="number" value={formData.offerprice} onChange={(e) => {setFormData({...formData, offerprice: e.target.value})}} required 
-                        className="peer w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-transparent"
+                        className="w-full pl-10 pr-4 text-black py-2.5 border border-gray-400 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm"
                         placeholder="Offer Price"
-                    />
-                    <label className="absolute left-4 top-3.5 text-gray-400 text-sm transition-all duration-200 pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-3.5 peer-focus:top-0.5 peer-focus:text-xs peer-focus:text-blue-500">
-                        Offer Price*
-                    </label>
+                    />                    
+                    <IndianRupee className="absolute left-3 top-5 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 </div>
                 <div className="relative w-full">
                     {error.stock && <p className="absolute right-0 -top-5 text-red-500 text-xs font-medium">{error.stock}</p>}
                     <input name='stock' type="number" value={formData.stock} onChange={(e) => {setFormData({...formData, stock: e.target.value})}} required 
-                        className="peer w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-transparent"
+                        className="w-full pl-10 pr-4 text-black py-2.5 border border-gray-400 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm"
                         placeholder="In Stock"
                     />
-                    <label className="absolute left-4 top-3.5 text-gray-400 text-sm transition-all duration-200 pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-3.5 peer-focus:top-0.5 peer-focus:text-xs peer-focus:text-blue-500">
-                        In Stock*
-                    </label>
+                    <Warehouse className="absolute left-3 top-5 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 </div>
             </div>
-            <button type="submit" className="w-full py-3.5 bg-black hover:bg-gray-800 text-white font-bold rounded-xl shadow-lg transition-all duration-200 transform active:scale-[0.98] flex justify-center items-center mt-4">
+            <button type="submit" className="w-full py-3.5 bg-primary/50 hover:bg-primary/70 text-white font-bold rounded-lg shadow-lg transition-all duration-200 transform active:scale-[0.98] flex justify-center items-center mt-4">
                 {loading? <PulseLoader size={8} color="#fff"/>:'Add Product'}
             </button>
         </form>

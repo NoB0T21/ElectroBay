@@ -32,7 +32,12 @@ const GoogleForm = () => {
           form.append('picture', responses.data.picture || '');
           form.append('type','hello')
 
-        const response = await api.post(`/user/signup`,form,{withCredentials: true})
+        const response = await api.post(`/user/signup`,form,{
+          headers:{
+            Authorization:`Bearer ${res.access_token}`,
+          },
+          withCredentials: true
+        })
           setResponseMsg(response.data.message)
           setShowToast(true)
           
@@ -44,13 +49,7 @@ const GoogleForm = () => {
             picture: raw.picture
           }
           if (typeof window !== 'undefined') {
-            Cookies.set('user', user._id, { expires: 1 });
             localStorage.setItem('user', JSON.stringify(user));
-          }
-          if(responses.status === 200){
-            Cookies.set("token", res.access_token, {
-              expires: 1, // days
-            });
           }
           router.push('/')
       } catch (error:any) {

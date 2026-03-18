@@ -32,22 +32,27 @@ export default function AnalyticsDashboard({data2}:{data2?: AnalysisData}) {
             <h1>No Data</h1>
         </>)
     }
-    const stats = [
-      { title: "Total Sales", value: `₹${numConvert(data2.revenue)}`, icon: DollarSign, color: "bg-blue-100 text-blue-600" },
-      { title: "Orders", value: `${data2.orders}`, icon: ShoppingCart, color: "bg-orange-100 text-orange-600" },
-      { title: "New Customers", value: `${data2.totalUsers}`, icon: Users, color: "bg-purple-100 text-purple-600" },
-      { title: "Product Sold", value: `${data2.productsTotal}`, icon: Package, color: "bg-indigo-100 text-indigo-600" },
-    ];
-    const pieData = data2.orderStatus.map((item, index) => ({
+    let p = 0
+    let k = 0
+    const pieData = data2.orderStatus.map((item, index) => {
+      p += item.total
+      if(item._id === 'Delivered')k+=item.total
+      return ({
         name: item._id,
         value: item.total,
         color: orderStatus[index].color
-    }));
-    const [view, setView] = useState("monthly");
-
+      })});
+      const stats = [
+        { title: "Total Sales", value: `₹${numConvert(data2.revenue)}`, icon: DollarSign, color: "bg-blue-100 text-blue-600" },
+        { title: "Orders", value: `${k}`, icon: ShoppingCart, color: "bg-orange-100 text-orange-600" },
+        { title: "New Customers", value: `${data2.totalUsers}`, icon: Users, color: "bg-purple-100 text-purple-600" },
+        { title: "Product Sold", value: `${data2.productsTotal}`, icon: Package, color: "bg-indigo-100 text-indigo-600" },
+      ];
+      const [view, setView] = useState("monthly");
+      
     const data = view === "monthly" ? data2.monthlySalesData : data2.weeklySalesData;
   return (
-    <div className="p-6 bg-gray-50 h-full space-y-6">
+    <div className="p-6 bg-secondary/10 h-full space-y-6">
 
       {/* HEADER */}
       <div className="flex justify-between items-center">
@@ -58,7 +63,7 @@ export default function AnalyticsDashboard({data2}:{data2?: AnalysisData}) {
       {/* STAT CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((item, i) => (
-          <div key={i} className="bg-white rounded-xl p-4 shadow-md/15 flex items-center gap-4 hover:scale-105 transition-all duration-300 ease-in-out">
+          <div key={i} className="bg-card rounded-xl p-4 shadow-md/15 flex items-center hover:shadow-lg/15 gap-4 hover:scale-105 transition-all duration-300 ease-in-out">
             <div className={`p-3 rounded-lg ${item.color}`}>
               <item.icon size={24} />
             </div>
@@ -71,7 +76,7 @@ export default function AnalyticsDashboard({data2}:{data2?: AnalysisData}) {
       </div>
 
       {/* SALES REPORT */}
-      <div className="bg-white rounded-xl p-6 shadow-sm">
+      <div className="bg-white rounded-xl p-6 shadow-md/15">
         <div className="flex justify-between mb-4">
           <h2 className="font-semibold text-gray-700">Sales Report</h2>
           <select onChange={(e) => setView(e.target.value)} className="border rounded-md px-2 py-1 text-sm">
@@ -84,8 +89,8 @@ export default function AnalyticsDashboard({data2}:{data2?: AnalysisData}) {
           <AreaChart data={data}>
             <defs>
               <linearGradient id="blueGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.4} />
-                <stop offset="100%" stopColor="#3B82F6" stopOpacity={0} />
+                <stop offset="0%" stopColor="#E8722A" stopOpacity={0.4} />
+                <stop offset="100%" stopColor="#E8722A" stopOpacity={0} />
               </linearGradient>
             </defs>
             <XAxis dataKey="name" />
@@ -94,7 +99,7 @@ export default function AnalyticsDashboard({data2}:{data2?: AnalysisData}) {
             <Area
               type="monotone"
               dataKey="value"
-              stroke="#3B82F6"
+              stroke="#E8722A"
               strokeWidth={3}
               fill="url(#blueGradient)"
               dot={{ r: 4 }}
@@ -108,11 +113,11 @@ export default function AnalyticsDashboard({data2}:{data2?: AnalysisData}) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 xl:h-80">
 
         {/* TOP PRODUCTS */}
-        <div className="bg-white rounded-xl p-5 shadow-sm overflow-y-scroll">
+        <div className="bg-white rounded-xl p-5 shadow-md/15 overflow-y-scroll">
           <h2 className="font-semibold mb-4">Top Products</h2>
           <ul className="space-y-3">
             {data2.bestProduct.map((p, i) => (
-              <li key={i} className="flex justify-between hover:bg-zinc-400 p-1 text-sm">
+              <li key={i} className="flex justify-between hover:bg-muted/60 p-1 text-sm">
                 <span className="text-gray-600">{p.name}</span>
                 <span className="font-semibold">{p.orders}</span>
               </li>
@@ -121,7 +126,7 @@ export default function AnalyticsDashboard({data2}:{data2?: AnalysisData}) {
         </div>
 
         {/* ORDER STATUS */}
-        <div className="bg-white rounded-xl p-5 shadow-sm">
+        <div className="bg-white rounded-xl p-5 shadow-md/15">
           <h2 className="font-semibold mb-4">Order Status</h2>
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
@@ -143,7 +148,7 @@ export default function AnalyticsDashboard({data2}:{data2?: AnalysisData}) {
                     dominantBaseline="middle"
                     className="text-xl font-bold fill-gray-800"
                 >
-                    {data2.orders}
+                  {p}
                 </text>
               <Tooltip />
             </PieChart>
@@ -151,7 +156,7 @@ export default function AnalyticsDashboard({data2}:{data2?: AnalysisData}) {
         </div>
 
         {/* SALES BY CATEGORY */}
-        <div className="bg-white rounded-xl p-5 shadow-sm">
+        <div className="bg-white rounded-xl p-5 shadow-md/15">
           <h2 className="font-semibold mb-4">Sales by Category</h2>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={data2.productsByCategory}>

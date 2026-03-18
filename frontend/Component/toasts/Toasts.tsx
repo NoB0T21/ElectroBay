@@ -15,13 +15,13 @@ const Toasts = ({type, msg}: {type: NotiType, msg: string}) => {
     },[])
 
     return (
-        <div className='flex flex-col'>
+        <div className='flex'>
             <AnimatePresence initial={false}>
                 {isVisible ? (<motion.div 
                 initial={{ y:-100, scale: 0 }}
                 animate={{y:0, scale: 1 }}
                 exit={{y:-100,scale: 0 }}
-                    className={`absolute top-0 right-0 m-3 bg-[#ddebff] shadow-xl/50  p-2 w-65 rounded-md`}>
+                    className={`absolute top-0 right-0 m-3 ${type === 'warningMsg'?'bg-warning':type === 'infoMsg'?'bg-info':type === 'erreoMsg'? '' : 'bg-success'} shadow-xl/50  p-2 w-65 rounded-md`}>
                         {type === 'warningMsg' && <>
                             <div className="flex justify-between items-center gap-2 px-1">
                                 <div className="flex items-center gap-2">

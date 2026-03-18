@@ -5,20 +5,13 @@ import { motion } from "framer-motion"
 import React, { useState } from 'react'
 import Cookies from 'js-cookie'
 import { OrderStatus } from '@/utils/types'
+import { udateorderData } from '@/utils/actions/productsAction'
 
-const Commpletebtn = ({prodId}:{prodId:string}) => {
+const Commpletebtn = ({prodId,statu, paid}:{prodId:string,statu:OrderStatus,paid:boolean}) => {
   const route = useRouter()
-  const token = Cookies.get('token')
-  const [status,setStatus] = useState<OrderStatus>(OrderStatus.Processing)
+  const [status,setStatus] = useState<OrderStatus>(statu)
   const update = async (newStatus: OrderStatus) => { 
-    await api.patch(`/product/updateorder/${prodId}`,
-      {status:newStatus},
-      {
-        withCredentials:true,
-        headers:{
-          Authorization: `Bearer ${token}`,
-        }
-    })
+    await udateorderData({prodId,newStatus})
     route.refresh()
   }
 
@@ -27,9 +20,6 @@ const Commpletebtn = ({prodId}:{prodId:string}) => {
       {payment: true},
       {
         withCredentials:true,
-        headers:{
-          Authorization: `Bearer ${token}`,
-        }
     })
     route.refresh()
   }
@@ -37,12 +27,13 @@ const Commpletebtn = ({prodId}:{prodId:string}) => {
     <div className='flex justify-between w-full gap-2'>
       <select
         value={status}
+        disabled={paid}
         onChange={(e) => {
           const newStatus = e.target.value as OrderStatus
           setStatus(newStatus)
           update(newStatus)
         }}
-        className="bg-[#ddebff] w-25 p-2 border shadow-xl/30 border-zinc-700 focus:border-[#2196f3] rounded-md outline-none text-black"
+        className="bg-secondary/70 w-25 p-2 border shadow-xl/30 border-zinc-700 focus:border-secondary rounded-md outline-none text-black"
       >
         <option value={OrderStatus.Processing}>Processing</option>
         <option value={OrderStatus.Shipped}>Shipped</option>
@@ -52,7 +43,13 @@ const Commpletebtn = ({prodId}:{prodId:string}) => {
       <motion.div 
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        onClick={()=>updatepayment()} 
+        onClick={()=>{
+          if(status!==OrderStatus.Delivered){
+            setStatus(OrderStatus.Delivered)
+            update(OrderStatus.Delivered)
+          }
+          if(!paid)updatepayment()
+        }} 
         className='flex justify-center items-center px-2 bg-[#FFD369] shadow-2xl hover:shadow-[#f7db98] hover:shadow-md transition-(shadow) ease-in-out rounded-md text-[#222831]'>
         Complete
       </motion.div>

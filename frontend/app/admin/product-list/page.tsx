@@ -28,8 +28,13 @@ const page = async () => {
   }
 
   return (
-    <div className='w-full'>
-      <h1 className='text-2xl font-bold text-slate-800 mb-6'>All Products</h1>
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-display font-bold">Manage Products ({products.length})</h3>
+        {/* <Button size="sm" className="gap-1" onClick={() => setShowForm(!showForm)}>
+          <Plus className="h-4 w-4" /> Add Product
+        </Button> */}
+      </div>
       <AllProducts products={products}/>
     </div>
   )

@@ -41,7 +41,7 @@ const page = async () => {
 
         <div className='flex flex-col gap-4 mt-4'>
         {orders.data.orders.map((order:Order)=>(
-          <div key={order._id} className={`bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${order.status === OrderStatus.Delivered ? 'opacity-75' : ''}`}>
+          <div key={order._id} className={`border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${order.payment ? 'bg-muted/80 opacity-50' : 'bg-primary/10'}`}>
             <div className='grid grid-cols-1 md:grid-cols-12 gap-4 p-4 md:p-6 items-center'>
                 
                 {/* Product */}
@@ -96,7 +96,7 @@ const page = async () => {
                     </div>
 
                     <div className='w-full md:w-auto'>
-                        <Commpletebtn prodId={order._id}/>
+                        <Commpletebtn prodId={order._id} statu={order.status as OrderStatus} paid={order.payment}/>
                     </div>
                 </div>
             </div>

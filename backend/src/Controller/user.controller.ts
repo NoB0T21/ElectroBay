@@ -19,18 +19,33 @@ interface User extends JwtPayload {
 export const register = async (request: Request, response: Response) => {
     const file = request.file as Express.Multer.File;
     const {name, email, password, picture,type} = request.body
+    
     if(!name||!email||!password){
         return response.status(400).json({
             message: 'Require all fields',
             success: false
         })
     }
-
+    
     try {
         const existingUsers = await userModel.findOne({email})
         if(existingUsers){
             if(type){
-                return response.status(200).json({
+                const token = request.headers.authorization
+                let accessToken = token?.split(' ')[1];
+                if(accessToken === 'undefined'){
+                    return response.status(409).json({
+                        message: "Error Occure",
+                        success: false,
+                    })
+                }
+                const options: CookieOptions = {
+                    expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+                    httpOnly: true,
+                    sameSite: "lax",
+                    secure: process?.env?.PRODUCTION === 'true',
+                };
+                return response.status(200).cookie("token", accessToken, options).json({
                     message: "User already exists",
                     user: existingUsers,
                     success: true,
@@ -218,5 +233,23 @@ export const valid = async (req: Request, res:any) => {
                 success: false,
             })
         }
+    }
+}
+
+export const logoutUser = async (req: Request, res: Response) => {
+    try {
+        res.cookie("token", null, {
+            expires: new Date(Date.now()),
+            httpOnly: true,
+        });
+        res.status(201).json({
+            success: true,
+            message: "Log out successful!",
+        });
+    } catch (error: any) {
+        return res.status(401).json({
+            message: "not verified",
+            success: false,
+        })
     }
 }
