@@ -30,7 +30,7 @@ const GoogleForm = () => {
           form.append('email', responses.data.email || '');
           form.append('password',responses.data.sub || '');
           form.append('picture', responses.data.picture || '');
-          form.append('type','hello')
+          form.append('type','google')
 
         const response = await api.post(`/user/signup`,form,{
           headers:{

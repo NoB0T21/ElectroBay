@@ -30,7 +30,7 @@ export const register = async (request: Request, response: Response) => {
     try {
         const existingUsers = await userModel.findOne({email})
         if(existingUsers){
-            if(type){
+            if(type==='google'){
                 const token = request.headers.authorization
                 let accessToken = token?.split(' ')[1];
                 if(accessToken === 'undefined'){
@@ -43,7 +43,7 @@ export const register = async (request: Request, response: Response) => {
                     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
                     httpOnly: true,
                     sameSite: "lax",
-                    secure: process?.env?.PRODUCTION === 'true',
+                    secure: process?.env?.PRODUCTION == 'true',
                 };
                 return response.status(200).cookie("token", accessToken, options).json({
                     message: "User already exists",
