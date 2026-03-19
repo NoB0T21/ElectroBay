@@ -17,7 +17,7 @@ const page = async () => {
   return (
     <div>
       <Hero/>
-      <div className='w-full bg-background max-w-[1440px] min-h-screen flex flex-col shadow-2xl overflow-hidden'>
+      <div className='w-full bg-background min-h-screen px-7 flex flex-col shadow-2xl overflow-hidden'>
         <main className="flex-1 flex flex-col gap-12 sm:gap-16 py-8">
           <Trending data={data.sale1}/>
           <MidLadder products={data.products}/>

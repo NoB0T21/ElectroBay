@@ -1,9 +1,9 @@
-import Header from '@/Component/Header'
 import React from 'react'
 import { cookies } from 'next/headers'
 import { api } from '@/utils/api'
 import { Orderfill } from '@/Component/Icons'
 import { OrderStatus, PaymentMode } from '@/utils/types'
+import { CheckCircle2, CircleDot, Package, Truck } from 'lucide-react'
 
 interface Order {
     _id:string,
@@ -23,6 +23,10 @@ interface Order {
     paymentmode: PaymentMode
 }
 
+const statusSteps = ['Processing', 'Shipped', 'Out for Delivery', 'Delivered'] as const;
+const statusIcons = [ CircleDot, CheckCircle2, Truck, Package ];
+const statusLabels = [ 'Placed', 'Confirmed', 'Shipped', 'Delivered' ];
+
 const page = async () => {
     const token = (await cookies()).get('token')?.value
     let order
@@ -35,15 +39,12 @@ const page = async () => {
       })
     } catch (error:any) {
       if(error.response.status){
-        console.log(error.response.status)
         return
       }
     }
 
   return (
-    <div className='min-h-screen w-full flex justify-center bg-gray-50'>
-      <div className='w-full max-w-[1440px] bg-white min-h-screen flex flex-col shadow-2xl overflow-x-hidden'>
-        <Header/>
+      <div className='w-full min-h-screen bg-background overflow-x-hidden'>
         <main className='flex-1 px-4 md:px-10 py-8 w-full'>
           <h1 className='text-3xl font-bold text-slate-800 mb-8'>My Orders</h1>
           
@@ -56,12 +57,12 @@ const page = async () => {
 
           <div className='flex flex-col gap-4 mt-4'>
           {order?.data.orders.map((order:Order)=>(
-              <div key={order._id} className='bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden'>
+              <div key={order._id} className='border bg-primary/10 border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden'>
                   <div className='grid grid-cols-1 md:grid-cols-12 gap-4 p-4 md:p-6 items-center'>
                       
                       {/* Product Column */}
                       <div className='col-span-1 md:col-span-4 flex items-start gap-4'>
-                          <div className='flex-shrink-0 bg-orange-50 text-orange-600 p-3 rounded-xl'>
+                          <div className='flex-shrink-0 bg-orange-100 text-orange-600 p-3 rounded-xl'>
                             <div className="size-6"><Orderfill/></div>
                           </div>
                           <div className='flex relative flex-col'>
@@ -71,7 +72,7 @@ const page = async () => {
                                 <div key={index} className="font-medium text-slate-800 line-clamp-1 peer">
                                   {names}
                                 </div>
-                                <div className='p-1 absolute -right-20 w-80 bg-zinc-500 hidden peer-hover:flex'>{names}</div>
+                                <div className='p-1 absolute h-80 -right-20 w-120 bg-zinc-500 hidden peer-hover:flex'>{names}</div>
                               </>
                             ))}
                           </div>
@@ -94,14 +95,25 @@ const page = async () => {
                       <div className='col-span-1 md:col-span-3 flex flex-col gap-2 items-start'>
                           <div className="text-xs text-gray-500">Ordered: {order.createdAt.split('T')[0]}</div>
                           
-                          <div className={`
-                            ${order.status === OrderStatus.Processing && 'bg-cyan-100 text-cyan-700 border border-cyan-300'} 
-                            ${order.status === OrderStatus.Shipped && 'bg-blue-200 text-blue-700 border border-blue-300'} 
-                            ${order.status === OrderStatus.OutForDelivery && 'bg-amber-200 text-amber-700 border border-amber-300'} 
-                            ${order.status === OrderStatus.Delivered && 'bg-indigo-200 text-indigo-700 border border-indigo-300'} 
-                            px-3 py-1 rounded-full text-xs font-semibold border`}
-                          >
-                            {order.status}
+                          <div className="flex items-center justify-between mb-4">
+                            {statusSteps.map((step, i) => {
+                              const currentIdx = statusSteps.indexOf(order.status);
+                              const Icon = statusIcons[i];
+                              const isActive = i <= currentIdx;
+                              return (
+                                <div key={step} className="flex flex-col items-center gap-2 mx-2 md:mx-0.5 lg:mx-2 flex-1">
+                                  <div className={
+                                    `size-8 md:size-5 lg:size-8 rounded-full flex items-center justify-center transition-colors
+                                    ${isActive ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"} `
+                                  }>
+                                    <Icon className="size-4" />
+                                  </div>
+                                  <span className={`text-xs md:text-[10px] lg:text-xs ${isActive ? "font-semibold text-foreground" : "text-muted-foreground"}`}>
+                                    {statusLabels[i]}
+                                  </span>
+                                </div>
+                              );
+                            })}
                           </div>
 
                           <div className='flex items-center gap-2 text-sm'>
@@ -126,7 +138,6 @@ const page = async () => {
           )}
         </main>
       </div>
-    </div>
   )
 }
 

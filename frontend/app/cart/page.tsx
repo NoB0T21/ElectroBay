@@ -13,13 +13,10 @@ const page = async () => {
     }
   })
   return (
-    <div className='min-h-screen w-full flex justify-center bg-gray-50'>
-      <div className='w-full max-w-[1440px] bg-white min-h-screen flex flex-col shadow-2xl overflow-x-hidden'>
-        <Header/>
+    <div className='min-h-screen w-full flex bg-background justify-center'>
         <main className="flex-1 w-full">
           <Cart carts={res.data.cartdata}/>
         </main>
-      </div>
     </div>
   )
 }

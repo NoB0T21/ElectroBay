@@ -6,6 +6,7 @@ import supabase from "../Db/supabase"
 import sale from "../models/sale.model"
 import sale2 from "../models/sale2.model"
 import redis from "../Db/redis"
+import cart from "../models/cart .model"
 
 interface File {
     fieldname: string,
@@ -530,6 +531,7 @@ export const Createorder = async (req:Request,res:Response) => {
             paymentmode:PaymentMode,
             status:'Processing'
         })
+        await cart.findOneAndUpdate({userId},{items: []})
         await redis.del(`admin:`);
         return res.status(200).json({
             message: "Your Order has been Placed",
@@ -553,9 +555,24 @@ export const getorder = async (req:Request,res:Response) => {
     }
 
     try {
-        const orders = await order.find({
-            userId
-        })
+        const orders = await order.aggregate([
+            {
+                $match: { userId }
+            },
+            {
+                $addFields: {
+                sortPriority: {
+                    $cond: [{ $eq: ["$status", "Delivered"] }, 1, 0]
+                }
+                }
+            },
+            {
+                $sort: {
+                sortPriority: 1,   // non-delivered first
+                createdAt: -1      // newest first
+                }
+            }
+            ]);
         return res.status(201).json({
             message: "here is your Orders",
             orders,

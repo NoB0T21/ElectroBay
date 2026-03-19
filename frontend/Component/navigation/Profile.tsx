@@ -5,21 +5,24 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import Logout from "./Logout"
 import Link from "next/link"
+import { userDetails } from "@/utils/utils"
 
-const Profile = ({picture, admin}:{picture: string, admin?: string}) => {
+const Profile = () => {
   const [show,setShow] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
-
+  const [user, setUser] = useState<any>(null)
   useEffect(()=>{
-      if(admin == 'admin@gmail.com'){
+      const usere = userDetails()
+      if(usere?.email === 'admin@gmail.com'){
         setIsAdmin(true)
       }
+      setUser(usere)
   },[])
   
   return (
     <div className="relative flex items-center gap-3">
       <div onClick={()=>setShow(!show)} className="cursor-pointer hover:opacity-80 transition-opacity">
-        <Image className="rounded-full w-8 md:w-10 aspect-square object-cover border border-gray-200" src={picture || '/placeholder-user.jpg'} alt="profile" width={100} height={100}/>
+        <Image className="rounded-full w-8 md:w-10 aspect-square object-cover border border-gray-200" src={user?.picture || '/placeholder-user.jpg'} alt="profile" width={100} height={100}/>
       </div>
       <AnimatePresence initial={false}>
         {show && 

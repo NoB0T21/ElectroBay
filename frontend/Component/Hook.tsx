@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 const Hook = () => {
     const products = ['/Hooks/grooming.png','/Hooks/headphone.png','/Hooks/videogames.png']
     const categorys = ['Wireless headphones','Grooming','Video games']
-    const color = ['bg-[#b5dae5]','bg-[#b5dae5]','bg-[#f8edd1]']
+    const color = ['bg-[#c9a87c]','bg-[#cfb99f]','bg-[#f8edd1]']
     return (
         <div className='mb-5'>
             <div className={`grid grid-cols-1 gap-5 md:grid-cols-3 min-h-[12rem] md:h-80`}>

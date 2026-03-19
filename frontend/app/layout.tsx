@@ -29,7 +29,7 @@ export default function RootLayout({
         <Header/>
         {children}
         <footer className="hidden md:block border-t border-border py-8">
-          <div className="container text-center text-sm text-muted-foreground">
+          <div className="text-center text-sm text-muted-foreground">
             <p className="font-display text-base text-foreground mb-1">ElectroBay</p>
             <p>Supporting your neighborhood, one purchase at a time.</p>
           </div>

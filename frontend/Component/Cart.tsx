@@ -26,6 +26,8 @@ interface CartComponentProps {
     carts: CartProps
 }
 
+const colors = ['#cfb99f', '#d4b896', '#cbad85', '#c9a87c', '#937255', '#947050'];
+
 const Cart = ({ carts }: CartComponentProps) => {
     const token = Cookies.get('token')
     const [cart, setCart] = useState<CartProps>(carts)
@@ -48,7 +50,6 @@ const Cart = ({ carts }: CartComponentProps) => {
         (sum, item) => sum + item.quantity,
         0
     ) || 0
-
     const totalPrice = cart.cart.items?.reduce((total, item) => {
         const product = cart.products.find(p => p._id === item.product)
         return product ? total + product.offerprice * item.quantity : total
@@ -103,10 +104,10 @@ const Cart = ({ carts }: CartComponentProps) => {
     const addToCart = async (productid: string) => {
         try {
             const res = await api.get(`/cart/${productid}`, {
-                withCredentials: true,
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+              withCredentials: true,
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
             })
 
             if (res.status === 200) {
@@ -146,7 +147,7 @@ const Cart = ({ carts }: CartComponentProps) => {
     }
 
   return (
-    <div className='flex flex-col lg:flex-row gap-8 px-4 md:px-8 py-8 w-full max-w-[1440px] mx-auto'>
+    <div className='flex flex-col lg:flex-row gap-8 px-4 md:px-8 py-8 w-full'>
       {/* LEFT */}
       <div className='w-full lg:w-2/3 flex flex-col gap-6'>
         <div className='flex justify-between items-end border-b border-gray-200 pb-4'>
@@ -164,12 +165,13 @@ const Cart = ({ carts }: CartComponentProps) => {
 
         {/* ITEMS */}
         <div className='flex flex-col gap-4'>
-        {[...cart.products].reverse().map(product => {
+        {[...cart.products].reverse().map((product,idx) => {
           const cartItem = cart.cart.items?.find(
             item => item.product === product._id
           )
           if (!cartItem) return null
 
+          const colorIndex = parseInt(`${idx}`) % colors.length;
           const quantity = cartItem.quantity
           const imageUrl = product.images?.[0]?.url || '/placeholder.png'
 
@@ -177,11 +179,11 @@ const Cart = ({ carts }: CartComponentProps) => {
           productId.push(product._id)
 
           return (
-            <div key={product._id} className='bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200'>
+            <div key={product._id} className='bg-secondary/10 rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200'>
               <div className='grid grid-cols-1 md:grid-cols-5 gap-4 p-4 items-center'>
                 {/* PRODUCT */}
                 <div className='col-span-1 md:col-span-2 flex items-center gap-4'>
-                  <div className='relative w-20 h-20 flex-shrink-0 rounded-lg p-2' style={{backgroundColor: product.images?.[0]?.background || '#f3f4f6'}}>
+                  <div className='relative w-20 h-20 flex-shrink-0 rounded-lg p-2' style={{backgroundColor: colors[colorIndex]}}>
                       <Image
                         src={imageUrl}
                         alt={product.name}
@@ -205,18 +207,18 @@ const Cart = ({ carts }: CartComponentProps) => {
 
                 {/* QUANTITY */}
                 <div className='flex items-center justify-between md:justify-start gap-4 md:gap-2 w-full md:w-auto mt-2 md:mt-0 border-t md:border-0 border-gray-100 pt-3 md:pt-0'>
-                  <div className="flex items-center gap-3 bg-gray-50 rounded-lg p-1">
+                  <div className="flex items-center gap-3  rounded-lg p-1">
                       <button
-                        className='p-1 rounded-md hover:bg-white hover:shadow-sm text-slate-600 transition-all'
+                        className='p-1 rounded-md bg-secondary/30 hover:bg-secondary/50 hover:shadow-sm text-slate-700 transition-all'
                         onClick={() => removeFromCart(product._id)}
                       >
                         <div className="size-4"><Sub /></div>
                       </button>
 
-                      <span className='font-semibold text-slate-800 w-4 text-center'>{quantity}</span>
+                      <span className='font-semibold text-slate-900 w-4 text-center'>{quantity}</span>
 
                       <button 
-                        className='p-1 rounded-md hover:bg-white hover:shadow-sm text-slate-600 transition-all' 
+                        className='p-1 rounded-md hover:bg-secondary/50 bg-secondary/30 hover:shadow-sm text-slate-700 transition-all' 
                         onClick={()=>addToCart(product._id)}
                       >
                         <div className="size-4"><Addc/></div>
@@ -242,7 +244,7 @@ const Cart = ({ carts }: CartComponentProps) => {
 
       {/* RIGHT */}
       <div className='w-full lg:w-1/3'>
-        <div className='bg-white rounded-2xl shadow-lg border border-gray-100 p-6 sticky top-24'>
+        <div className='bg-secondary/10 rounded-2xl shadow-lg border border-gray-100 p-6 sticky top-24'>
             <h2 className='text-xl font-bold text-slate-800 mb-6'>Order Summary</h2>
             <Bill
             productName={productlist}

@@ -8,9 +8,9 @@ import ProductCard from './card/ProductCard'
 const MidLadder = ({products}:{products:Products[]}) => {
   return (
     // {/* Local Favorites */}
-    <section className="container py-12">
+    <section className="py-12">
       <h2 className="font-display text-2xl font-bold mb-6">Local Favorites</h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {products.map((p, idx)=> <ProductCard key={p._id} product={p} index={`${idx}`} />)}
       </div>
     </section>

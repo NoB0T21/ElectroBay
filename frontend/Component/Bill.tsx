@@ -55,7 +55,7 @@ const Bill = ({ total, actualPrice, products, productName }: BillProps) => {
       </div>
 
       {youSave > 0 && (
-        <div className="bg-green-50 text-green-700 px-3 py-2 rounded-lg text-sm font-medium mb-6 text-center border border-green-100">
+        <div className=" text-green-700 px-3 py-2 text-sm font-medium mb-6 text-center ">
           You will save ₹ {youSave.toFixed(2)} on this order
         </div>
       )}

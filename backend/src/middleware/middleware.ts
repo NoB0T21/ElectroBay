@@ -16,15 +16,15 @@ declare global {
 
 const middleware = async (req: Request, res: Response, next: NextFunction) => {
   let authHeader = req.headers.authorization;
-  if (!authHeader) {
-    res.status(401).json({ message: 'Access Token required' });
-    return;
-  }
   
   const authHeader1 = req.headers.cookie
-  let accessToken = authHeader.split(' ')[1];
-  if(authHeader1 && accessToken === 'undefined'){
-    accessToken = authHeader1.split('=')[1].split(';')[0]
+  let accessToken = authHeader?.split(' ')[1];
+  if(authHeader1 && (accessToken == 'undefined' || accessToken == undefined)){
+    accessToken = authHeader1.split('token=')[1].split(';')[0]
+  }
+  if (!accessToken) {
+    res.status(401).json({ message: 'Access Token required' });
+    return;
   }
   try {
     const user = jwt.verify(accessToken, process.env.SECRET_KEY || 'default');

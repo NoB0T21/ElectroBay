@@ -210,7 +210,7 @@ const OrderForm = ({products,productName,price}:{products:CartItem[],productName
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit" 
-                    className="w-full py-3 bg-black hover:bg-gray-800 text-white font-bold rounded-xl shadow-lg transition-all duration-200 flex justify-center items-center mt-2"
+                    className="w-full py-3 bg-accent/90 hover:bg-accent text-white font-bold rounded-xl shadow-lg transition-all duration-200 flex justify-center items-center mt-2"
                 >
                     {loading? <PulseLoader size={8} color="#fff"/>:'Place Order'}
                 </motion.button>

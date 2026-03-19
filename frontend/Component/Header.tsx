@@ -4,26 +4,18 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Profile from './navigation/Profile'
 import Link from 'next/link'
-import { userDetails } from '@/utils/utils'
-import { User } from '@/utils/types'
 import { Search, ShoppingCart, Van } from "lucide-react";
 import { usePathname } from 'next/navigation'
 
 const navItems = [
-  { label: 'Browse', path: '/browse', icon: Search },
+  { label: 'Browse', path: '/product-categor/air-conditioner', icon: Search },
   { label: 'My Order', path: '/myorder', icon: Van },
 ]
-const cartCount = 5
+const cartCount = localStorage.getItem('cart') || '0'
 
 const path = ['/sign-up','/sign-in']
 const Header = () => {
-  const [user, setUser] = useState<User | null>(null)
   const location = usePathname()
-
-  useEffect(() => {
-    setUser(userDetails())
-  }, [])
-  console.log(path.includes(location),location)
   if (path.includes(location)) return <div className='w-full h-16 md:h-20 shadow-sm'></div>
   else return (
     // {/* Header */}
@@ -42,7 +34,7 @@ const Header = () => {
               key={item.path}
               href={item.path}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium transition-colors
-                ${location === item.path
+                ${location === item.path || (location.split('/')[1]==='product-categor' && item.label==='Browse')
                   ? "bg-primary text-primary-foreground"
                   : "text-foreground hover:bg-muted"}
               `}
@@ -56,13 +48,13 @@ const Header = () => {
         <div className='flex gap-2'>
           <Link href="/cart" className="relative p-2">
             <ShoppingCart className={`h-6 w-6 text-foreground transition-transform`} />
-            {cartCount > 0 && (
+            {cartCount !== '0' && (
               <span className="absolute -top-0.5 -right-0.5 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
                 {cartCount}
               </span>
             )}
           </Link>
-          <div className='flex'><Profile picture={user?.picture || ''} admin={user?.email}/></div>
+          <div className='flex'><Profile/></div>
         </div>
       </div>
     </header>

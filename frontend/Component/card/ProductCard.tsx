@@ -51,12 +51,12 @@ const ProductCard = ({product,index}:{product:Products,index:string}) => {
       <div className="p-4 flex flex-col h-1/2 items-start justify-between">
         <div>
           <p className="text-xs text-muted-foreground mb-1">{product.productType}</p>
-          <h3 className="font-display font-semibold text-sm leading-tight mb-1">{product.name}</h3>
+          <h3 className="font-display line-clamp-3 font-semibold text-sm leading-tight mb-1">{product.name}</h3>
           <p className="text-base font-bold text-foreground mb-3">${product.offerprice.toFixed(2)}</p>
         </div>
         <button
           // onClick={handleAdd}
-          className="w-full bg-accent/70 px-3 py-1 rounded-md flex items-center justify-center gap-2"
+          className="w-full text-sm bg-accent/70 px-1.5 py-1 h-12 rounded-md flex items-center justify-center gap-2"
         >
           <ShoppingCart className="h-4 w-4" />
           Add to Cart
