@@ -13,9 +13,9 @@ const Productss = ({products}:{products:Products[]}) => {
         <SortProduct/>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 px-4 md:px-8 w-full">
-        {products.map((product)=>(
+        {products.map((product, idx)=>(
           <div key={product._id} className='w-full shadow-sm hover:shadow-lg rounded-xl overflow-hidden border border-gray-100 hover:-translate-y-1 transition-all duration-300 ease-in-out bg-white'>
-            <ProductCard key={product._id} product={product}/>
+            <ProductCard key={product._id} product={product} index={`${idx}`}/>
           </div>
         ))}
       </div>

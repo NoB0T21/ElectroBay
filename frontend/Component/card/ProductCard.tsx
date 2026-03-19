@@ -2,7 +2,7 @@
 import { Products } from '@/utils/types'
 import { setProduct } from '@/utils/utils'
 import { motion } from 'framer-motion'
-import { Pin, ShoppingCart } from 'lucide-react'
+import { ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -15,6 +15,9 @@ const ProductCard = ({product,index}:{product:Products,index:string}) => {
   return (
     <MotionLink
       href={`/product-categor/${product._id}`}
+      onClick={()=>{
+        setProduct({data:product})
+      }}
       className="group rounded-lg border border-border bg-card overflow-hidden shadow-card hover:shadow-lift transition-shadow"
       whileHover={{ y: -2 }}
       transition={{ duration: 0.2 }}

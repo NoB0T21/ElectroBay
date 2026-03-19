@@ -11,7 +11,7 @@ const navItems = [
   { label: 'Browse', path: '/product-categor/air-conditioner', icon: Search },
   { label: 'My Order', path: '/myorder', icon: Van },
 ]
-const cartCount = localStorage.getItem('cart') || '0'
+const cartCount = 0
 
 const path = ['/sign-up','/sign-in']
 const Header = () => {
@@ -48,7 +48,7 @@ const Header = () => {
         <div className='flex gap-2'>
           <Link href="/cart" className="relative p-2">
             <ShoppingCart className={`h-6 w-6 text-foreground transition-transform`} />
-            {cartCount !== '0' && (
+            {cartCount !== 0 && (
               <span className="absolute -top-0.5 -right-0.5 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
                 {cartCount}
               </span>

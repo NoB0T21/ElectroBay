@@ -10,8 +10,8 @@ import PreviewImages from '@/Component/PreviewImages'
 import { Products } from '@/utils/types'
 import { getProduct } from '@/utils/utils'
 
+
 const page = () => {
-  const params = useParams()
   const route = useRouter()
   const token = Cookies.get('token')
   const [product,setProduct] = useState<Products>()
@@ -58,7 +58,7 @@ const page = () => {
     route.push('/cart')
   }
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-8">
+    <div className="w-full max-w-7xl mx-auto bg-background px-4 md:px-8 py-8">
       {/* Breadcrumb / Category */}
       <nav className="mb-6 text-sm text-slate-500 font-medium uppercase tracking-wide">
         {product?.productType}

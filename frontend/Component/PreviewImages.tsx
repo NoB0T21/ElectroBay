@@ -8,6 +8,8 @@ type Props = {
   images: { url: string, background: string }[];
 };
 
+const colors = ['#cfb99f', '#d4b896', '#cbad85', '#c9a87c', '#937255', '#947050'];
+
 const PreviewImages = ({ images }: Props) => {
   const [index, setIndex] = useState(0);
 
@@ -20,8 +22,8 @@ const PreviewImages = ({ images }: Props) => {
   };
 
   return (
-    <div className="relative flex flex-col justify-center items-center py-10">
-      <div className="relative h-80 w-80 overflow-hidden">
+    <div className="relative flex h-full flex-col justify-center items-center">
+      <div className="relative h-80 w-full overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
@@ -29,15 +31,15 @@ const PreviewImages = ({ images }: Props) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.4 }}
-            className="absolute"
+            className="absolute h-full w-full"
           >
             <Image
               src={images[index]?.url}
               alt="preview"
-              width={300}
-              height={300}
-              style={{ backgroundColor: images?.[index]?.background || '#f3f4f6' }}
-              className="rounded-xl shadow-sm object-contain border border-gray-100"
+              width={700}
+              height={700}
+              style={{ backgroundColor: colors[parseInt(`${index}`) % colors.length]}}
+              className="rounded-md p-2 w-full h-full shadow-sm object-contain object-center border "
             />
           </motion.div>
         </AnimatePresence>
